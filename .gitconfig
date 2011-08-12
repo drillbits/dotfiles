@@ -2,4 +2,4 @@
 	name = drillbits
 	email = drillbits.spiny@gmail.com
 [core]
-	excludesfile = .gitignore
+	excludesfile = /Users/drillbits/.gitignore
