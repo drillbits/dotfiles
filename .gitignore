@@ -17,3 +17,8 @@
 
 # files be ignored
 /.vim/.netrwhist
+
+# for submodule
+doc/tags
+doc/tags-ja
+# $ git config --global core.excludesfile ~/.gitignore
