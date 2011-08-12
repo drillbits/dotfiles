@@ -1,0 +1,19 @@
+# ignore all files
+/*
+
+# ignore all dotfiles
+/.*
+
+# files ain't be ignored
+!/create_link.sh
+!/.zshrc
+!/.vim
+!/.vimrc
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
+!/.hgrc
+!/.hgext
+
+# files be ignored
+/.vim/.netrwhist
