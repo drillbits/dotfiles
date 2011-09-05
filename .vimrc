@@ -307,6 +307,9 @@ hi Pmenu ctermbg=white ctermfg=darkgray
 hi PmenuSel ctermbg=blue ctermfg=white
 hi PmenuSbar ctermbg=0 ctermfg=9
 
+" Python は80行目を強調表示
+autocmd FileType python :set colorcolumn=80
+
 " =====================================================================
 " Edit
 " =====================================================================
