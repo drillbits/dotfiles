@@ -299,6 +299,10 @@ endif
 " hi PmenuSel guibg=#8cd0d3 guifg=#666666
 " hi PmenuSbar guibg=#333333
 
+" 折りたたみの色指定
+" xxx term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=LightGrey
+hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+
 " ハイライト on
 syntax enable
 
@@ -309,6 +313,7 @@ hi PmenuSbar ctermbg=0 ctermfg=9
 
 " Python は80行目を強調表示
 autocmd FileType python :set colorcolumn=80
+hi ColorColumn ctermbg=0
 
 " =====================================================================
 " Edit
