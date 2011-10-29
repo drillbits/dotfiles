@@ -34,6 +34,8 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias chrome='open -a /Applications/Google\ Chrome.app'
+
 # Mercurial
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
