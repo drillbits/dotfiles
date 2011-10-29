@@ -12,3 +12,5 @@ pager = LESS='FSRX' less
 quiet = True
 ignore = version, help, update
 attend = annotate, cat, diff, export, glog, log, qdiff
+[alias]
+cb = ci --close-branch -m 'close.'
