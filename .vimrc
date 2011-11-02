@@ -342,7 +342,7 @@ autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " AutoComplPopを無効にする
 let g:acp_enableAtStartup = 0
 " NeoComplCacheを有効にする
-let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_at_startup = 0
 " smarrt case有効化。 大文字が入力されるまで大文字小文字の区別を無視する
 let g:neocomplcache_enable_smart_case = 1
 " camle caseを有効化。大文字を区切りとしたワイルドカードのように振る舞う

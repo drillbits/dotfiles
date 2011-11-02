@@ -1,12 +1,28 @@
 export LANG=ja_JP.UTF-8
 export LESSCHARSET=utf-8
 
+# プロンプト
 local Default=$'%{\e[0m%}'
 local Yellow=$'%{\e[33m%}'
-# export PS1='三╹ｗ╹）'
-# export PS1=$Yellow'X / _ / X < '$Default
-# export PS1=$Yellow'ξ(✿＞◡❛)ξ▄︻▇▇〓〓 '$Default
-export PS1=$Yellow'┻┳︻▄ξ(✿ ❛‿❛)ξ▄︻┻┳  '$Default
+local Pink=$'%{\e[35m%}'
+#local Mami=$'┻┳︻▄ξ(✿ ❛‿❛)ξ▄︻┻┳ '
+local Mami=$'ξ(✿ ❛◡❛)ξ'
+local Tanuon=$'三╹ｗ╹）'
+local Yuno=$'X / _ / X < '
+local Tiro=$'ξ(✿＞◡❛)ξ▄︻▇▇〓〓'
+export PS1=$Yellow$Mami$Default':'$Pink'%1~'$Default'$ '
+
+# 右プロンプト（ブランチ表示）
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '(%s)-[%b]'
+zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+RPROMPT=$Pink'[%~]'$Default'%1(v|%F{green}%1v%f|)'
+
 autoload -U colors
 colors
 
@@ -35,17 +51,6 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias chrome='open -a /Applications/Google\ Chrome.app'
-
-# Mercurial
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s)-[%b]'
-zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-precmd () {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-RPROMPT="%1(v|%F{green}%1v%f|)"
 
 # 分割したzshrcファイルがあれば読み込む
 ZSHHOME="${HOME}/.zsh"
