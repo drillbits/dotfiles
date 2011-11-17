@@ -190,6 +190,9 @@ nmap <ESC><ESC> :nohlsearch<CR><ESC>
 " tabで分割ウィンドウ間を移動
 nnoremap <silent><tab>  <C-w>w
 
+" machit.vim有効化
+source $VIMRUNTIME/macros/matchit.vim
+
 " =====================================================================
 " Encoding
 " =====================================================================
