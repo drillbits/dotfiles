@@ -37,16 +37,16 @@ RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
 
 
 ### Paths
-export PATH=/opt/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:/opt/local/sbin:$PATH
+# export PATH=/opt/local/bin:/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:/opt/local/sbin:$PATH
+export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin
 
 
 ### タブ補完時に大文字小文字を無視
 compctl -M 'm:{a-z}={A-Z}'
 
 
-### VirtualENV & VirtualENVWrapper
-export WORKON_HOME=$HOME/.virtualenvs
-source `which virtualenvwrapper.sh`
+### sudoも補完の対象
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 
 
 ### Editor
@@ -67,6 +67,11 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias chrome='open -a /Applications/Google\ Chrome.app'
+
+
+### VirtualENV & VirtualENVWrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source `which virtualenvwrapper.sh`
 
 
 # 分割したzshrcファイルがあれば読み込む
