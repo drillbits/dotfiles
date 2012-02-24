@@ -1,25 +1,19 @@
 # ignore all files
-/*
+/files/*
 
 # ignore all dotfiles
-/.*
+/files/.*
 
 # files ain't be ignored
-!/create_link.sh
-!/.zshrc
-!/.vim
-!/.vimrc
-!/.gitignore
-!/.gitconfig
-!/.gitmodules
-!/.hgrc
-!/.hgext
-!/.screenrc
+!/files/.zshrc
+!/files/.vim
+!/files/.vimrc
+!/files/.gitignore
+!/files/.gitconfig
+!/files/.gitmodules
+!/files/.hgrc
+!/files/.hgext
+!/files/.screenrc
 
 # files be ignored
-/.vim/.netrwhist
-
-# for submodule
-doc/tags
-doc/tags-ja
-# $ git config --global core.excludesfile ~/.gitignore
+/files/.vim/.netrwhist

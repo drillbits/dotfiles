@@ -10,6 +10,7 @@ set hidden                       " 編集中でも他のファイルを開ける
 set backspace=indent,eol,start   " バックスペースでなんでも消せるように
 set formatoptions=lmoq           " テキスト整形オプション，マルチバイト系を追加
 set vb t_vb=                     " ビープをならさない
+set whichwrap=b,s,h,l,<,>,[,]    " カーソルを行頭、行末で止まらないようにする
 set showcmd                      " コマンドをステータス行に表示
 set showmode                     " 現在のモードを表示
 set viminfo='50,<1000,s100,\"50  " viminfoファイルの設定
@@ -187,10 +188,10 @@ endif
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 
-" □とか○の文字があってもカーソル位置がずれないようにする
-if exists('&ambiwidth')
-  set ambiwidth=double
-endif
+"" □とか○の文字があってもカーソル位置がずれないようにする
+"if exists('&ambiwidth')
+"  set ambiwidth=double
+"endif
 
 " ファイルごとの文字コード設定
 "autocmd FileType python :set fileencoding=utf-8
