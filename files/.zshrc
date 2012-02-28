@@ -17,6 +17,8 @@ local Default=$'%{\e[0m%}'
 local Yellow=$'%{\e[33m%}'
 local Pink=$'%{\e[35m%}'
 local Blue=$'%{\e[34m%}'
+local Green=$'%F{green}'
+local Red=$'%F{red}'
 #
 # 直前のコマンドの終了ステータスが0以外のときは赤くする
 # ${MY_MY_PROMPT_COLOR}はprecmdで変化させている数値
@@ -37,7 +39,9 @@ local Mami=$'ξ(✿ ❛◡❛)ξ'
 local Tanuon=$'三╹ｗ╹）'
 local Yuno=$'X / _ / X < '
 local Tiro=$'ξ(✿＞◡❛)ξ▄︻▇▇〓〓'
-export PS1=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
+export PROMPT=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
+export PROMPT2=$Yellow$Tiro$Default' '$Blue'%_ '$Default'> '
+export SPROMPT=$Yellow$Mami$Default' < '$Red'%r is correct? [n,y,a,e]'$Default': '
 #
 # Right-side with VCS info
 setopt prompt_subst
@@ -60,11 +64,20 @@ RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
 ### Completion
 #
 #fpath=(~/.zsh/functions/Completion ${fpath})
-#autoload -U compinit
-#compinit -u
+autoload -U compinit
+compinit #-u
+#
+# ディレクトリ名でcd
+#setopt auto_cd
+#
+# cdしたディレクトリの一覧を表示する
+setopt auto_pushd
 #
 # タブ補完時に大文字小文字を無視
-compctl -M 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
+#
+# 入力したコマンド名が間違っている場合には修正
+setopt correct
 #
 # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 setopt magic_equal_subst
@@ -79,6 +92,9 @@ function print_known_hosts (){
   fi
 }
 _cache_hosts=($( print_known_hosts ))
+#
+# 補完候補を詰めて表示する
+setopt list_packed
 #
 # 色付きで補完する
 zstyle ':completion:*' list-colors di=34 fi=0
@@ -106,6 +122,19 @@ setopt hist_reduce_blanks
 #
 # history (fc -l) コマンドをヒストリリストから取り除く。
 setopt hist_no_store
+#
+# 履歴検索機能のショートカット
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+
+### Edit
+#
+# Viキーバインド
+#bindkey -v
 
 
 ### virtualenv
