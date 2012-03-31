@@ -65,18 +65,18 @@ set display=uhex      " 印字不可能文字を16進数で表示
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
 
-"" カーソル行をハイライト
-"set cursorline
-"" カレントウィンドウにのみ罫線を引く
-"augroup cch
-"autocmd! cch
-"autocmd WinLeave * set nocursorline
-"autocmd WinEnter,BufRead * set cursorline
-"augroup END
-"
-":hi clear CursorLine
-":hi CursorLine gui=underline
-"highlight CursorLine ctermbg=black guibg=black
+" カーソル行をハイライト
+set cursorline
+" カレントウィンドウにのみ罫線を引く
+augroup cch
+autocmd! cch
+autocmd WinLeave * set nocursorline
+autocmd WinEnter,BufRead * set cursorline
+augroup END
+
+:hi clear CursorLine
+:hi CursorLine gui=underline
+highlight CursorLine ctermbg=black guibg=black
 
 " コマンド実行中は再描画しない
 :set lazyredraw
