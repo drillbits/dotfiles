@@ -49,7 +49,7 @@ autoload -Uz add-zsh-hook
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s)-[%b]'
 zstyle ':vcs_info:*' actionformats '(%s)-[%b|%a]'
-zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' get-revision false  # true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' max-exports 6
 function _precmd_vcs_info () {
@@ -135,6 +135,10 @@ bindkey "^N" history-beginning-search-forward-end
 #
 # Viキーバインド
 #bindkey -v
+
+
+### .pyc ファイルを作らない
+export PYTHONDONTWRITEBYTECODE=1
 
 
 ### virtualenv
