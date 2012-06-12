@@ -143,6 +143,7 @@ export PYTHONDONTWRITEBYTECODE=1
 
 ### virtualenv
 #
+export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 #export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
