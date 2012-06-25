@@ -222,7 +222,7 @@ hi ColorColumn ctermbg=0
 " Edit
 " =====================================================================
 " Tabキーを空白に変換
-set expandtab
+autocmd FileType python set expandtab
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
