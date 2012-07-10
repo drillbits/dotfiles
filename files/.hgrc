@@ -16,3 +16,5 @@ attend = annotate, cat, diff, export, glog, log, qdiff
 update.clean = find . -name \*.pyc -or -name \*.orig | xargs rm -f
 [alias]
 cb = ci --close-branch -m 'close.'
+[hostfingerprints]
+bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
