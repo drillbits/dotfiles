@@ -39,9 +39,17 @@ local Mami=$'ξ(✿ ❛◡❛)ξ'
 local Tanuon=$'三╹ｗ╹）'
 local Yuno=$'X / _ / X < '
 local Tiro=$'ξ(✿＞◡❛)ξ▄︻▇▇〓〓'
-export PROMPT=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
+case ${OSTYPE} in
+darwin*)
+    export PROMPT=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
+    ;;
+*)
+    export PROMPT=$Yellow$Mami$Default$Pink'[%m]'$Default':'$Blue'%1~'$Default'$ '
+    ;;
+esac
 export PROMPT2=$Yellow$Tiro$Default' '$Blue'%_ '$Default'> '
 export SPROMPT=$Yellow$Mami$Default' < '$Red'%r is correct? [n,y,a,e]'$Default': '
+
 #
 # Right-side with VCS info
 setopt prompt_subst
