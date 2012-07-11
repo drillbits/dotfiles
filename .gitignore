@@ -6,6 +6,7 @@
 
 # files ain't be ignored
 !/files/.zshrc
+!/files/.zshrc.*
 !/files/.vim
 !/files/.vimrc
 !/files/.gitignore
