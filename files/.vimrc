@@ -19,7 +19,7 @@ set modelines=0                  " モードラインは無効
 " OSのクリップボードを使用する
 set clipboard+=unnamed
 " ターミナルでマウスを使用できるようにする
-set mouse=a
+" set mouse=a
 set guioptions+=a
 set ttymouse=xterm2
 
