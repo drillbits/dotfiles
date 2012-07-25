@@ -19,7 +19,9 @@ set modelines=0                  " モードラインは無効
 " OSのクリップボードを使用する
 set clipboard+=unnamed
 " ターミナルでマウスを使用できるようにする
-" set mouse=a
+if has('gui_macvim') && has('kaoriya')
+  set mouse=a
+endif
 set guioptions+=a
 set ttymouse=xterm2
 
