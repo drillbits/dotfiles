@@ -1,5 +1,6 @@
 [ui]
 username = drillbits
+merge = internal:merge
 [extensions]
 color =
 info = ~/.hgext/info.py
@@ -7,6 +8,7 @@ graphlog =
 hgshelve = ~/.hgext/hgshelve/hgshelve.py
 pager =
 mq =
+transplant =
 [pager]
 pager = LESS='FSRX' less
 quiet = True
