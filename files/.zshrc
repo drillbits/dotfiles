@@ -158,6 +158,11 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 source `which virtualenvwrapper.sh`
 
 
+### nvm
+#
+. ~/.nvm/nvm.sh
+
+
 ### 分割したzshrcファイルの読み込み
 #
 # alias
