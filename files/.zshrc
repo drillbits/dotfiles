@@ -139,10 +139,13 @@ bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
 
-### Edit
+### Editor
 #
 # Viキーバインド
 #bindkey -v
+export EDITOR=/usr/bin/vim
+export VIM=/usr/share/vim/vimcurrent
+export VIMRUNTIME=$VIM
 
 
 ### .pyc ファイルを作らない
