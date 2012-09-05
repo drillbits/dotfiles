@@ -225,7 +225,11 @@ hi ColorColumn ctermbg=0
 " =====================================================================
 " Tabキーを空白に変換
 autocmd FileType python set expandtab
+autocmd FileType html set expandtab
+autocmd FileType javascript set expandtab
 " 保存時に行末の空白を除去する
-autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
