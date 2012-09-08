@@ -28,19 +28,38 @@ set ttymouse=xterm2
 " ヤンクした文字は、システムのクリップボードに入れる
 set clipboard=unnamed
 
-" pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
+"" pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
+"filetype off
+"syntax off
+"filetype indent off
+"" pathogen.vimによってbundle配下のpluginをpathに加える
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+
+" ファイルタイプ判定をoff
+set nocompatible
 filetype off
-syntax off
-filetype indent off
-" pathogen.vimによってbundle配下のpluginをpathに加える
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-set helpfile=$VIMRUNTIME/doc/help.txt
+
+" Vundleの初期化
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+
+Bundle 'thinca/vim-ref'
+Bundle 'tpope/vim-surround'
+Bundle 'Shougo/unite.vim'
+Bundle 'thinca/vim-quickrun'
+Bundle 'basyura/jslint.vim'
+
+Bundle 'python.vim'
+Bundle 'python_fold.vim'
+
 " ファイルタイプ判定をon
 filetype on
 syntax on
 filetype indent on
 filetype plugin on
+
+set helpfile=$VIMRUNTIME/doc/help.txt
 
 " =====================================================================
 " StatusLine
