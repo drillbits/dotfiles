@@ -139,10 +139,13 @@ bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
 
-### Edit
+### Editor
 #
 # Viキーバインド
 #bindkey -v
+export EDITOR=/usr/bin/vim
+export VIM=/usr/share/vim/vimcurrent
+export VIMRUNTIME=$VIM
 
 
 ### .pyc ファイルを作らない
@@ -156,6 +159,11 @@ export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 #export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 source `which virtualenvwrapper.sh`
+
+
+### nvm
+#
+. ~/.nvm/nvm.sh
 
 
 ### 分割したzshrcファイルの読み込み
