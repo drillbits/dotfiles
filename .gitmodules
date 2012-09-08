@@ -10,3 +10,6 @@
 [submodule "files/.vim/bundle/quickrun"]
 	path = files/.vim/bundle/quickrun
 	url = git://github.com/thinca/vim-quickrun.git
+[submodule "files/.vim/bundle/jslint.vim"]
+	path = files/.vim/bundle/jslint.vim
+	url = git://github.com/basyura/jslint.vim.git
