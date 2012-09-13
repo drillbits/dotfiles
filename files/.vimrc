@@ -50,8 +50,7 @@ Bundle 'Shougo/unite.vim'
 Bundle 'thinca/vim-quickrun'
 Bundle 'basyura/jslint.vim'
 
-Bundle 'python.vim'
-Bundle 'python_fold.vim'
+Bundle 'python_fold'
 
 " ファイルタイプ判定をon
 filetype on
