@@ -8,3 +8,5 @@ do
         ln -Fis "$PWD/$dotfile" $HOME
     fi
 done
+
+touch $HOME/.hgrc.local
