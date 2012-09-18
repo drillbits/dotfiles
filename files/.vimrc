@@ -1,6 +1,7 @@
 " =====================================================================
 " Basics
 " =====================================================================
+set nocompatible
 set scrolloff=5                  " スクロール時の余白確保
 set textwidth=0                  " 一行に長い文章を書いていても自動折り返しをしない
 set nobackup                     " バックアップ取らない
@@ -28,16 +29,7 @@ set ttymouse=xterm2
 " ヤンクした文字は、システムのクリップボードに入れる
 set clipboard=unnamed
 
-"" pathogenでftdetectなどをloadさせるために一度ファイルタイプ判定をoff
-"filetype off
-"syntax off
-"filetype indent off
-"" pathogen.vimによってbundle配下のpluginをpathに加える
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
-
 " ファイルタイプ判定をoff
-set nocompatible
 filetype off
 
 " Vundleの初期化
