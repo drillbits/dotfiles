@@ -6,7 +6,7 @@ export LESSCHARSET=utf-8
 
 ### Paths
 #
-export PATH=/usr/local/bin:/usr/local/sbin:/opt:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 
 ### Colors
