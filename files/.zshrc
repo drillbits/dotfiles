@@ -70,6 +70,7 @@ RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
 
 
 ### Completion
+bindkey -e
 #
 #fpath=(~/.zsh/functions/Completion ${fpath})
 autoload -U compinit
@@ -143,7 +144,6 @@ bindkey "^N" history-beginning-search-forward-end
 #
 # Viキーバインド
 #bindkey -v
-bindkey -e
 export EDITOR=/usr/bin/vim
 export VIM=/usr/share/vim/vimcurrent
 export VIMRUNTIME=$VIM
