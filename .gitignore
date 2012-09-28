@@ -17,5 +17,11 @@
 !/files/.screenrc
 
 # files be ignored
+/files/.vim/*
 /files/.vim/.netrwhist
 *.pyc
+
+# files ain't be ignored
+!/files/.vim/ftplugin
+!/files/.vim/indent
+!/files/.vim/syntax
