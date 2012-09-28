@@ -32,17 +32,19 @@ set clipboard=unnamed
 " ファイルタイプ判定をoff
 filetype off
 
-" Vundleの初期化
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+" NeoBundleの初期化
+set rtp+=~/.vim/neobundle.vim
+if has('vim_starting')
+  set runtimepath+=~/.vim/neobundle.vim
+  call neobundle#rc(expand('~/.vim/'))
+endif
 
-Bundle 'thinca/vim-ref'
-Bundle 'tpope/vim-surround'
-Bundle 'Shougo/unite.vim'
-Bundle 'thinca/vim-quickrun'
-Bundle 'basyura/jslint.vim'
-
-Bundle 'python_fold'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'basyura/jslint.vim'
+NeoBundle 'python_fold'
 
 " ファイルタイプ判定をon
 filetype on
