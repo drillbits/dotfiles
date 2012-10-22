@@ -232,6 +232,11 @@ hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
 autocmd FileType python :set colorcolumn=80
 hi ColorColumn ctermbg=0
 
+" 補完候補の色指定
+hi Pmenu        ctermfg=black ctermbg=gray
+hi PmenuSel     ctermbg=darkblue
+hi PmenuSbar    ctermbg=blue
+
 " =====================================================================
 " Edit
 " =====================================================================
