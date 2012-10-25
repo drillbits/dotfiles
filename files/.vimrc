@@ -36,7 +36,7 @@ filetype off
 set rtp+=~/.vim/neobundle.vim
 if has('vim_starting')
   set runtimepath+=~/.vim/neobundle.vim
-  call neobundle#rc(expand('~/.vim/'))
+  call neobundle#rc(expand('~/.vim/bundle/'))
 endif
 
 NeoBundle 'thinca/vim-ref'
@@ -45,6 +45,8 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'python_fold'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'heavenshell/vim-connpass'
 
 " ファイルタイプ判定をon
 filetype on
