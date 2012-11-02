@@ -239,6 +239,12 @@ hi Pmenu        ctermfg=black ctermbg=gray
 hi PmenuSel     ctermbg=darkblue
 hi PmenuSbar    ctermbg=blue
 
+" vimdiff の色指定
+hi DiffAdd      ctermfg=black ctermbg=green
+hi DiffChange   ctermfg=black ctermbg=yellow
+hi DiffDelete   ctermfg=black ctermbg=darkblue
+hi DiffText     ctermfg=black ctermbg=gray
+
 " =====================================================================
 " Edit
 " =====================================================================
