@@ -19,15 +19,14 @@ set modelines=0                  " モードラインは無効
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
+set clipboard+=autoselect
+
 " ターミナルでマウスを使用できるようにする
 if has('kaoriya')
   set mouse=
 endif
 set guioptions+=a
 set ttymouse=xterm2
-
-" ヤンクした文字は、システムのクリップボードに入れる
-set clipboard=unnamed
 
 " ファイルタイプ判定をoff
 filetype off
