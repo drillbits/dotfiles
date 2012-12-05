@@ -46,6 +46,8 @@ NeoBundle 'basyura/jslint.vim'
 NeoBundle 'python_fold'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'heavenshell/vim-connpass'
+NeoBundle 'YankRing.vim'
+NeoBundle 'm4i/YankRingSync'
 
 " ファイルタイプ判定をon
 filetype on
