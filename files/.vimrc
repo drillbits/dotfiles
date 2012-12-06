@@ -48,6 +48,7 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'heavenshell/vim-connpass'
 NeoBundle 'YankRing.vim'
 NeoBundle 'm4i/YankRingSync'
+NeoBundle 'kchmck/vim-coffee-script'
 
 " ファイルタイプ判定をon
 filetype on
