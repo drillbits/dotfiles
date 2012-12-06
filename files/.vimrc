@@ -120,6 +120,9 @@ if has("autocmd")
   autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
   autocmd FileType python setl expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
+  autocmd FileType ruby setl autoindent
+  autocmd FileType ruby setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
   autocmd FileType html :set indentexpr=
   autocmd FileType xhtml :set indentexpr=
 endif
