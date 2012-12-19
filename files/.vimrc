@@ -123,6 +123,9 @@ if has("autocmd")
   autocmd FileType ruby setl autoindent
   autocmd FileType ruby setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+  autocmd FileType javascript setl autoindent
+  autocmd FileType javascript setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
   autocmd FileType html :set indentexpr=
   autocmd FileType xhtml :set indentexpr=
 endif
