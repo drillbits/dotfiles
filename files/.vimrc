@@ -49,6 +49,7 @@ NeoBundle 'heavenshell/vim-connpass'
 NeoBundle 'YankRing.vim'
 NeoBundle 'm4i/YankRingSync'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'tpope/vim-fugitive'
 
 " ファイルタイプ判定をon
 filetype on
