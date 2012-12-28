@@ -50,6 +50,8 @@ NeoBundle 'YankRing.vim'
 NeoBundle 'm4i/YankRingSync'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'glidenote/memolist.vim'
+
 
 " ファイルタイプ判定をon
 filetype on
