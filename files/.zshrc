@@ -158,7 +158,9 @@ export PYTHONDONTWRITEBYTECODE=1
 export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-source `which virtualenvwrapper.sh`
+if [ -f "virtualenvwrapper.sh" ]; then
+    source `which virtualenvwrapper.sh`
+fi
 
 
 ### 分割したzshrcファイルの読み込み
