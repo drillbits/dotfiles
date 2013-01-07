@@ -5,7 +5,7 @@ for dotfile in .?*
 do
     if [ $dotfile != '..' ] && [ $dotfile != '.git' ]
     then
-        ln -Fis "$PWD/$dotfile" $HOME
+        ln -Fisf "$PWD/$dotfile" $HOME
     fi
 done
 
