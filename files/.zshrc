@@ -67,6 +67,7 @@ function _precmd_vcs_info () {
 }
 add-zsh-hook precmd _precmd_vcs_info
 RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
+setopt transient_rprompt
 
 
 ### Completion

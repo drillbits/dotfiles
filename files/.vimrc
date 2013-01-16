@@ -269,3 +269,5 @@ autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
+" JSON整形
+map <Leader>j !python -m json.tool<CR>
