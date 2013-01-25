@@ -271,3 +271,10 @@ autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
+" JSLint
+function! s:javascript_filetype_settings()
+  autocmd BufLeave <buffer> call jslint#clear()
+  autocmd BufWritePost <buffer> call jslint#check()
+  autocmd CursorMoved  <buffer> call jslint#message()
+endfunction
+autocmd FileType javascript call s:javascript_filetype_settings()
