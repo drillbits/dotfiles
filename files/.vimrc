@@ -51,6 +51,7 @@ NeoBundle 'm4i/YankRingSync'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'nefo-mi/nyan-modoki.vim'
 
 
 " ファイルタイプ判定をon
@@ -71,7 +72,11 @@ set ruler
 
 " ステータスラインに文字コードと改行文字を表示する
 "set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=[%{GetB()}]\ %l,%c%V%8P
-set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f%=\ %l,%c\ %8P
+set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %{g:NyanModoki()}%=\ %l,%c\ %8P
+" (＞ワ＜≡＞ワ＜)コシコシコシ
+" set statusline=%{g:NyanModoki()}
+let g:nyan_modoki_select_cat_face_number = 6
+let g:nayn_modoki_animation_enabled= 1
 
 " =====================================================================
 " Apperance
@@ -278,3 +283,13 @@ function! s:javascript_filetype_settings()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
+
+
+
+
+
+
+
+
+
+
