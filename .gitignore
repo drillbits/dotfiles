@@ -15,6 +15,7 @@
 !/files/.hgrc
 !/files/.hgext
 !/files/.screenrc
+!/files/.bundler
 
 # files be ignored
 /files/.vim/*
