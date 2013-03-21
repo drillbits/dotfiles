@@ -274,6 +274,13 @@ autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
+" pyflakes & pep8
+autocmd FileType python call s:python_settings()
+function! s:python_settings()
+  " set errorformat=%m\ in\ %f\ on\ line\ %l
+  autocmd BufWritePost *.py !pyflakes %
+  autocmd BufWritePost *.py !pep8 %
+endfunction
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
@@ -283,13 +290,3 @@ function! s:javascript_filetype_settings()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
-
-
-
-
-
-
-
-
-
-
