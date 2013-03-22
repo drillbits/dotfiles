@@ -51,7 +51,7 @@ NeoBundle 'm4i/YankRingSync'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'nefo-mi/nyan-modoki.vim'
+NeoBundle 'drillbits/nyan-modoki.vim'
 
 
 " ファイルタイプ判定をon
