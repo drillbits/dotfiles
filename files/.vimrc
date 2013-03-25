@@ -275,12 +275,8 @@ autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " pyflakes & pep8
-autocmd FileType python call s:python_settings()
-function! s:python_settings()
-  " set errorformat=%m\ in\ %f\ on\ line\ %l
-  autocmd BufWritePost *.py !pyflakes %
-  autocmd BufWritePost *.py !pep8 %
-endfunction
+autocmd FileType python autocmd BufWritePost <buffer> :!pyflakes %
+autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
