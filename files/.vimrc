@@ -136,6 +136,8 @@ if has("autocmd")
 
   autocmd FileType html setl autoindent
   autocmd FileType html setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType htmldjango setl autoindent
+  autocmd FileType htmldjango setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 endif
 
 " =====================================================================
@@ -267,10 +269,12 @@ hi DiffText     ctermfg=black ctermbg=gray
 " Tabキーを空白に変換
 autocmd FileType python set expandtab
 autocmd FileType html set expandtab
+autocmd FileType htmldjango set expandtab
 autocmd FileType javascript set expandtab
 " 保存時に行末の空白を除去する
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType htmldjango autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
