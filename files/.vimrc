@@ -166,9 +166,8 @@ source $VIMRUNTIME/macros/matchit.vim
 set ffs=unix,dos,mac  " 改行文字
 set encoding=utf-8    " デフォルトエンコーディング
 
-" 文字コード関連
-" from ずんWiki http://www.kawaz.jp/pukiwiki/?vim#content_1_7
 " 文字コードの自動認識
+" @see ずんWiki http://www.kawaz.jp/pukiwiki/?vim#cb691f26
 if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
@@ -218,14 +217,12 @@ if has('autocmd')
   endfunction
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
-
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
-
 "" □とか○の文字があってもカーソル位置がずれないようにする
-"if exists('&ambiwidth')
-"  set ambiwidth=double
-"endif
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
 
 " ファイルごとの文字コード設定
 "autocmd FileType python :set fileencoding=utf-8
