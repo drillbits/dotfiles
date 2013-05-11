@@ -52,6 +52,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
+NeoBundle 'undx/vim-gocode'
 
 
 " ファイルタイプ判定をon
@@ -260,6 +261,9 @@ hi DiffAdd      ctermfg=black ctermbg=green
 hi DiffChange   ctermfg=black ctermbg=yellow
 hi DiffDelete   ctermfg=black ctermbg=darkblue
 hi DiffText     ctermfg=black ctermbg=gray
+
+" go~
+au BufRead,BufNewFile *.go setf go
 
 " =====================================================================
 " Edit

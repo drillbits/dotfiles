@@ -161,6 +161,11 @@ export WORKON_HOME=$HOME/.virtualenvs
 source `which virtualenvwrapper.sh`
 
 
+### pip
+#
+export PIP_DOWNLOAD_CACHE=$HOME/.pipcache
+
+
 ### 分割したzshrcファイルの読み込み
 #
 # alias
