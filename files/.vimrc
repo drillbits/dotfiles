@@ -52,7 +52,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
-
+NeoBundle 'mako.vim'
 
 " ファイルタイプ判定をon
 filetype on
@@ -281,8 +281,15 @@ autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
+if executable('rhino')
+  let $JS_CMD='rhino'
+endif
+augroup MyGroup
+  autocmd! MyGroup
+  autocmd FileType javascript call s:javascript_filetype_settings()
+augroup END
 function! s:javascript_filetype_settings()
-  autocmd BufLeave <buffer> call jslint#clear()
+  autocmd BufLeave     <buffer> call jslint#clear()
   autocmd BufWritePost <buffer> call jslint#check()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
