@@ -60,6 +60,8 @@ syntax on
 filetype indent on
 filetype plugin on
 
+autocmd BufRead,BufNewFile *.go set filetype=go
+
 set helpfile=$VIMRUNTIME/doc/help.txt
 
 " =====================================================================
