@@ -53,6 +53,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
 NeoBundle 'mako.vim'
+NeoBundle 'dag/vim2hs'
 
 " ファイルタイプ判定をon
 filetype on
@@ -143,6 +144,9 @@ if has("autocmd")
 
   autocmd FileType go setl autoindent
   autocmd FileType go setl tabstop=8 shiftwidth=8 softtabstop=8
+
+  autocmd FileType haskell setl autoindent
+  autocmd FileType haskell setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 endif
 
 " =====================================================================
