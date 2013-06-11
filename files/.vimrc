@@ -140,6 +140,9 @@ if has("autocmd")
   autocmd FileType html setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType htmldjango setl autoindent
   autocmd FileType htmldjango setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+  autocmd FileType go setl autoindent
+  autocmd FileType go setl tabstop=8 shiftwidth=8 softtabstop=8
 endif
 
 " =====================================================================
