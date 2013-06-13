@@ -90,6 +90,8 @@ set list              " 不可視文字表示
 set listchars=tab:>.,trail:_,extends:>,precedes:< " 不可視文字の表示形式
 set display=uhex      " 印字不可能文字を16進数で表示
 
+autocmd FileType go set nolist
+
 " 全角スペースの表示
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 match ZenkakuSpace /　/
@@ -143,7 +145,7 @@ if has("autocmd")
   autocmd FileType htmldjango setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
   autocmd FileType go setl autoindent
-  autocmd FileType go setl tabstop=8 shiftwidth=8 softtabstop=8
+  autocmd FileType go setl noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 
   autocmd FileType haskell setl autoindent
   autocmd FileType haskell setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -277,11 +279,15 @@ autocmd FileType python set expandtab
 autocmd FileType html set expandtab
 autocmd FileType htmldjango set expandtab
 autocmd FileType javascript set expandtab
+autocmd FileType go set expandtab
+autocmd FileType haskell set expandtab
 " 保存時に行末の空白を除去する
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType htmldjango autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType go autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType haskell autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " pyflakes & pep8
