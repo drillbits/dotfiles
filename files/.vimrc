@@ -53,6 +53,16 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
 NeoBundle 'undx/vim-gocode'
+NeoBundle 'dag/vim2hs'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
+NeoBundle 'eagletmt/ghcmod-vim'
 
 
 " ファイルタイプ判定をon
@@ -137,6 +147,9 @@ if has("autocmd")
 
   autocmd FileType html setl autoindent
   autocmd FileType html setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+  autocmd FileType haskell setl autoindent
+  autocmd FileType haskell setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 endif
 
 " =====================================================================
@@ -281,6 +294,8 @@ autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " pyflakes & pep8
 autocmd FileType python autocmd BufWritePost <buffer> :!pyflakes %
 autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
+" ghcmode
+autocmd FileType haskell autocmd BufWritePost <buffer> GhcModCheckAsync
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
