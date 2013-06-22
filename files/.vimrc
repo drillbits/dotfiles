@@ -53,6 +53,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
 NeoBundle 'undx/vim-gocode'
+NeoBundle 'mako.vim'
 NeoBundle 'dag/vim2hs'
 NeoBundle 'Shougo/vimproc', {
   \ 'build' : {
@@ -64,12 +65,13 @@ NeoBundle 'Shougo/vimproc', {
 \ }
 NeoBundle 'eagletmt/ghcmod-vim'
 
-
 " ファイルタイプ判定をon
 filetype on
 syntax on
 filetype indent on
 filetype plugin on
+
+autocmd BufRead,BufNewFile *.go set filetype=go
 
 set helpfile=$VIMRUNTIME/doc/help.txt
 
@@ -97,6 +99,8 @@ set number            " 行番号表示
 set list              " 不可視文字表示
 set listchars=tab:>.,trail:_,extends:>,precedes:< " 不可視文字の表示形式
 set display=uhex      " 印字不可能文字を16進数で表示
+
+autocmd FileType go set nolist
 
 " 全角スペースの表示
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -148,6 +152,12 @@ if has("autocmd")
   autocmd FileType html setl autoindent
   autocmd FileType html setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+  autocmd FileType htmldjango setl autoindent
+  autocmd FileType htmldjango setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+  autocmd FileType go setl autoindent
+  autocmd FileType go setl noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+
   autocmd FileType haskell setl autoindent
   autocmd FileType haskell setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 endif
@@ -178,9 +188,8 @@ source $VIMRUNTIME/macros/matchit.vim
 set ffs=unix,dos,mac  " 改行文字
 set encoding=utf-8    " デフォルトエンコーディング
 
-" 文字コード関連
-" from ずんWiki http://www.kawaz.jp/pukiwiki/?vim#content_1_7
 " 文字コードの自動認識
+" @see ずんWiki http://www.kawaz.jp/pukiwiki/?vim#cb691f26
 if &encoding !=# 'utf-8'
   set encoding=japan
   set fileencoding=japan
@@ -230,14 +239,12 @@ if has('autocmd')
   endfunction
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
-
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
-
 "" □とか○の文字があってもカーソル位置がずれないようにする
-"if exists('&ambiwidth')
-"  set ambiwidth=double
-"endif
+if exists('&ambiwidth')
+  set ambiwidth=double
+endif
 
 " ファイルごとの文字コード設定
 "autocmd FileType python :set fileencoding=utf-8
@@ -284,11 +291,17 @@ au BufRead,BufNewFile *.go setf go
 " Tabキーを空白に変換
 autocmd FileType python set expandtab
 autocmd FileType html set expandtab
+autocmd FileType htmldjango set expandtab
 autocmd FileType javascript set expandtab
+autocmd FileType go set expandtab
+autocmd FileType haskell set expandtab
 " 保存時に行末の空白を除去する
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType html autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType htmldjango autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType javascript autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType go autocmd BufWritePre * :%s/\s\+$//ge
+autocmd FileType haskell autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " pyflakes & pep8
@@ -299,8 +312,15 @@ autocmd FileType haskell autocmd BufWritePost <buffer> GhcModCheckAsync
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
+if executable('rhino')
+  let $JS_CMD='rhino'
+endif
+augroup MyGroup
+  autocmd! MyGroup
+  autocmd FileType javascript call s:javascript_filetype_settings()
+augroup END
 function! s:javascript_filetype_settings()
-  autocmd BufLeave <buffer> call jslint#clear()
+  autocmd BufLeave     <buffer> call jslint#clear()
   autocmd BufWritePost <buffer> call jslint#check()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
