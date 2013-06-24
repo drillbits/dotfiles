@@ -54,6 +54,8 @@ NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
 NeoBundle 'mako.vim'
 NeoBundle 'dag/vim2hs'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'eagletmt/ghcmod-vim'
 
 " ファイルタイプ判定をon
 filetype on
@@ -293,6 +295,8 @@ autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
 " pyflakes & pep8
 autocmd FileType python autocmd BufWritePost <buffer> :!pyflakes %
 autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
+" ghcmod
+autocmd FileType haskell autocmd! BufWritePost <buffer> GhcModCheckAsync
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
