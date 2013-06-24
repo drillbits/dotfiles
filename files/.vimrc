@@ -52,9 +52,17 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'drillbits/nyan-modoki.vim'
+NeoBundle 'undx/vim-gocode'
 NeoBundle 'mako.vim'
 NeoBundle 'dag/vim2hs'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+    \ 'windows' : 'make -f make_mingw32.mak',
+    \ 'cygwin' : 'make -f make_cygwin.mak',
+    \ 'mac' : 'make -f make_mac.mak',
+    \ 'unix' : 'make -f make_unix.mak',
+  \ },
+\ }
 NeoBundle 'eagletmt/ghcmod-vim'
 
 " ファイルタイプ判定をon
@@ -143,6 +151,7 @@ if has("autocmd")
 
   autocmd FileType html setl autoindent
   autocmd FileType html setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
   autocmd FileType htmldjango setl autoindent
   autocmd FileType htmldjango setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
@@ -272,6 +281,9 @@ hi DiffAdd      ctermfg=black ctermbg=green
 hi DiffChange   ctermfg=black ctermbg=yellow
 hi DiffDelete   ctermfg=black ctermbg=darkblue
 hi DiffText     ctermfg=black ctermbg=gray
+
+" go~
+au BufRead,BufNewFile *.go setf go
 
 " =====================================================================
 " Edit
