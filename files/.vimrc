@@ -1,5 +1,8 @@
-" =====================================================================
-" Basics
+" vim: foldmethod=marker
+" vim: foldcolumn=3
+" vim: foldlevel=0
+
+" Basics {{{
 " =====================================================================
 set nocompatible
 set scrolloff=5                  " スクロール時の余白確保
@@ -15,7 +18,8 @@ set whichwrap=b,s,h,l,<,>,[,]    " カーソルを行頭、行末で止まらな
 set showcmd                      " コマンドをステータス行に表示
 set showmode                     " 現在のモードを表示
 set viminfo='50,<1000,s100,\"50  " viminfoファイルの設定
-set modelines=0                  " モードラインは無効
+set modelines                    " モードラインは有効
+set modelines=3                  " 3行目までをモードラインとして検索する
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
@@ -74,9 +78,8 @@ filetype plugin on
 autocmd BufRead,BufNewFile *.go set filetype=go
 
 set helpfile=$VIMRUNTIME/doc/help.txt
-
-" =====================================================================
-" StatusLine
+" }}}
+" StatusLine {{{
 " =====================================================================
 set laststatus=2 " 常にステータスラインを表示
 
@@ -90,9 +93,8 @@ set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %{g:NyanModoki
 " set statusline=%{g:NyanModoki()}
 let g:nyan_modoki_select_cat_face_number = 6
 let g:nayn_modoki_animation_enabled= 1
-
-" =====================================================================
-" Apperance
+" }}}
+" Apperance {{{
 " =====================================================================
 set showmatch         " 括弧の対応をハイライト
 set number            " 行番号表示
@@ -122,8 +124,8 @@ highlight CursorLine ctermbg=black guibg=black
 " コマンド実行中は再描画しない
 :set lazyredraw
 
-" =====================================================================
-" Indent
+" }}}
+" Indent {{{
 " =====================================================================
 set autoindent   " 自動でインデント
 set paste        " ペースト時にautoindentを無効に
@@ -162,8 +164,8 @@ if has("autocmd")
   autocmd FileType haskell setl expandtab tabstop=2 shiftwidth=2 softtabstop=2
 endif
 
-" =====================================================================
-" Search
+" }}}
+" Search {{{
 " =====================================================================
 "set wrapscan   " 最後まで検索したら先頭へ戻る
 set ignorecase " 大文字小文字無視
@@ -173,8 +175,8 @@ set hlsearch   " 検索文字をハイライト
 " Escの2回押しでハイライト消去
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 
-" =====================================================================
-" Move
+" }}}
+" Move {{{
 " =====================================================================
 " tabで分割ウィンドウ間を移動
 nnoremap <silent><tab>  <C-w>w
@@ -182,8 +184,8 @@ nnoremap <silent><tab>  <C-w>w
 " matchit.vim有効化
 source $VIMRUNTIME/macros/matchit.vim
 
-" =====================================================================
-" Encoding
+" }}}
+" Encoding {{{
 " =====================================================================
 set ffs=unix,dos,mac  " 改行文字
 set encoding=utf-8    " デフォルトエンコーディング
@@ -257,8 +259,8 @@ command! Utf8 edit ++enc=utf-8
 command! Jis Iso2022jp
 command! Sjis Cp932
 
-" =====================================================================
-" Colors
+" }}}
+" Colors {{{
 " =====================================================================
 " ハイライト on
 syntax enable
@@ -266,6 +268,7 @@ syntax enable
 " 折りたたみの色指定
 " xxx term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=LightGrey
 hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+hi FoldColumn ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
 
 " Python は80行目を強調表示
 autocmd FileType python :set colorcolumn=80
@@ -285,8 +288,8 @@ hi DiffText     ctermfg=black ctermbg=gray
 " go~
 au BufRead,BufNewFile *.go setf go
 
-" =====================================================================
-" Edit
+" }}}
+" Edit {{{
 " =====================================================================
 " Tabキーを空白に変換
 autocmd FileType python set expandtab
@@ -329,3 +332,4 @@ autocmd FileType javascript call s:javascript_filetype_settings()
 set rtp+=$GOROOT/misc/vim
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 set completeopt=menu,preview
+" }}}
