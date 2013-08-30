@@ -76,6 +76,7 @@ filetype indent on
 filetype plugin on
 
 autocmd BufRead,BufNewFile *.go set filetype=go
+autocmd BufRead,BufNewFile *.mako set filetype=mako
 
 set helpfile=$VIMRUNTIME/doc/help.txt
 " }}}
