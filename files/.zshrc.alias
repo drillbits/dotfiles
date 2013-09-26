@@ -9,6 +9,9 @@ alias egrep='egrep --color=auto'
 # screen
 alias sc='screen -U'
 
+# tmux
+alias t='tmux'
+
 # git
 alias oppai='git'
 

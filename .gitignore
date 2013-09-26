@@ -16,6 +16,7 @@
 !/files/.hgext
 !/files/.screenrc
 !/files/.bundler
+!/files/.tmux.conf
 
 # files be ignored
 /files/.vim/*
