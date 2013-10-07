@@ -308,9 +308,11 @@ autocmd FileType go autocmd BufWritePre * :%s/\s\+$//ge
 autocmd FileType haskell autocmd BufWritePre * :%s/\s\+$//ge
 " 保存時にtabをスペースに変換する
 autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
+" flake8
+autocmd FileType python autocmd BufWritePost <buffer> :!flake8 %
 " pyflakes & pep8
-autocmd FileType python autocmd BufWritePost <buffer> :!pyflakes %
-autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
+"autocmd FileType python autocmd BufWritePost <buffer> :!pyflakes %
+"autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
 " ghcmod
 autocmd FileType haskell autocmd! BufWritePost <buffer> GhcModCheckAsync
 " JSON整形
