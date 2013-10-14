@@ -297,7 +297,7 @@ autocmd FileType python set expandtab
 autocmd FileType html set expandtab
 autocmd FileType htmldjango set expandtab
 autocmd FileType javascript set expandtab
-autocmd FileType go set expandtab
+autocmd FileType go set noexpandtab
 autocmd FileType haskell set expandtab
 " 保存時に行末の空白を除去する
 autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
@@ -315,6 +315,8 @@ autocmd FileType python autocmd BufWritePost <buffer> :!flake8 %
 "autocmd FileType python autocmd BufWritePost <buffer> :!pep8 %
 " ghcmod
 autocmd FileType haskell autocmd! BufWritePost <buffer> GhcModCheckAsync
+" 保存時にgofmtを実行する
+autocmd FileType go autocmd BufWritePost <buffer> :!gofmt -w %
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
