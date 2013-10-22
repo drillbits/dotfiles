@@ -271,8 +271,9 @@ syntax enable
 hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
 hi FoldColumn ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
 
-" Python は80行目を強調表示
+" Python と rst は80行目を強調表示
 autocmd FileType python :set colorcolumn=80
+autocmd FileType rst :set colorcolumn=80
 hi ColorColumn ctermbg=0
 
 " 補完候補の色指定
