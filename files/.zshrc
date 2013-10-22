@@ -158,7 +158,6 @@ export PYTHONDONTWRITEBYTECODE=1
 #
 export VIRTUALENV_USE_DISTRIBUTE=true
 export WORKON_HOME=$HOME/.virtualenvs
-source `which virtualenvwrapper.sh`
 
 
 ### pip
