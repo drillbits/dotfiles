@@ -321,19 +321,19 @@ autocmd FileType go autocmd BufWritePost <buffer> :!gofmt -w %
 " JSON整形
 map <Leader>j !python -m json.tool<CR>
 " JSLint
-if executable('rhino')
-  let $JS_CMD='rhino'
-endif
-augroup MyGroup
-  autocmd! MyGroup
-  autocmd FileType javascript call s:javascript_filetype_settings()
-augroup END
-function! s:javascript_filetype_settings()
-  autocmd BufLeave     <buffer> call jslint#clear()
-  autocmd BufWritePost <buffer> call jslint#check()
-  autocmd CursorMoved  <buffer> call jslint#message()
-endfunction
-autocmd FileType javascript call s:javascript_filetype_settings()
+"if executable('rhino')
+"  let $JS_CMD='rhino'
+"endif
+"augroup MyGroup
+"  autocmd! MyGroup
+"  autocmd FileType javascript call s:javascript_filetype_settings()
+"augroup END
+"function! s:javascript_filetype_settings()
+"  autocmd BufLeave     <buffer> call jslint#clear()
+"  autocmd BufWritePost <buffer> call jslint#check()
+"  autocmd CursorMoved  <buffer> call jslint#message()
+"endfunction
+"autocmd FileType javascript call s:javascript_filetype_settings()
 " Go
 set rtp+=$GOROOT/misc/vim
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
