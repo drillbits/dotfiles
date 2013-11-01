@@ -18,8 +18,9 @@ set whichwrap=b,s,h,l,<,>,[,]    " カーソルを行頭、行末で止まらな
 set showcmd                      " コマンドをステータス行に表示
 set showmode                     " 現在のモードを表示
 set viminfo='50,<1000,s100,\"50  " viminfoファイルの設定
-set modelines                    " モードラインは有効
-set modelines=3                  " 3行目までをモードラインとして検索する
+"set modelines                    " モードラインは有効
+"set modelines=3                  " 3行目までをモードラインとして検索する
+set nomodeline
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
