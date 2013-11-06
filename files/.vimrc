@@ -70,8 +70,8 @@ NeoBundle 'Shougo/vimproc', {
 \ }
 NeoBundle 'eagletmt/ghcmod-vim'
 " powerline
-NeoBundle 'alpaca-tc/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+" NeoBundle 'alpaca-tc/alpaca_powertabline'
+" NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 
 " ファイルタイプ判定をon
 filetype on
