@@ -1,6 +1,6 @@
 [user]
 	name = drillbits
-	email = drillbits.spiny@gmail.com
+	email = neji@drillbits.jp
 [core]
 	excludesfile = ~/.gitignore
 [difftool "sourcetree"]
