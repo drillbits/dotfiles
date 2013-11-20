@@ -72,6 +72,11 @@ NeoBundle 'eagletmt/ghcmod-vim'
 " powerline
 " NeoBundle 'alpaca-tc/alpaca_powertabline'
 " NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'kakkyz81/evervim'
+NeoBundle 'rhysd/accelerated-jk'
+let g:accelerated_jk_acceleration_table = [10,5,3]
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
 
 " ファイルタイプ判定をon
 filetype on
@@ -342,4 +347,12 @@ map <Leader>j !python -m json.tool<CR>
 set rtp+=$GOROOT/misc/vim
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 set completeopt=menu,preview
+" }}}
+
+" Local settings {{{
+" =====================================================================
+let s:localrc = expand($HOME . '/.vimrc.local')
+if filereadable(s:localrc)
+  source ~/.vimrc.local
+endif
 " }}}
