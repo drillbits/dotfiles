@@ -27,3 +27,7 @@
 	pus = push
 	puh = push
 	pl = !git pull && git submodule update --init
+[pager]
+	log  = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	show = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
+	diff = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less
