@@ -1,0 +1,39 @@
+" インデント設定
+
+" set autoindent   " 自動でインデント
+" on にすると autocomplpop.vim が動かない
+set paste        " ペースト時に autoindent を無効に
+" set smartindent  " 新しい行を開始したときに、新しい行のインデントを現在行と同じ量にする
+"set cindent      " C プログラムファイルの自動インデント
+
+" softtabstop は Tab キー押し下げ時に挿入される空白の量
+" 0 の場合はtabstopと同じ
+" BSにも影響する
+set tabstop=2 shiftwidth=2 softtabstop=0
+
+if has("autocmd")
+  " ファイルタイプの検索を有効にする
+  filetype plugin on
+  " そのファイルタイプにあわせたインデントを利用する
+  filetype indent on
+  " これらのftではインデントを無効に
+  " autocmd FileType php filetype indent off
+
+  " ts: tabstop
+  " sw: shiftwidth
+  " sts: softtabstop
+  " et: expandtab
+  " noet: noexpandtab
+  " si: smartindent
+  " cinw: cinwords
+
+  " Python
+  "autocmd FileType python     setl si cinw=if,elif,else,for,while,try,except,finally,def,class
+  autocmd FileType python     setl ts=4 sw=4 sts=0 et
+  autocmd FileType ruby       setl ts=2 sw=2 sts=0 et
+  autocmd FileType javascript setl ts=2 sw=2 sts=0 et
+  autocmd FileType html       setl ts=2 sw=2 sts=0 et
+  autocmd FileType htmldjango setl ts=2 sw=2 sts=0 et
+  autocmd FileType go         setl ts=8 sw=8 sts=0 noet
+  autocmd FileType haskell    setl ts=2 sw=2 sts=0 et
+endif

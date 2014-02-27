@@ -9,6 +9,7 @@
 !/files/.zshrc.*
 !/files/.vim
 !/files/.vimrc
+!/files/.vimrc.*
 !/files/.gitignore
 !/files/.gitconfig
 !/files/.gitmodules

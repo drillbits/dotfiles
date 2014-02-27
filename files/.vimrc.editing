@@ -1,0 +1,56 @@
+" 編集関連
+
+" insert モードを抜けるとIMEオフ
+" これやると ESC 直後にカーソルキーおかしくなる
+"set noimdisable
+"set iminsert=0 imsearch=0
+"set noimcmdline
+"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+
+" Tab キーを空白に変換
+autocmd FileType python     set expandtab
+autocmd FileType javascript set expandtab
+autocmd FileType haskell    set expandtab
+
+" インサートモード中に <C-o> で yank した内容を put する
+" inoremap <C-o> <ESC>:<C-U>YRPaste 'p'<CR>i
+
+" 保存時に行末の空白を除去する
+autocmd BufWritePre * :%s/\s\+$//ge
+" 保存時に tab をスペースに変換する
+"autocmd BufWritePre * :%s/\t/  /ge
+
+" 保存時に行末の空白を除去する
+" autocmd FileType python autocmd BufWritePre * :%s/\s\+$//ge
+autocmd BufWritePre * :%s/\s\+$//ge
+
+" 保存時に tab をスペースに変換する
+autocmd FileType python autocmd BufWritePre * :%s/\t/  /ge
+
+" flake8
+autocmd FileType python autocmd BufWritePost <buffer> :!flake8 %
+
+" ghcmod
+"autocmd FileType haskell autocmd! BufWritePost <buffer> GhcModCheckAsync
+
+" 保存時に gofmt を実行する
+autocmd FileType go autocmd BufWritePost <buffer> :!gofmt -w %
+
+" JSON 整形
+map <Leader>j !python3 -m json.tool<CR>
+
+"" quickfixウィンドウではq/ESCで閉じる
+"autocmd FileType qf nnoremap <buffer> q :ccl<CR>
+"autocmd FileType qf nnoremap <buffer> <ESC> :ccl<CR>
+"
+"" cwでquickfixウィンドウの表示をtoggleするようにした
+"function! s:toggle_qf_window()
+"  for bufnr in range(1,  winnr('$'))
+"    if getwinvar(bufnr,  '&buftype') ==# 'quickfix'
+"      execute 'ccl'
+"      return
+"    endif
+"  endfor
+"  execute 'botright cw'
+"endfunction
+"nnoremap <silent> cw :call <SID>toggle_qf_window()<CR>

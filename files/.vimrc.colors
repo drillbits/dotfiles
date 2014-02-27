@@ -1,0 +1,28 @@
+" Color 関連設定
+
+" ポップアップメニューの色設定
+hi Pmenu        ctermfg=black ctermbg=gray
+hi PmenuSel     ctermbg=darkblue
+hi PmenuSbar    ctermbg=blue
+
+" vimdiff の色指定
+hi DiffAdd      ctermfg=black ctermbg=green
+hi DiffChange   ctermfg=black ctermbg=yellow
+hi DiffDelete   ctermfg=black ctermbg=darkblue
+hi DiffText     ctermfg=black ctermbg=gray
+
+" 折りたたみの色指定
+" xxx term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=LightGrey
+hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+hi FoldColumn ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+
+" シンタックスハイライト on
+syntax enable
+
+" Python と rst は80行目を強調表示
+autocmd FileType python :set colorcolumn=80
+autocmd FileType rst :set colorcolumn=80
+hi ColorColumn ctermbg=0
+
+" Go~
+au BufRead,BufNewFile *.go setf go

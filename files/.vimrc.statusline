@@ -1,0 +1,20 @@
+" StatusLine 設定の読み込み。
+
+set laststatus=2 " 常にステータスラインを表示
+
+" カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+
+" ステータスラインに文字コードと改行文字を表示する
+"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %F%=[%{GetB()}]\ %l,%c%V%8P
+set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %=\ %l,%c\ %8P
+"set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %{g:NyanModoki()}%=\ %l,%c\ %8P
+
+"" 自動的に QuickFix リストを表示する
+"autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
+"autocmd QuickfixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd lwin
+
+"" nyan-modoki
+"" set statusline=%{g:NyanModoki()}
+"let g:nyan_modoki_select_cat_face_number = 6
+"let g:nayn_modoki_animation_enabled= 1

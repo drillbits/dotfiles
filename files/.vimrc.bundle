@@ -1,0 +1,157 @@
+" NeoBundle で管理してるプラグイン
+
+filetype off
+
+" VimEnter (起動時) のみ実行
+if has('vim_starting')
+  " NeoBundle の初期化
+  set rtp+=~/.vim/neobundle.vim
+  set runtimepath+=~/.vim/neobundle.vim
+  call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+
+" Edit {{{
+  " YankRing.vim : ヤンクの履歴を管理し、順々に参照、出力できるようにする
+  "NeoBundle 'YankRing.vim'
+  "NeoBundle 'm4i/YankRingSync'
+
+  " surround.vim : テキストを括弧で囲む／削除する
+  NeoBundle 'tpope/vim-surround'
+
+  " python_fold : Python のクラスとか関数を折りたたむ
+  NeoBundle 'python_fold'
+" }}}
+
+" Completion {{{
+  " neocomplcache : 究極の Vim 的補完環境
+  "NeoBundle 'Shougo/neocomplcache'
+
+  " neosnippet : neocomplcache の sninppet 補完
+  "NeoBundle 'Shougo/neosnippet.git'
+
+  " various langueages snippets
+  "NeoBundle 'honza/vim-snippets'
+
+  " neco-ghc : neocomplecache で Haskell の関数を補完する
+  "NeoBundle 'ujihisa/neco-ghc'
+" }}}
+
+" Searching/Moving{{{
+  " accelerated-jk : jk は加速する
+  " NeoBundle 'rhysd/accelerated-jk'
+  " let g:accelerated_jk_acceleration_table = [10,5,3]
+  " nmap j <Plug>(accelerated_jk_gj)
+  " nmap k <Plug>(accelerated_jk_gk)
+
+  " smooth_scroll.vim : スクロールを賢くする
+  "NeoBundle 'yuroyoro/smooth_scroll.vim'
+
+  " vim-smartword : 単語移動がスマートな感じで
+  "NeoBundle 'smartword'
+
+  " camelcasemotion : CamelCase や snake_case 単位でのワード移動
+  "NeoBundle 'camelcasemotion'
+
+  " <Leader><Leader>w/f などで、motion 先を hilight する
+  "NeoBundle 'EasyMotion'
+
+  " matchit.vim : 「%」による対応括弧へのカーソル移動機能を拡張
+  "NeoBundle 'matchit.zip'
+
+  " grep.vim : 外部の grep 利用 :Grep で対話形式で grep :Rgrep は再帰
+  "NeoBundle 'grep.vim'
+
+  " eregex.vim : vim の正規表現を ruby や perl の正規表現な入力でできる :%S/perlregex/
+  "NeoBundle 'eregex.vim'
+
+  " open-browser.vim : カーソルの下の URL を開く or 単語を検索エンジンで検索
+  "NeoBundle 'tyru/open-browser.vim'
+
+  " Vim から The Silver Searcher を利用する
+  " http://blog.glidenote.com/blog/2013/02/28/the-silver-searcher-better-than-ack/
+  "NeoBundle 'rking/ag.vim'
+" }}}
+
+" Programming {{{
+  " quickrun.vim : 編集中のファイルを簡単に実行できる
+  "NeoBundle 'thinca/vim-quickrun'
+
+  " vim-ref : pydoc などのリファレンスを vim 上で見る
+  "NeoBundle 'thinca/vim-ref'
+
+  " Pydiction : Python 用の入力補完
+  "NeoBundle 'Pydiction'
+
+  " taglist.vim : ソースコード上のメソッド宣言、変数宣言の一覧を表示する
+  "NeoBundle 'taglist.vim'
+
+  " errormarker.vim : エラーがある場所をハイライトする
+  "NeoBundle 'errormarker.vim'
+" }}}
+
+" Syntax {{{
+  " Go~
+  "NeoBundle 'undx/vim-gocode'
+  " mako
+  NeoBundle 'mako.vim'
+  " JavaScript
+  "NeoBundle 'JavaScript-syntax'
+  " CoffeScript
+  "NeoBundle 'kchmck/vim-coffee-script'
+  " Nginx conf
+  NeoBundle 'nginx.vim'
+  " markdown
+  NeoBundle 'tpope/vim-markdown'
+  " Clojure
+  "NeoBundle 'jondistad/vimclojure'
+  " Haskell
+  "NeoBundle 'dag/vim2hs'
+  " ghc-mod
+  "NeoBundle 'eagletmt/ghcmod-vim'
+" }}}
+
+" Encording {{{
+  " 文字化け対策
+  NeoBundle 'banyan/recognize_charcode.vim'
+" }}}
+
+" Utility {{{
+  " vimproc : vim から非同期実行
+  "NeoBundle 'Shougo/vimproc', {
+  "  \ 'build' : {
+  "    \ 'windows' : 'make -f make_mingw32.mak',
+  "    \ 'cygwin' : 'make -f make_cygwin.mak',
+  "    \ 'mac' : 'make -f make_mac.mak',
+  "    \ 'unix' : 'make -f make_unix.mak',
+  "  \ },
+  "\ }
+
+  " webapi-vim : Vim Interface to Web API
+  "NeoBundle 'mattn/webapi-vim'
+
+  " vim-connpass
+  "NeoBundle 'heavenshell/vim-connpass'
+
+  " vimdoc_js : vimdoc 日本語
+  "NeoBundle 'yuroyoro/vimdoc_ja'
+
+  " vim-fugitive : vim から Git を操作する
+  "NeoBundle 'tpope/vim-fugitive'
+
+  " nyan-modoki.vim : かわいい
+  NeoBundle 'drillbits/nyan-modoki.vim'
+" }}}
+
+" Unite {{{{
+  " unite.vim : - すべてを破壊し、すべてを繋げ - vim script で実装された anything プラグイン
+  "NeoBundle 'Shougo/unite.vim'
+  "NeoBundle 'tsukkee/unite-help'
+  "NeoBundle 'h1mesuke/unite-outline'
+  "" NeoBundle 'Sixeight/unite-grep'
+  "NeoBundle 'basyura/unite-rails'
+  "NeoBundle 'thinca/vim-unite-history'
+  "NeoBundle 'tsukkee/unite-tag'
+  "NeoBundle 'choplin/unite-vim_hacks'
+" }}}
+
+filetype plugin indent on
