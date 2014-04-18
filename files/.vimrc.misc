@@ -1,0 +1,5 @@
+" その他
+
+" use ; to command mode.
+noremap ; :
+noremap : ;

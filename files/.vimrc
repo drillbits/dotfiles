@@ -35,7 +35,7 @@ source ~/.vimrc.editing
 source ~/.vimrc.encoding
 
 "" その他設定の読み込み
-"source ~/.vimrc.misc
+source ~/.vimrc.misc
 
 " プラグインごとの設定の読み込み
 source ~/.vimrc.plugin_settings
