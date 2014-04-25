@@ -26,3 +26,6 @@ hi ColorColumn ctermbg=0
 
 " Go~
 au BufRead,BufNewFile *.go setf go
+
+" Jinja2 for ansible
+au BufRead,BufNewFile *.j2 setf htmljinja

@@ -1,5 +1,5 @@
 " その他
 
 " use ; to command mode.
-noremap ; :
-noremap : ;
+nnoremap ; :
+nnoremap : ;
