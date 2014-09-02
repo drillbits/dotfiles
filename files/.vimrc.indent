@@ -34,6 +34,6 @@ if has("autocmd")
   autocmd FileType javascript setl ts=2 sw=2 sts=0 et
   autocmd FileType html       setl ts=2 sw=2 sts=0 et
   autocmd FileType htmldjango setl ts=2 sw=2 sts=0 et
-  autocmd FileType go         setl ts=8 sw=8 sts=0 noet
+  autocmd FileType go         setl ts=4 sw=4 sts=0 noet
   autocmd FileType haskell    setl ts=2 sw=2 sts=0 et
 endif
