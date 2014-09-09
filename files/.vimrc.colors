@@ -1,15 +1,15 @@
 " Color 関連設定
 
 " ポップアップメニューの色設定
-hi Pmenu        ctermfg=black ctermbg=gray
-hi PmenuSel     ctermbg=darkblue
-hi PmenuSbar    ctermbg=blue
+hi Pmenu        ctermfg=Black ctermbg=Gray
+hi PmenuSel     ctermbg=DarkBlue
+hi PmenuSbar    ctermbg=Blue
 
 " vimdiff の色指定
-hi DiffAdd      ctermfg=black ctermbg=green
-hi DiffChange   ctermfg=black ctermbg=yellow
-hi DiffDelete   ctermfg=black ctermbg=darkblue
-hi DiffText     ctermfg=black ctermbg=gray
+hi DiffAdd      ctermfg=Black ctermbg=Green
+hi DiffChange   ctermfg=Black ctermbg=Yellow
+hi DiffDelete   ctermfg=Black ctermbg=DarkBlue
+hi DiffText     ctermfg=Black ctermbg=Gray
 
 " 折りたたみの色指定
 " xxx term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=LightGrey
@@ -25,7 +25,9 @@ autocmd FileType rst :set colorcolumn=80
 hi ColorColumn ctermbg=0
 
 " Go~
-au BufRead,BufNewFile *.go setf go
+autocmd BufRead,BufNewFile *.go setf go
+autocmd FileType go :highlight goErr cterm=bold ctermfg=DarkMagenta
+autocmd FileType go :match goErr /\<err\>/
 
 " Jinja2 for ansible
-au BufRead,BufNewFile *.j2 setf htmljinja
+autocmd BufRead,BufNewFile *.j2 setf htmljinja
