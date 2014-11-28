@@ -19,7 +19,6 @@ local Pink=$'%{\e[35m%}'
 local Blue=$'%{\e[34m%}'
 local Green=$'%F{green}'
 local Red=$'%F{red}'
-local HOST_COLOR=$'%{\e[38;5;'"$(printf "%d\n" 0x$(hostname|md5sum|cut -c1-2))"'m%}'
 #
 # 直前のコマンドの終了ステータスが0以外のときは赤くする
 # ${MY_MY_PROMPT_COLOR}はprecmdで変化させている数値
@@ -45,7 +44,8 @@ darwin*)
     export PROMPT=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
     ;;
 *)
-    export PROMPT=$Yellow$Mami$Default$Pink'[%n'$Default'@'$HOST_COLOR'%m]'$Default':'$Blue'%1~'$Default'$ '
+    export PROMPT=$Pink'[%n@%m]'$Default':'$Blue'%~
+'$Yellow$Mami$Default' < '
     ;;
 esac
 export PROMPT2=$Yellow$Tiro$Default' '$Blue'%_ '$Default'> '
@@ -67,7 +67,7 @@ function _precmd_vcs_info () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 add-zsh-hook precmd _precmd_vcs_info
-RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
+RPROMPT=$Default'%1(v|%F{green}%1v%f|)'
 setopt transient_rprompt
 
 
