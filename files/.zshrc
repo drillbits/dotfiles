@@ -39,15 +39,7 @@ local Mami=$'ξ(✿ ❛◡❛)ξ'
 local Tanuon=$'三╹ｗ╹）'
 local Yuno=$'X / _ / X < '
 local Tiro=$'ξ(✿＞◡❛)ξ▄︻▇▇〓〓'
-case ${OSTYPE} in
-darwin*)
-    export PROMPT=$Yellow$Mami$Default':'$Blue'%1~'$Default'$ '
-    ;;
-*)
-    export PROMPT=$Pink'[%n@%m]'$Default':'$Blue'%~
-'$Yellow$Mami$Default' < '
-    ;;
-esac
+export PROMPT=$Yellow$Mami$Pink' %n@%m'$Default':'$Blue'%1~'$Default' < '
 export PROMPT2=$Yellow$Tiro$Default' '$Blue'%_ '$Default'> '
 export SPROMPT=$Yellow$Mami$Default' < '$Red'%r is correct? [n,y,a,e]'$Default': '
 
@@ -67,7 +59,7 @@ function _precmd_vcs_info () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 add-zsh-hook precmd _precmd_vcs_info
-RPROMPT=$Default'%1(v|%F{green}%1v%f|)'
+RPROMPT=$Blue'[%~]'$Default'%1(v|%F{green}%1v%f|)'
 setopt transient_rprompt
 
 
