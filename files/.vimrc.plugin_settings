@@ -45,8 +45,8 @@
 "let g:indent_guides_auto_colors = 0
 "let g:indent_guides_start_level = 4
 "let g:indent_guides_guide_size = 1
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red ctermbg=3
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+"autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red ctermbg=3
+"autocmd vimrc VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 "if 'dark' == &background
 "    hi IndentGuidesOdd  ctermbg=black
 "    hi IndentGuidesEven ctermbg=darkgrey
@@ -165,7 +165,7 @@
 "nnoremap <silent> [unite]rj  :<C-u>Unite -no-split rails/javascript<CR>
 "nnoremap <silent> [unite]rs  :<C-u>Unite -no-split rails/spec<CR>
 "
-"autocmd FileType unite call s:unite_my_settings()
+"autocmd vimrc FileType unite call s:unite_my_settings()
 "function! s:unite_my_settings()"{{{
 "  " Overwrite settings.
 "
@@ -229,7 +229,7 @@
 "" quickrun.vim が実行していない場合には <C-c> を呼び出す
 "nnoremap <expr><silent> <C-c> quickrun#is_running() ?  quickrun#sweep_sessions() : "\<C-c>"
 
-"autocmd BufReadPost *_spec.rb call RSpecQuickrun()
+"autocmd vimrc BufReadPost *_spec.rb call RSpecQuickrun()
 ""------------------------------------
 "" Pydiction
 ""------------------------------------

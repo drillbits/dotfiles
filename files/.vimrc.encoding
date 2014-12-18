@@ -6,7 +6,7 @@ set encoding=utf-8    " デフォルトエンコーディング
 " 文字コード認識は banyan/recognize_charcode.vim で
 
 " 以下のファイルの時は文字コードを utf-8 に設定
-autocmd FileType python :set fileencoding=utf-8
+autocmd vimrc FileType python :set fileencoding=utf-8
 
 " ワイルドカードで表示するときに優先度を低くする拡張子
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc

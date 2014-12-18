@@ -17,7 +17,7 @@ if has("autocmd")
   " そのファイルタイプにあわせたインデントを利用する
   filetype indent on
   " これらのftではインデントを無効に
-  " autocmd FileType php filetype indent off
+  " autocmd vimrc FileType php filetype indent off
 
   " ts: tabstop
   " sw: shiftwidth
@@ -28,12 +28,12 @@ if has("autocmd")
   " cinw: cinwords
 
   " Python
-  "autocmd FileType python     setl si cinw=if,elif,else,for,while,try,except,finally,def,class
-  autocmd FileType python     setl ts=4 sw=4 sts=0 et
-  autocmd FileType ruby       setl ts=2 sw=2 sts=0 et
-  autocmd FileType javascript setl ts=2 sw=2 sts=0 et
-  autocmd FileType html       setl ts=2 sw=2 sts=0 et
-  autocmd FileType htmldjango setl ts=2 sw=2 sts=0 et
-  autocmd FileType go         setl ts=4 sw=4 sts=0 noet
-  autocmd FileType haskell    setl ts=2 sw=2 sts=0 et
+  "autocmd vimrc FileType python     setl si cinw=if,elif,else,for,while,try,except,finally,def,class
+  autocmd vimrc FileType python     setl ts=4 sw=4 sts=0 et
+  autocmd vimrc FileType ruby       setl ts=2 sw=2 sts=0 et
+  autocmd vimrc FileType javascript setl ts=2 sw=2 sts=0 et
+  autocmd vimrc FileType html       setl ts=2 sw=2 sts=0 et
+  autocmd vimrc FileType htmldjango setl ts=2 sw=2 sts=0 et
+  autocmd vimrc FileType go         setl ts=4 sw=4 sts=0 noet
+  autocmd vimrc FileType haskell    setl ts=2 sw=2 sts=0 et
 endif

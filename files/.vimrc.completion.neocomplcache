@@ -91,17 +91,17 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_omni_complete()
 
 " buffer開いたらneoconでcache
-autocmd BufReadPost,BufEnter,BufWritePost :NeoComplCacheCachingBuffer <buffer>
+autocmd vimrc BufReadPost,BufEnter,BufWritePost :NeoComplCacheCachingBuffer <buffer>
 
 " FileType毎のOmni補完を設定
-autocmd FileType python     setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css        setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml        setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php        setlocal omnifunc=phpcomplete#CompletePHP
-autocmd FileType c          setlocal omnifunc=ccomplete#Complete
-autocmd FileType ruby       setlocal omnifunc=rubycomplete#Complete
+autocmd vimrc FileType python     setlocal omnifunc=pythoncomplete#Complete
+autocmd vimrc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd vimrc FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd vimrc FileType css        setlocal omnifunc=csscomplete#CompleteCSS
+autocmd vimrc FileType xml        setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd vimrc FileType php        setlocal omnifunc=phpcomplete#CompletePHP
+autocmd vimrc FileType c          setlocal omnifunc=ccomplete#Complete
+autocmd vimrc FileType ruby       setlocal omnifunc=rubycomplete#Complete
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -113,11 +113,11 @@ let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.go = '\h\w*\.\?'
 
-" autocmd FileType ruby let g:neocomplcache_source_disable = {
+" autocmd vimrc FileType ruby let g:neocomplcache_source_disable = {
   " \ 'include_complete' : 1,
   " \ 'omni_complete' : 1
 " \ }
-" autocmd FileType ruby let g:neocomplcache_source_disable = {
+" autocmd vimrc FileType ruby let g:neocomplcache_source_disable = {
   " \ 'include_complete' : 1
 " \ }
 

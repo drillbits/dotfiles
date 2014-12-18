@@ -11,8 +11,8 @@ set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %=\ %l,%c\ %8P
 "set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %{g:NyanModoki()}%=\ %l,%c\ %8P
 
 "" 自動的に QuickFix リストを表示する
-"autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
-"autocmd QuickfixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd lwin
+"autocmd vimrc QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
+"autocmd vimrc QuickfixCmdPost lmake,lgrep,lgrepadd,lvimgrep,lvimgrepadd lwin
 
 "" nyan-modoki
 "" set statusline=%{g:NyanModoki()}

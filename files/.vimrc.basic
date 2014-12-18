@@ -1,5 +1,9 @@
 " 基本設定
 
+augroup vimrc
+  autocmd!
+augroup END
+
 " let mapleader = ","              " キーマップリーダー
 set scrolloff=5                  " スクロール時の余白確保
 set textwidth=0                  " 一行に長い文章を書いていても自動折り返しをしない
@@ -44,8 +48,8 @@ set helpfile=$VIMRUNTIME/doc/help.txt
 filetype plugin on
 " syntax on
 
-autocmd BufRead,BufNewFile *.go set filetype=go
-autocmd BufRead,BufNewFile *.mako set filetype=mako
+autocmd vimrc BufRead,BufNewFile *.go set filetype=go
+autocmd vimrc BufRead,BufNewFile *.mako set filetype=mako
 
 " Go の plugin を runtime path へ
 set rtp+=$GOROOT/misc/vim
