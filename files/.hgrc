@@ -9,6 +9,7 @@ hgshelve = ~/.hgext/hgshelve/hgshelve.py
 pager =
 mq =
 transplant =
+record =
 [pager]
 pager = LESS='FSRX' less
 quiet = True
