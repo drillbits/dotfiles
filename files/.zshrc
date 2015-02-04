@@ -132,6 +132,24 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
+#
+# Use peco
+setopt hist_ignore_all_dups
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
 
 
 ### Editor
@@ -156,6 +174,19 @@ export WORKON_HOME=$HOME/.virtualenvs
 ### pip
 #
 export PIP_DOWNLOAD_CACHE=$HOME/.pipcache
+
+### ghq
+#
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
 
 
 ### 分割したzshrcファイルの読み込み
