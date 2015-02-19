@@ -1,6 +1,8 @@
 [ui]
 username = drillbits
 merge = internal:merge
+[ui]
+ignore = ~/.hgignore_global
 [extensions]
 color =
 info = ~/.hgext/info.py
