@@ -92,6 +92,7 @@ endif
 " Syntax {{{
   " Go~
   "NeoBundle 'undx/vim-gocode'
+  NeoBundle 'fatih/vim-go'
   " mako
   NeoBundle 'mako.vim'
   " JavaScript
