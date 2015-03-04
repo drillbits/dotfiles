@@ -44,6 +44,9 @@ alias ext='extract'
 # Java
 alias javac="javac -J-Dfile.encoding=UTF8"
 
+# Docker
+alias d=docker
+
 # other apps
 alias chrome='open -a /Applications/Google\ Chrome.app'
 alias oyakata='say -v cellos e ma gah wa yah cut tar yah cut tar yah cut tar e ma gah wa yah cut tar oh yah cut tar sammah'
