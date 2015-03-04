@@ -19,6 +19,9 @@ Session.vim
 samples
 
 .vim/bundle/
+idea
 
 doc/tags
 doc/tags-ja
+
+.venv
