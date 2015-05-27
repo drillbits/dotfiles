@@ -175,6 +175,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 #
 export PIP_DOWNLOAD_CACHE=$HOME/.pipcache
 
+
 ### ghq
 #
 function peco-src () {
@@ -187,6 +188,13 @@ function peco-src () {
 }
 zle -N peco-src
 bindkey '^]' peco-src
+
+
+### Go
+#
+export GOROOT=/opt/go
+export GOPATH="$HOME"
+export PATH="$HOME/bin:$PATH"
 
 
 ### 分割したzshrcファイルの読み込み
