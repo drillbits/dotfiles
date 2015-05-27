@@ -192,9 +192,9 @@ bindkey '^]' peco-src
 
 ### Go
 #
-export GOROOT=/opt/go
+export GOROOT=~/src/github.com/golang/go
 export GOPATH="$HOME"
-export PATH="$HOME/bin:$PATH"
+export PATH="$GOROOT/bin:$HOME/bin:$PATH"
 
 
 ### 分割したzshrcファイルの読み込み
