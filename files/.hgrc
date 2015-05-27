@@ -1,5 +1,5 @@
 [ui]
-username = drillbits
+username = drillbits <neji@drillbits.jp>
 merge = internal:merge
 [ui]
 ignore = ~/.hgignore_global
