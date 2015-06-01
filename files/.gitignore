@@ -20,6 +20,7 @@ samples
 
 .vim/bundle/
 idea
+.idea
 
 doc/tags
 doc/tags-ja

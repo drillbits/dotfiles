@@ -192,7 +192,7 @@ bindkey '^]' peco-src
 
 ### Go
 #
-export GOROOT=~/src/github.com/golang/go
+export GOROOT="$HOME/src/github.com/golang/go"
 export GOPATH="$HOME"
 export PATH="$GOROOT/bin:$HOME/bin:$PATH"
 
