@@ -12,6 +12,7 @@ pager =
 mq =
 transplant =
 record =
+rebase =
 [pager]
 pager = LESS='FSRX' less
 quiet = True
