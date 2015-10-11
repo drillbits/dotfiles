@@ -21,6 +21,7 @@ samples
 .vim/bundle/
 idea
 .idea
+.vscode
 
 doc/tags
 doc/tags-ja
