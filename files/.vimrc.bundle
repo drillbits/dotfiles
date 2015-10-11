@@ -87,12 +87,16 @@ endif
 
   " errormarker.vim : エラーがある場所をハイライトする
   "NeoBundle 'errormarker.vim'
+
+  " TypeScript
+  NeoBundle 'https://github.com/leafgarland/typescript-vim.git'
+  NeoBundle 'https://github.com/clausreinke/typescript-tools.vim.git'
 " }}}
 
 " Syntax {{{
   " Go~
   "NeoBundle 'undx/vim-gocode'
-	NeoBundle 'google/vim-ft-go'
+  NeoBundle 'google/vim-ft-go'
   NeoBundle 'vim-jp/vim-go-extra'
   " mako
   NeoBundle 'mako.vim'
@@ -110,6 +114,8 @@ endif
   "NeoBundle 'dag/vim2hs'
   " ghc-mod
   "NeoBundle 'eagletmt/ghcmod-vim'
+  " toml
+  NeoBundle 'cespare/vim-toml'
 " }}}
 
 " Encording {{{
@@ -146,7 +152,7 @@ endif
 
 " Unite {{{{
   " unite.vim : - すべてを破壊し、すべてを繋げ - vim script で実装された anything プラグイン
-  "NeoBundle 'Shougo/unite.vim'
+  NeoBundle 'Shougo/unite.vim'
   "NeoBundle 'tsukkee/unite-help'
   "NeoBundle 'h1mesuke/unite-outline'
   "" NeoBundle 'Sixeight/unite-grep'
