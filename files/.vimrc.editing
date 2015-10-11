@@ -7,6 +7,9 @@
 "set noimcmdline
 "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 
+" undoファイルの無効化
+set noundofile
+
 " Tab キーを空白に変換
 autocmd vimrc FileType python     set expandtab
 autocmd vimrc FileType javascript set expandtab
