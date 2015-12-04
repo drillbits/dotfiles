@@ -13,6 +13,7 @@ mq =
 transplant =
 record =
 rebase =
+hgflow = ~/.hgext/hgflow.py
 [pager]
 pager = LESS='FSRX' less
 quiet = True
