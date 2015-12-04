@@ -88,6 +88,9 @@ endif
   " errormarker.vim : エラーがある場所をハイライトする
   "NeoBundle 'errormarker.vim'
 
+  " Go
+  NeoBundle 'koron/vim-gosrc'
+
   " TypeScript
   NeoBundle 'https://github.com/leafgarland/typescript-vim.git'
   NeoBundle 'https://github.com/clausreinke/typescript-tools.vim.git'
