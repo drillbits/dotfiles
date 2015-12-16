@@ -1,0 +1,23 @@
+augroup vimrc
+  autocmd!
+augroup END
+
+set scrolloff=5
+set textwidth=0
+
+set nobackup
+set noswapfile
+set noundofile
+set autoread
+set hidden
+
+set backspace=indent,eol,start
+set formatoptions=lmoq
+set vb t_vb=
+set browsedir=buffer
+set whichwrap=b,s,h,l,<,>,[,]
+set showcmd
+set showmode
+set viminfo='50,<1000,s100,\"50
+set modelines=0
+set notitle
