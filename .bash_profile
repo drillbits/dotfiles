@@ -6,7 +6,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 if [ -z "$PS1" ]; then
   return
 else
-  PS1='\[\033[32m\]\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\] $(__git_ps1)\[\033[00m\]\$ '
+  PS1='\[\033[32m\]\u@\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 fi
 
 # Go
