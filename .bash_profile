@@ -1,8 +1,12 @@
 # Prompt
+source ~/.git-completion.bash
+source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=true
+
 if [ -z "$PS1" ]; then
   return
 else
-  PS1='\h:\W \u\$ '
+  PS1='\[\033[32m\]\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\] $(__git_ps1)\[\033[00m\]\$ '
 fi
 
 # Go
