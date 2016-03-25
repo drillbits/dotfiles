@@ -1,29 +1,35 @@
-[user]
-	name = drillbits
-	email = neji@drillbits.jp
 [core]
+	pager = less -q -R
 	excludesfile = ~/.gitignore
+	preloadindex = true
+	editor = vim
+
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 	grep = auto
-[push]
-	default = current
+
 [alias]
 	st = status
 	co = checkout
 	ci = commit -v
 	di = diff
-	br = branch
-	puhs = push
-	psuh = push
-	pus = push
-	puh = push
-	pl = !git pull && git submodule update --init
+
+[push]
+	default = current
+
+[user]
+	name = drillbits
+	email = neji@drillbits.jp
+
 [pager]
-	log  = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+	log  = diff-highlight | less -RX
+	show = diff-highlight | less -RX
+	diff = diff-highlight | less -RX
+
 [ghq]
 	root = ~/src
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
