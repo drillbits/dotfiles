@@ -17,9 +17,14 @@ export PATH="$GOROOT/bin:$HOME/bin:$PATH"
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
 
-# GCE
+# GAE/Go
 export PATH="$HOME/go_appengine:$PATH"
-export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+test -r ~/google-cloud-sdk/path.bash.inc && . ~/google-cloud-sdk/path.bash.inc
+
+# The next line enables shell command completion for gcloud.
+test -r ~/google-cloud-sdk/completion.bash.inc && . ~/google-cloud-sdk/completion.bash.inc
 
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
