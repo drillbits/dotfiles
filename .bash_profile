@@ -9,6 +9,12 @@ else
   PS1='\[\033[32m\]\u@\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 fi
 
+# Completion
+# brew install bash-completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
 # Go
 export GOROOT="$HOME/src/github.com/golang/go"
 export GOPATH="$HOME"
