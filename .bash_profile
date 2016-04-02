@@ -15,6 +15,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
+# Vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+
 # Go
 export GOROOT="$HOME/src/github.com/golang/go"
 export GOPATH="$HOME"
