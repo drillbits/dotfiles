@@ -5,7 +5,7 @@ function! s:loadVimrc(name)
   endif
 endfunction
 
-let names = ["basic", "statusline", "moving", "local"]
+let names = ["basic", "statusline", "moving", "color", "local"]
 
 for name in names
   call s:loadVimrc(name)
