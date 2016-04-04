@@ -21,3 +21,5 @@ set showmode
 set viminfo='50,<1000,s100,\"50
 set modelines=0
 set notitle
+
+set mouse=
