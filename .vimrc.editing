@@ -1,0 +1,14 @@
+set noundofile
+
+" Tab to space
+autocmd vimrc FileType python     set expandtab
+autocmd vimrc FileType javascript set expandtab
+autocmd vimrc FileType haskell    set expandtab
+autocmd vimrc FileType python autocmd vimrc BufWritePre * :%s/\t/  /ge
+
+" Remove spaces of the end of lines
+autocmd vimrc BufWritePre * :%s/\s\+$//ge
+
+" flake8
+autocmd vimrc FileType python autocmd vimrc BufWritePost <buffer> :!flake8 %
+

@@ -2,6 +2,7 @@
 	pager = less -q -R
 	excludesfile = ~/.gitignore
 	preloadindex = true
+	editor = vim
 
 [color]
 	ui = auto
@@ -26,3 +27,6 @@
 
 [ghq]
 	root = ~/src
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/

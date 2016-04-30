@@ -1,0 +1,21 @@
+" Color 
+
+hi Pmenu        ctermfg=Black ctermbg=Gray
+hi PmenuSel     ctermbg=DarkBlue
+hi PmenuSbar    ctermbg=Blue
+
+hi DiffAdd      ctermfg=Black ctermbg=Green
+hi DiffChange   ctermfg=Black ctermbg=Yellow
+hi DiffDelete   ctermfg=Black ctermbg=DarkBlue
+hi DiffText     ctermfg=Black ctermbg=Gray
+
+" xxx term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=LightGrey
+hi Folded term=standout ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+hi FoldColumn ctermfg=4 ctermbg=0 guifg=DarkBlue guibg=LightGrey
+
+syntax enable
+
+" Go
+autocmd vimrc BufRead,BufNewFile *.go setf go
+autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=DarkMagenta
+autocmd vimrc FileType go :match goErr /\<err\>/
