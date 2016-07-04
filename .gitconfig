@@ -30,6 +30,9 @@
 	show = diff-highlight | less -RX
 	diff = diff-highlight | less -RX
 
+[diff]
+	compactionHeuristic = true
+
 [ghq]
 	root = ~/src
 

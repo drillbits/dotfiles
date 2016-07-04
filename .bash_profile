@@ -15,6 +15,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
+# Git
+export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+
 # Vim
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
