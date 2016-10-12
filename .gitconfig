@@ -1,0 +1,41 @@
+[core]
+	pager = less -q -R
+	excludesfile = ~/.gitignore
+	preloadindex = true
+	editor = vim
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	grep = auto
+
+[alias]
+	st = status
+	co = checkout
+	ci = commit -v
+	di = diff
+        diffs = diff --cached
+        ds = diff --cached
+
+[push]
+	default = current
+
+[user]
+	name = drillbits
+	email = neji@drillbits.jp
+	signingkey = 92350D5EE7DA1FEC
+
+[pager]
+	log  = diff-highlight | less -RX
+	show = diff-highlight | less -RX
+	diff = diff-highlight | less -RX
+
+[diff]
+	compactionHeuristic = true
+
+[ghq]
+	root = ~/src
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
