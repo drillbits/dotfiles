@@ -15,8 +15,9 @@
 	co = checkout
 	ci = commit -v
 	di = diff
-        diffs = diff --cached
-        ds = diff --cached
+	diffs = diff --cached
+	ds = diff --cached
+	pp = pull --prune
 
 [push]
 	default = current
