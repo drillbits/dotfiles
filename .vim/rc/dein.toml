@@ -1,0 +1,38 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+# Coding
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'koron/vim-gosrc'
+
+[[plugins]]
+repo = 'google/vim-ft-go'
+
+[[plugins]]
+repo = 'vim-jp/vim-go-extra'
+
+[[plugins]]
+repo = 'JavaScript-syntax'
+
+[[plugins]]
+repo = 'nginx.vim'
+
+[[plugins]]
+repo = 'tpope/vim-markdown'
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# Encoding
+[[plugins]]
+repo = 'banyan/recognize_charcode.vim'
+
+# Unite
+[[plugins]]
+repo = 'Shougo/unite.vim'

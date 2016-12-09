@@ -8,3 +8,6 @@ inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 inoremap <C-a> <HOME>
 inoremap <C-e> <END>
+
+" jump to the last known cursor position
+autocmd vimrc BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
