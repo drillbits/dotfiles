@@ -22,7 +22,6 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # Go
-export GOROOT="$HOME/src/github.com/golang/go"
 export GOPATH="$HOME"
 export PATH="$GOROOT/bin:$HOME/bin:$PATH"
 
