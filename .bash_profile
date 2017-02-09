@@ -23,7 +23,7 @@ export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # Go
 export GOPATH="$HOME"
-export PATH="$GOROOT/bin:$HOME/bin:$PATH"
+export PATH="$GOPATH/src/github.com/golang/go/bin:$HOME/bin:$PATH"
 
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
