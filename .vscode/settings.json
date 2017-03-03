@@ -1,0 +1,22 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "files.autoSave": "off",
+    "terminal.integrated.shellArgs.osx": [
+        "-l"
+    ],
+    "go.goroot": "/Users/drillbits/src/github.com/golang/go",
+    "go.buildOnSave": true,
+    "go.lintOnSave": true,
+    "go.vetOnSave": true,
+    "go.buildFlags": [],
+    "go.lintFlags": [],
+    "go.vetFlags": [],
+    "go.coverOnSave": false,
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.formatOnSave": true,
+    "go.formatTool": "goreturns",
+    "licenser.author": "drillbits",
+    "licenser.license": "AL2",
+    "window.zoomLevel": 0,
+    "editor.wordWrap": false
+}
