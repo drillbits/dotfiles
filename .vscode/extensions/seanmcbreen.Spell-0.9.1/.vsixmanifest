@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Language="en-US" Id="Spell" Version="0.9.1" Publisher="seanmcbreen"/>
+    <DisplayName>Spelling and Grammar Checker</DisplayName>
+    <Description xml:space="preserve">Uses a web service to detect mistakes and suggest fixes - great for Markdown or any text file.</Description>
+    <Tags>keybindings,markdown</Tags>
+    <Categories>Linters,Other</Categories>
+    <GalleryFlags>Public</GalleryFlags>
+    <Badges><Badge Link="https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell" ImgUri="http://vsmarketplacebadge.apphb.com/version/seanmcbreen.spell.svg" Description="Extension version" /><Badge Link="https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell" ImgUri="http://vsmarketplacebadge.apphb.com/installs/seanmcbreen.spell.svg" Description="Extension installs" /><Badge Link="https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell#review-details" ImgUri="http://vsmarketplacebadge.apphb.com/rating/seanmcbreen.spell.svg" Description="Extension Rating" /></Badges>
+    <Properties>
+      <Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.0.0" />
+      <Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="" />
+      
+        <Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="https://github.com/Microsoft/vscode-spell-check.git" />
+        <Property Id="Microsoft.VisualStudio.Services.Links.Getstarted" Value="https://github.com/Microsoft/vscode-spell-check.git" />
+        
+          <Property Id="Microsoft.VisualStudio.Services.Links.GitHub" Value="https://github.com/Microsoft/vscode-spell-check.git" />
+        
+      
+      <Property Id="Microsoft.VisualStudio.Services.Links.Support" Value="https://github.com/Microsoft/vscode-spell-check/issues" />
+      <Property Id="Microsoft.VisualStudio.Services.Links.Learn" Value="https://github.com/Microsoft/vscode-spell-check/blob/master/README.md" />
+      <Property Id="Microsoft.VisualStudio.Services.Branding.Color" Value="#5c2d91" />
+      <Property Id="Microsoft.VisualStudio.Services.Branding.Theme" Value="dark" />
+      <Property Id="Microsoft.VisualStudio.Services.GitHubFlavoredMarkdown" Value="true" />
+    </Properties>
+    <License>extension/LICENSE.txt</License>
+    <Icon>extension/images/spellIcon.svg</Icon>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+  </Installation>
+  <Dependencies/>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+    <Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" /><Asset Type="Microsoft.VisualStudio.Services.Content.Changelog" Path="extension/CHANGELOG.md" Addressable="true" /><Asset Type="Microsoft.VisualStudio.Services.Content.License" Path="extension/LICENSE.txt" Addressable="true" /><Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/images/spellIcon.svg" Addressable="true" />
+  </Assets>
+</PackageManifest>

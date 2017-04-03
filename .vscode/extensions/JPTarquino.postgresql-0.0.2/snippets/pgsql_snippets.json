@@ -1,0 +1,47 @@
+{
+    
+	"Select simple": {
+		"prefix": "sel",
+		"body": [
+			"SELECT ${tableName}.",
+			"FROM ${tableName}",
+			"WHERE"
+		],
+		"description": "Simple Select with Where"
+	},
+    
+	"PL/PGSQL Function": {
+		"prefix": "funcplpg",
+		"body": [
+			"CREATE OR REPLACE FUNCTION ${funcName}(i integer) RETURNS integer AS $$",
+            "BEGIN",
+            "\tRETURN i + 1;",
+            "END;",
+            "$$ LANGUAGE plpgsql;"
+		],
+		"description": "Simple PL/PGSQL Function"
+	},
+    
+	"SQL Function": {
+		"prefix": "funcplpg",
+		"body": [
+			"CREATE OR REPLACE FUNCTION ${funcName}(i integer) RETURNS integer AS $$",
+            "\tSELECT $1, CAST($1 AS text) || ' is text' ",
+            "$$ LANGUAGE SQL;"
+		],
+		"description": "Simple PL/PGSQL Function"
+	},
+    
+	"Create Table": {
+		"prefix": "tablepgsql",
+		"body": [
+			"CREATE TABLE ${tableName} (",
+            "\tid serial,",
+            "\tname text,",
+            "\tquantity integer,",
+            "\tCONSTRAINT pk_${tableName} PRIMARY KEY(id)",
+            ");"
+		],
+		"description": "Create Postgres Table"
+	}
+}

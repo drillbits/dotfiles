@@ -1,0 +1,41 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "files.autoSave": "off",
+    "terminal.integrated.shellArgs.osx": [
+        "-l"
+    ],
+    "go.goroot": "/Users/drillbits/src/github.com/golang/go",
+    "go.buildOnSave": true,
+    "go.lintOnSave": true,
+    "go.vetOnSave": true,
+    "go.buildFlags": [],
+    "go.lintFlags": [],
+    "go.vetFlags": [],
+    "go.coverOnSave": false,
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.formatOnSave": true,
+    "go.formatTool": "goreturns",
+    "licenser.author": "drillbits",
+    "licenser.license": "AL2",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "window.zoomLevel": 0,
+    "editor.wordWrap": "off",
+    "[cpp]": {
+        "editor.quickSuggestions": false
+    },
+    "[c]": {
+        "editor.quickSuggestions": false
+    },
+    "sync.gist": "",
+    "sync.lastUpload": "",
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastDownload": "",
+    "sync.version": 261,
+    "sync.showSummary": true,
+    "sync.forceDownload": false,
+    "sync.anonymousGist": false,
+    "sync.host": "",
+    "sync.pathPrefix": ""
+}

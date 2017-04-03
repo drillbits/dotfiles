@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Language="en-US" Id="cjsx" Version="0.0.6" Publisher="crisward"/>
+    <DisplayName>cjsx</DisplayName>
+    <Description xml:space="preserve">Syntax Highlighting for React's JSX + Coffeescript</Description>
+    <Tags>cjsx,react,coffeescript,coffee,coffee-script,vscode</Tags>
+    <Categories>Languages</Categories>
+    <GalleryFlags>Public</GalleryFlags>
+    <Properties>
+      
+      
+      
+      
+      
+    </Properties>
+    
+    <Icon>extension/images/icon.png</Icon>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+  </Installation>
+  <Dependencies/>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+    <Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" /><Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/images/icon.png" Addressable="true" />
+  </Assets>
+</PackageManifest>
