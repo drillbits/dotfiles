@@ -1,0 +1,85 @@
+{
+	"name": "Spell",
+	"displayName": "Spelling and Grammar Checker",
+	"description": "Uses a web service to detect mistakes and suggest fixes - great for Markdown or any text file.",
+	"icon": "images/spellIcon.svg",
+	"version": "0.9.1",
+	"publisher": "seanmcbreen",
+	"galleryBanner": {
+		"color": "#5c2d91",
+		"theme": "dark"
+	},
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"bugs": {
+		"url": "https://github.com/Microsoft/vscode-spell-check/issues",
+		"email": "smcbreen@microsoft.com"
+	},
+	"homepage": "https://github.com/Microsoft/vscode-spell-check/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-spell-check.git"
+	},
+	"categories": [
+		"Linters",
+		"Other"
+	],
+	"badges": [
+		{
+			"url": "http://vsmarketplacebadge.apphb.com/version/seanmcbreen.spell.svg",
+			"href": "https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell",
+			"description": "Extension version"
+		},
+		{
+			"url": "http://vsmarketplacebadge.apphb.com/installs/seanmcbreen.spell.svg",
+			"href": "https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell",
+			"description": "Extension installs"
+		},
+		{
+			"url": "http://vsmarketplacebadge.apphb.com/rating/seanmcbreen.spell.svg",
+			"href": "https://marketplace.visualstudio.com/items?itemName=seanmcbreen.Spell#review-details",
+			"description": "Extension Rating"
+		}
+	],
+	"engines": {
+		"vscode": "^1.0.0"
+	},
+	"activationEvents": [
+		"*",
+		"onLanguage:markdown"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "SpellProvider.changeLanguage",
+				"title": "Change Language",
+				"category": "Spell Checker"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "editor.action.quickFix",
+				"key": "Alt+."
+			}
+		]
+	},
+	"main": "./out/extension",
+	"scripts": {
+		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"dependencies": {
+		"teacher": "^0.1.0",
+		"request": "2.9.152",
+		"xml2js": "0.1.13"
+	},
+	"devDependencies": {
+		"vscode": "^0.11.0",
+		"typescript": "^2.0.10"
+	},
+	"__metadata": {
+		"id": "4080647e-d654-4079-aad0-96ead5af8010",
+		"publisherId": "a21445f8-fd83-46c9-b9e2-17c8cba9b89e",
+		"publisherDisplayName": "Sean McBreen"
+	}
+}

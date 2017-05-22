@@ -1,0 +1,92 @@
+{
+	"name": "vscode-database",
+	"displayName": "vscode-database",
+	"description": "Support SQL database (mysql and postgres)",
+	"version": "1.2.0",
+	"publisher": "bajdzis",
+	"icon": "icon.png",
+	"engines": {
+		"vscode": "^0.10.1"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Bajdzis/vscode-database.git"
+	},
+	"main": "./extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.connectMySQL",
+				"title": "SQL: Connect to MySQL server"
+			},
+			{
+				"command": "extension.connectPostgreSQL",
+				"title": "SQL: Connect to PostgreSQL server"
+			},
+			{
+				"command": "extension.changeDB",
+				"title": "SQL: Select database"
+			},
+			{
+				"command": "extension.changeServer",
+				"title": "SQL: Change connected server"
+			},
+			{
+				"command": "extension.querySQL",
+				"title": "SQL: Query"
+			},
+			{
+				"command": "extension.queryBuild",
+				"title": "SQL: Query Advancer Build"
+			},
+			{
+				"command": "extension.runQueryBuild",
+				"title": "SQL: Run Query Advancer Build"
+			},
+			{
+				"command": "extension.saveConfig",
+				"title": "SQL: Save current server"
+			}
+		],
+		"keybindings": [
+			{
+				"key": "Ctrl+q",
+				"command": "extension.querySQL"
+			},
+			{
+				"key": "Ctrl+Alt+q",
+				"command": "extension.queryBuild"
+			},
+			{
+				"key": "Ctrl+enter",
+				"mac": "cmd+enter",
+				"command": "extension.runQueryBuild"
+			}
+		],
+		"snippets": [
+			{
+				"language": "sql",
+				"path": "./snippets/main.json"
+			}
+		]
+	},
+	"dependencies": {
+		"fs": "0.0.2",
+		"mysql": "^2.12.0",
+		"pg": "^6.1.2"
+	},
+	"devDependencies": {
+		"vscode": "0.10.x"
+	},
+	"__metadata": {
+		"id": "70a45fa6-2772-42a0-91b0-515caafa49b5",
+		"publisherId": "8cdbaeb1-1e01-4550-a89a-1f7a157f9e62",
+		"publisherDisplayName": "Bajdzis"
+	}
+}

@@ -1,0 +1,79 @@
+{
+	"name": "vscode-javac",
+	"displayName": "Java Language Support",
+	"description": "Java support using the javac API",
+	"icon": "icon.png",
+	"version": "0.0.26",
+	"publisher": "georgewfraser",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/georgewfraser/vscode-javac.git"
+	},
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.7.0"
+	},
+	"categories": [
+		"Languages",
+		"Linters"
+	],
+	"keywords": [
+		"java"
+	],
+	"activationEvents": [
+		"onLanguage:java"
+	],
+	"main": "./out/lib/Main",
+	"files": [
+		"target/fat-jar.jar"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "java",
+				"extensions": [
+					".java"
+				],
+				"aliases": [
+					"Java"
+				]
+			}
+		],
+		"snippets": [
+			{
+				"language": "java",
+				"path": "./snippets/java.json"
+			}
+		],
+		"jsonValidation": [
+			{
+				"fileMatch": "javaconfig.json",
+				"url": "./lib/javaconfig.schema.json"
+			}
+		]
+	},
+	"preview": true,
+	"scripts": {
+		"vscode:prepublish": "tsc -p ./",
+		"compile": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "mocha out/test"
+	},
+	"dependencies": {
+		"portfinder": "^1.0.13",
+		"vscode-languageclient": "3.2.0"
+	},
+	"devDependencies": {
+		"typescript": "^2.2.1",
+		"vscode": "^1.1.0",
+		"mocha": "^2.4.5",
+		"@types/node": "^6.0.40",
+		"@types/mocha": "^2.2.32",
+		"@types/es6-promise": "^0.0.32"
+	},
+	"__metadata": {
+		"id": "8bd907de-999c-4f06-9be1-f74a06da52fb",
+		"publisherId": "b2ec3e10-c70f-455a-ad88-97a354d9f283",
+		"publisherDisplayName": "George Fraser"
+	}
+}

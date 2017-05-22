@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+        "sourcePath": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Java compiler sourcepath"
+        },
+        "classPathFile": {
+            "type": "string",
+            "description": "File containing the classpath"
+        },
+        "outputDirectory": {
+            "type": "string",
+            "description": "Where to place generated .class files"
+        }
+    }
+}

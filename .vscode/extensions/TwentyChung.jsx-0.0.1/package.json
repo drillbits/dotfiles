@@ -1,0 +1,40 @@
+{
+	"name": "jsx",
+	"description": "React JSX Support for Visual Studio Code",
+	"version": "0.0.1",
+	"publisher": "TwentyChung",
+	"engines": {
+		"vscode": "^0.10.1"
+	},
+	"categories": [
+		"Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "jsx",
+				"aliases": [
+					"JSX",
+					"jsx"
+				],
+				"extensions": [
+					".jsx",
+					".bsh"
+				],
+				"configuration": "./jsx.configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "jsx",
+				"scopeName": "source.jsx",
+				"path": "./syntaxes/jsx.tmLanguage"
+			}
+		]
+	},
+	"__metadata": {
+		"id": "0e0de266-c53a-46cb-ac7c-9ac2bd998673",
+		"publisherId": "ebaa77e8-5f1e-4a48-9dda-2deacc9bd4db",
+		"publisherDisplayName": "TwentyChung"
+	}
+}

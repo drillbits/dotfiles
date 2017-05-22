@@ -29,8 +29,8 @@ export PATH="$GOPATH/src/github.com/golang/go/bin:$HOME/bin:$PATH"
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
 
-# GAE/Go
-export PATH="$HOME/google-cloud-sdk/platform/google_appengine/goroot/bin:$PATH"
+# Python
+export PYTHONDONTWRITEBYTECODE=1
 
 # The next line updates PATH for the Google Cloud SDK.
 test -r ~/google-cloud-sdk/path.bash.inc && . ~/google-cloud-sdk/path.bash.inc
