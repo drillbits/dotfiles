@@ -18,5 +18,5 @@
     "licenser.author": "drillbits",
     "licenser.license": "AL2",
     "window.zoomLevel": 0,
-    "editor.wordWrap":  "off"
+    "editor.wordWrap": false
 }
