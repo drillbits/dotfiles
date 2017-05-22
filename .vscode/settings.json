@@ -20,22 +20,5 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "window.zoomLevel": 0,
-    "editor.wordWrap": "off",
-    "[cpp]": {
-        "editor.quickSuggestions": false
-    },
-    "[c]": {
-        "editor.quickSuggestions": false
-    },
-    "sync.gist": "",
-    "sync.lastUpload": "",
-    "sync.autoDownload": false,
-    "sync.autoUpload": false,
-    "sync.lastDownload": "",
-    "sync.version": 261,
-    "sync.showSummary": true,
-    "sync.forceDownload": false,
-    "sync.anonymousGist": false,
-    "sync.host": "",
-    "sync.pathPrefix": ""
+    "editor.wordWrap": "off"
 }
