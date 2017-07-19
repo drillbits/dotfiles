@@ -9,10 +9,13 @@ else
   PS1='\[\033[32m\]\u@\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 fi
 
+# MacPorts
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
 # Completion
-# brew install bash-completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+# MacPorts install bash-completion
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
 fi
 
 # Git
