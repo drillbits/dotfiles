@@ -27,11 +27,6 @@
 	email = neji@drillbits.jp
 	signingkey = 92350D5EE7DA1FEC
 
-[pager]
-	log  = diff-highlight | less -RX
-	show = diff-highlight | less -RX
-	diff = diff-highlight | less -RX
-
 [diff]
 	compactionHeuristic = true
 
