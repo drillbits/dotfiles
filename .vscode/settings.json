@@ -23,5 +23,6 @@
     "editor.fontFamily": "Source Code Pro",
     "editor.minimap.enabled": false,
     "editor.wordWrap": "off",
-    "editor.multiCursorModifier": "ctrlCmd"
+    "editor.multiCursorModifier": "ctrlCmd",
+    "workbench.editor.enablePreview": false
 }
