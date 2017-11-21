@@ -20,7 +20,7 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "window.zoomLevel": 0,
-    "editor.fontFamily": "Source Code Pro",
+    "editor.fontFamily": "Noto Mono",
     "editor.minimap.enabled": false,
     "editor.wordWrap": "off",
     "editor.multiCursorModifier": "ctrlCmd",
