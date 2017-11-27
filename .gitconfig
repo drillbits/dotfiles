@@ -13,7 +13,7 @@
 [alias]
 	st = status
 	co = checkout
-	ci = commit -v -S
+	ci = commit -v
 	di = diff
 	diffs = diff --cached
 	ds = diff --cached
@@ -35,3 +35,6 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
+[commit]
+	gpgsign = true
