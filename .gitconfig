@@ -25,7 +25,7 @@
 [user]
 	name = drillbits
 	email = neji@drillbits.jp
-	signingkey = 92350D5EE7DA1FEC
+	signingkey = AF1D2B41AAC238CF
 
 [diff]
 	compactionHeuristic = true
