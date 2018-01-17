@@ -44,5 +44,10 @@ test -r ~/google-cloud-sdk/path.bash.inc && . ~/google-cloud-sdk/path.bash.inc
 # The next line enables shell command completion for gcloud.
 test -r ~/google-cloud-sdk/completion.bash.inc && . ~/google-cloud-sdk/completion.bash.inc
 
+# swiftenv
+export SWIFTENV_ROOT="$HOME/.swiftenv"
+export PATH="$SWIFTENV_ROOT/bin:$PATH"
+eval "$(swiftenv init -)"
+
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
