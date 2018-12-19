@@ -28,5 +28,6 @@
     "editor.minimap.enabled": false,
     "editor.wordWrap": "off",
     "editor.multiCursorModifier": "ctrlCmd",
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "terminal.integrated.rendererType": "dom"
 }
