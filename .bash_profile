@@ -51,3 +51,5 @@ eval "$(swiftenv init -)"
 
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
+
+export WMSJAVA_HOME="/Library/WowzaStreamingEngine-4.7.6/java"
