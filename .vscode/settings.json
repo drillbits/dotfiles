@@ -15,6 +15,10 @@
     "go.useCodeSnippetsOnFunctionSuggest": false,
     "go.formatOnSave": true,
     "go.formatTool": "goreturns",
+    "go.alternateTools": {
+        "go-langserver": "golsp"
+    },
+    "go.useLanguageServer": true,
     "licenser.author": "drillbits",
     "licenser.license": "AL2",
     "python.linting.pylintEnabled": false,
