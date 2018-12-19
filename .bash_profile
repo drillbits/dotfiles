@@ -1,6 +1,6 @@
 # Prompt
-source ~/.git-completion.bash
 source ~/.git-prompt.sh
+source ~/.git-completion.bash
 GIT_PS1_SHOWDIRTYSTATE=true
 
 if [ -z "$PS1" ]; then
