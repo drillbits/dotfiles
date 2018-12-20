@@ -34,6 +34,8 @@ export PATH="$HOME/node_modules/.bin:$PATH"
 
 # Python
 export PYTHONDONTWRITEBYTECODE=1
+export PYTHONUSERBASE=~/.local
+export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # GAE/Go
 export GAEGO_HOME="$HOME/go_appengine"
