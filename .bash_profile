@@ -1,3 +1,8 @@
+# Platform
+is_darwin() {
+  [ "$(uname)" == 'Darwin' ]
+}
+
 # Prompt
 source ~/.git-prompt.sh
 source ~/.git-completion.bash
@@ -9,20 +14,24 @@ else
   PS1='\[\033[32m\]\u@\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 fi
 
-# MacPorts
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
-# Completion
-# MacPorts install bash-completion
-if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-  . /opt/local/etc/profile.d/bash_completion.sh
+# MacPorts bash completion
+if is_darwin; then
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+  # bash completion
+  if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+    . /opt/local/etc/profile.d/bash_completion.sh
+  fi
 fi
 
 # Git
 export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
 # Vim
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+if is_darwin; then
+  export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+else
+  export EDOTOR=$(which vim)
+fi
 
 # Go
 export GOROOT="$HOME/src/github.com/golang/go"
@@ -55,12 +64,3 @@ eval "$(swiftenv init -)"
 test -r ~/.bashrc && . ~/.bashrc
 
 export WMSJAVA_HOME="/Library/WowzaStreamingEngine-4.7.6/java"
-
-##
-# Your previous /Users/drillbits/.bash_profile file was backed up as /Users/drillbits/.bash_profile.macports-saved_2018-09-27_at_15:02:06
-##
-
-# MacPorts Installer addition on 2018-09-27_at_15:02:06: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
