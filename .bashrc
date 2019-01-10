@@ -17,5 +17,3 @@ bind -x '"\C-]": select-ghq-repo-by-peco'
 
 # Load local
 test -r ~/.bashrc.local && . ~/.bashrc.local
-
-export WMSJAVA_HOME="/Library/WowzaStreamingEngine-4.7.6/java"
