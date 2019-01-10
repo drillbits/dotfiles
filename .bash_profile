@@ -60,5 +60,3 @@ test -r ~/.bash_profile.local && . ~/.bash_profile.local
 
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
-
-export WMSJAVA_HOME="/Library/WowzaStreamingEngine-4.7.6/java"
