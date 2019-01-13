@@ -14,6 +14,12 @@ else
   PS1='\[\033[32m\]\u@\h\[\033[00m\]% \[\033[34m\]\W\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
 fi
 
+# ssh host completion
+function _compreply_ssh(){
+  COMPREPLY=(`cat ~/.ssh/config | grep -i -e '^host' | cut -d " " -f 2 | grep -E "$2"`)
+}
+complete -F _compreply_ssh ssh
+
 # MacPorts bash completion
 if is_darwin; then
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
