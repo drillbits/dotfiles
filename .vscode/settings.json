@@ -4,7 +4,7 @@
     "terminal.integrated.shellArgs.osx": [
         "-l"
     ],
-    "go.goroot": "/Users/drillbits/src/github.com/golang/go",
+    "go.goroot": "~/src/github.com/golang/go",
     "go.buildOnSave": true,
     "go.lintOnSave": true,
     "go.vetOnSave": true,
