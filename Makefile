@@ -9,11 +9,18 @@ all: install
 link:
 	@echo 'Link .files to home directory.'
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
-	@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/Library/Application\ Support/Code/User/settings.json
+
+ifeq  ($(shell uname),Darwin)
+alias:
+		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/Library/Application\ Support/Code/User/settings.json
+else
+alias:
+		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/.config/Code/User/settings.json
+endif
 
 init:
 	@echo 'TODO: initialize: install, build, configure apps, packages, etc...'
 
-install: link init
+install: link alias init
 	@echo 'Reload shell.'
 	@echo $(RELOAD)
