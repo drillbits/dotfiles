@@ -36,7 +36,7 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 if is_darwin; then
   export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 else
-  export EDOTOR=$(which vim)
+  export EDITOR=$(which vim)
 fi
 
 # Go
