@@ -40,9 +40,8 @@ else
 fi
 
 # Go
-export GOROOT="$HOME/src/github.com/golang/go"
 export GOPATH="$HOME"
-export PATH="$GOPATH/src/github.com/golang/go/bin:$HOME/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
