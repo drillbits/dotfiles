@@ -1,45 +1,46 @@
-// Place your settings in this file to overwrite the default settings
 {
+    "editor.fontFamily": "Noto Mono",
+    "editor.fontSize": 10,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.wordWrap": "off",
     "files.autoSave": "off",
-    "terminal.integrated.shellArgs.osx": [
-        "-l"
-    ],
-    "go.buildOnSave": "package",
-    "go.lintOnSave": "file",
-    "go.vetOnSave": "package",
-    "go.buildFlags": [],
-    "go.lintFlags": [],
-    "go.vetFlags": [],
-    "go.coverOnSave": false,
-    "go.useCodeSnippetsOnFunctionSuggest": false,
-    "go.formatTool": "goimports",
     "go.alternateTools": {
         "go-langserver": "gopls"
     },
+    "go.buildFlags": [],
+    "go.buildOnSave": "package",
+    "go.coverOnSave": false,
+    "go.formatTool": "goimports",
     "go.languageServerExperimentalFeatures": {
-        "format": true,
-        "autoComplete": true
+        "autoComplete": true,
+        "format": true
     },
-    "go.useLanguageServer": true,
+    "go.lintFlags": [],
+    "go.lintOnSave": "file",
     "go.toolsEnvVars": {
         "GO111MODULE": "on"
     },
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.useLanguageServer": true,
+    "go.vetFlags": [],
+    "go.vetOnSave": "package",
     "licenser.author": "drillbits",
     "licenser.license": "AL2",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "~/.local/bin/flake8",
     "python.formatting.blackPath": "~/.local/bin/black",
     "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "~/.local/bin/flake8",
+    "python.linting.pylintEnabled": false,
+    "python.sortImports.args": [
+        "-rc"
+    ],
     "python.sortImports.path": "~/.local/bin/isort",
-    "python.sortImports.args": ["-rc"],
-    "window.zoomLevel": 0,
-    "editor.fontFamily": "Noto Mono",
-    "editor.minimap.enabled": false,
-    "editor.wordWrap": "off",
-    "editor.multiCursorModifier": "ctrlCmd",
-    "workbench.editor.enablePreview": false,
     "terminal.integrated.rendererType": "dom",
-    "editor.fontSize": 10,
-    "editor.formatOnSave": true
+    "terminal.integrated.shellArgs.osx": [
+        "-l"
+    ],
+    "window.zoomLevel": 0,
+    "workbench.editor.enablePreview": false
 }
