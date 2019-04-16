@@ -4,21 +4,26 @@
     "terminal.integrated.shellArgs.osx": [
         "-l"
     ],
-    "go.goroot": "~/src/github.com/golang/go",
-    "go.buildOnSave": true,
-    "go.lintOnSave": true,
-    "go.vetOnSave": true,
+    "go.buildOnSave": "package",
+    "go.lintOnSave": "file",
+    "go.vetOnSave": "package",
     "go.buildFlags": [],
     "go.lintFlags": [],
     "go.vetFlags": [],
     "go.coverOnSave": false,
     "go.useCodeSnippetsOnFunctionSuggest": false,
-    "go.formatOnSave": true,
-    "go.formatTool": "goreturns",
+    "go.formatTool": "goimports",
     "go.alternateTools": {
-        "go-langserver": "golsp"
+        "go-langserver": "gopls"
+    },
+    "go.languageServerExperimentalFeatures": {
+        "format": true,
+        "autoComplete": true
     },
     "go.useLanguageServer": true,
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+    },
     "licenser.author": "drillbits",
     "licenser.license": "AL2",
     "python.linting.pylintEnabled": false,
