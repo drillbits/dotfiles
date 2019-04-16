@@ -39,5 +39,7 @@
     "editor.wordWrap": "off",
     "editor.multiCursorModifier": "ctrlCmd",
     "workbench.editor.enablePreview": false,
-    "terminal.integrated.rendererType": "dom"
+    "terminal.integrated.rendererType": "dom",
+    "editor.fontSize": 10,
+    "editor.formatOnSave": true
 }
