@@ -1,6 +1,7 @@
 {
     "editor.fontFamily": "Noto Mono",
     "editor.fontSize": 10,
+    "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.wordWrap": "off",
@@ -41,5 +42,8 @@
         "-l"
     ],
     "window.zoomLevel": 0,
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "[html]": {
+        "editor.formatOnSave": false
+    }
 }
