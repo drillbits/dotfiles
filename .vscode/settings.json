@@ -31,6 +31,8 @@
     "python.linting.flake8Path": "~/.local/bin/flake8",
     "python.formatting.blackPath": "~/.local/bin/black",
     "python.formatting.provider": "black",
+    "python.sortImports.path": "~/.local/bin/isort",
+    "python.sortImports.args": ["-rc"],
     "window.zoomLevel": 0,
     "editor.fontFamily": "Noto Mono",
     "editor.minimap.enabled": false,
