@@ -51,6 +51,10 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUSERBASE=~/.local
 export PATH="$PYTHONUSERBASE/bin:$PATH"
 
+# Ruby
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+export PATH="$HOME/.rbenv/bin:$PATH"
+
 # GAE/Go
 export GAEGO_HOME="$HOME/go_appengine"
 
