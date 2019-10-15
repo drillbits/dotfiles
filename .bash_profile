@@ -23,6 +23,8 @@ complete -F _compreply_ssh ssh
 # MacPorts bash completion
 if is_darwin; then
   export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+  # kubectl completion
+  kubectl completion bash > /opt/local/etc/bash_completion.d/kubectl
   # bash completion
   if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
     . /opt/local/etc/profile.d/bash_completion.sh
