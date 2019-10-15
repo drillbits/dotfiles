@@ -1,6 +1,6 @@
 {
     "editor.fontFamily": "Noto Mono",
-    "editor.fontSize": 10,
+    "editor.fontSize": 11,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
@@ -45,5 +45,12 @@
     "workbench.editor.enablePreview": false,
     "[html]": {
         "editor.formatOnSave": false
+    },
+    "breadcrumbs.enabled": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
     }
 }
