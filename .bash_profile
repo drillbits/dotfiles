@@ -49,7 +49,7 @@ export PATH="$HOME/node_modules/.bin:$PATH"
 # Python
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUSERBASE=~/.local
-export PATH="$PYTHONUSERBASE/bin:$PATH"
+# export PATH="$PYTHONUSERBASE/bin:$PATH"
 
 # Ruby
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -69,3 +69,5 @@ test -r ~/.bash_profile.local && . ~/.bash_profile.local
 
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
+
+export PATH="$HOME/.poetry/bin:$PATH"
