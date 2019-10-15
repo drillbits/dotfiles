@@ -42,6 +42,7 @@ fi
 # Go
 export GOPATH="$HOME"
 export PATH="$GOPATH/bin:$PATH"
+export GO111MODULE=on
 
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
