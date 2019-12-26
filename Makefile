@@ -15,7 +15,7 @@ alias:
 		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/Library/Application\ Support/Code/User/settings.json
 else
 alias:
-		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/.config/Code/User/settings.json
+		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/.config/Code\ -\ OSS/User/settings.json
 endif
 
 init:
