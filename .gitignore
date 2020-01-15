@@ -3,3 +3,6 @@
 .idea
 
 .vim/.netrwhist
+
+.vscode/extensions
+.vscode/argv.json
