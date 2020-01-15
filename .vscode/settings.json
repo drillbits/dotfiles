@@ -1,6 +1,6 @@
 {
-    "editor.fontFamily": "Noto Mono",
-    "editor.fontSize": 11,
+    "editor.fontFamily": "Noto Sans Mono CJK JP",
+    "editor.fontSize": 13,
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
@@ -45,7 +45,6 @@
     "terminal.integrated.shellArgs.osx": [
         "-l"
     ],
-    "window.zoomLevel": 0,
     "workbench.editor.enablePreview": false,
     "[html]": {
         "editor.formatOnSave": false
@@ -56,5 +55,6 @@
     },
     "[dockerfile]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-    }
+    },
+    "window.zoomLevel": 1
 }
