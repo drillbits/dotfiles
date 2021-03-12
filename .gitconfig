@@ -13,11 +13,15 @@
 [alias]
 	st = status
 	co = checkout
+	sw = switch
 	ci = commit -v
 	di = diff
 	diffs = diff --cached
 	ds = diff --cached
 	pp = pull --prune
+
+[pull]
+	rebase = false
 
 [push]
 	default = current
@@ -38,3 +42,5 @@
 
 [commit]
 	gpgsign = true
+[url "ssh://git@github.com"]
+	insteadOf = https://github.com
