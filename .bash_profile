@@ -13,8 +13,9 @@ test -r ~/google-cloud-sdk/path.bash.inc && . ~/google-cloud-sdk/path.bash.inc
 # The next line enables shell command completion for gcloud.
 test -r ~/google-cloud-sdk/completion.bash.inc && . ~/google-cloud-sdk/completion.bash.inc
 # Get GCP Project ID
-gcp_ps1=$(gcloud config get-value project 2> /dev/null)
-gcp_symbol=$'\u2601 '
+# gcp_ps1=$(gcloud config get-value project 2> /dev/null)
+# gcp_symbol=$'\u2601 '
+# source ~/src/github.com/drillbits/gcloud-ps1/gcloud-ps1.sh
 
 if [ -z "$PS1" ]; then
   return
@@ -24,7 +25,8 @@ else
   PS1=$PS1'% '                                            # %
   PS1=$PS1'\[\033[34m\]\W\[\033[00m\]'                    # workdir
   PS1=$PS1'\[\033[31m\]$(__git_ps1)\[\033[00m\] '         # Git branch
-  PS1=$PS1'\[\033[36m\]$gcp_symbol $gcp_ps1\[\033[00m\] ' # GCP Project ID
+  # PS1=$PS1'\[\033[36m\]$gcp_symbol $gcp_ps1\[\033[00m\] ' # GCP Project ID
+  # PS1=$PS1'$(gcloud_ps1) '                              # GCP Project ID
   # PS1=$PS1'$(kube_ps1) '
   PS1=$PS1'\[\033[00m\]\$ '                               # $ 
 fi
