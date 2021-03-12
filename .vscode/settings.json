@@ -18,7 +18,8 @@
         "format": true
     },
     "go.lintFlags": [],
-    "go.lintOnSave": "file",
+    "go.lintOnSave": "package",
+    "go.lintTool": "staticcheck",
     "go.toolsEnvVars": {
         "GO111MODULE": "on"
     },
