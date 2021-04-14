@@ -16,6 +16,7 @@ alias:
 else
 alias:
 		@ln -sfnv $(abspath .vscode/settings.json) $(HOME)/.config/Code\ -\ OSS/User/settings.json
+		@ln -sfnv $(abspath .vscode/keybindings.json) $(HOME)/.config/Code\ -\ OSS/User/keybindings.json
 endif
 
 init:
