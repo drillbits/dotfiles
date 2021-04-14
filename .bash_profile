@@ -74,6 +74,10 @@ export PYTHONUSERBASE=~/.local
 # GAE/Go
 export GAEGO_HOME="$HOME/go_appengine"
 
+# Docker
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
 # Load local
 test -r ~/.bash_profile.local && . ~/.bash_profile.local
 
