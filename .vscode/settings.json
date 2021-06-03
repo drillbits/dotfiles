@@ -4,6 +4,7 @@
     "editor.formatOnSave": true,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "ctrlCmd",
+    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?、。　",
     "editor.wordWrap": "off",
     "files.autoSave": "off",
     "go.alternateTools": {
