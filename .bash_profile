@@ -88,4 +88,3 @@ test -r ~/.bash_profile.local && . ~/.bash_profile.local
 # Load rc
 test -r ~/.bashrc && . ~/.bashrc
 
-export PATH="$HOME/.poetry/bin:$PATH"
