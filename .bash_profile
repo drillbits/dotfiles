@@ -71,6 +71,7 @@ eval "$(nodenv init -)"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUSERBASE=~/.local
 # export PATH="$PYTHONUSERBASE/bin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # GAE/Go
 export GAEGO_HOME="$HOME/go_appengine"
