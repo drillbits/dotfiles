@@ -65,6 +65,7 @@ export GO111MODULE=on
 
 # Node
 export PATH="$HOME/node_modules/.bin:$PATH"
+eval "$(nodenv init -)"
 
 # Python
 export PYTHONDONTWRITEBYTECODE=1
