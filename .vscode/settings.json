@@ -84,6 +84,9 @@
     "[proto3]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
