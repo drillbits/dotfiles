@@ -36,13 +36,22 @@
     ],
     "python.sortImports.path": "~/.local/bin/isort",
     "terminal.integrated.fontFamily": "Noto Sans Mono CJK JP",
-    "terminal.integrated.rendererType": "dom",
-    "terminal.integrated.shellArgs.linux": [
-        "-l"
-    ],
-    "terminal.integrated.shellArgs.osx": [
-        "-l"
-    ],
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "-l"
+            ]
+        },
+    },
+    "terminal.integrated.profiles.osx": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "-l"
+            ]
+        },
+    },
     "workbench.editor.enablePreview": false,
     "[html]": {
         "editor.formatOnSave": false
