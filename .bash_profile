@@ -16,6 +16,7 @@ test -r ~/google-cloud-sdk/completion.bash.inc && . ~/google-cloud-sdk/completio
 # gcp_ps1=$(gcloud config get-value project 2> /dev/null)
 # gcp_symbol=$'\u2601 '
 # source ~/src/github.com/drillbits/gcloud-ps1/gcloud-ps1.sh
+# source ~/src/github.com/antoniomo/gcloud-ps1/gcloud-ps1.sh
 
 if [ -z "$PS1" ]; then
   return
@@ -28,6 +29,7 @@ else
   # PS1=$PS1'\[\033[36m\]$gcp_symbol $gcp_ps1\[\033[00m\] ' # GCP Project ID
   # PS1=$PS1'$(gcloud_ps1) '                              # GCP Project ID
   # PS1=$PS1'$(kube_ps1) '
+  # PS1=$PS1'$(gcloud_ps1) '                                # Google Cloud
   PS1=$PS1'\[\033[00m\]\$ '                               # $ 
 fi
 
