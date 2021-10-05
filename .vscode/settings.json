@@ -14,10 +14,6 @@
     "go.buildOnSave": "package",
     "go.coverOnSave": false,
     "go.formatTool": "goimports",
-    "go.languageServerExperimentalFeatures": {
-        "autoComplete": true,
-        "format": true
-    },
     "go.lintFlags": [],
     "go.lintOnSave": "package",
     "go.lintTool": "staticcheck",
