@@ -79,4 +79,5 @@
             "serve"
         ]
     },
+    "todo-tree.tree.showScanModeButton": false,
 }
