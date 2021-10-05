@@ -14,6 +14,8 @@ if is_darwin; then
   alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
   alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
   alias oyakata='say -v cellos e ma gah wa yah cut tar yah cut tar yah cut tar e ma gah wa yah cut tar oh yah cut tar sammah'
+else
+  alias open='xdg-open'
 fi
 
 # ghq + peco
