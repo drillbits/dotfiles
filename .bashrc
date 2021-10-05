@@ -24,5 +24,18 @@ select-ghq-repo-by-peco() {
 }
 bind -x '"\C-]": select-ghq-repo-by-peco'
 
+# share bash history
+# see: https://piro.sakura.ne.jp/latest/blosxom.cgi/webtech/2018-03-04_history-nodup-with-tmux.htm
+function share_history {
+  history -a
+  tac ~/.bash_history | awk '!a[$0]++' | tac > ~/.bash_history.tmp
+  [ -f ~/.bash_history.tmp ] &&
+    mv ~/.bash_history{.tmp,} &&
+    history -c &&
+    history -r
+}
+PROMPT_COMMAND='share_history'
+shopt -u histappend
+
 # Load local
 test -r ~/.bashrc.local && . ~/.bashrc.local
