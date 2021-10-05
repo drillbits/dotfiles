@@ -64,6 +64,8 @@
     "[dockerfile]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-docker"
     },
+    "explorer.confirmDelete": false,
+    "workbench.startupEditor": "newUntitledFile",
     "terraform.indexing": {
         "enabled": false,
         "liveIndexing": false,
