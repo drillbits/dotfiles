@@ -72,7 +72,8 @@ export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE=on
 
 # Node
-export PATH="$HOME/node_modules/.bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export npm_config_prefix="$HOME/.local"
 eval "$(nodenv init -)"
 
 # Python
