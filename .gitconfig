@@ -3,6 +3,7 @@
 	excludesfile = ~/.gitignore
 	preloadindex = true
 	editor = vim
+	autocrlf = false
 
 [color]
 	diff = auto
