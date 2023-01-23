@@ -1,0 +1,37 @@
+# https://support.apple.com/en-us/HT208050
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+#
+# MacPorts
+#
+export PATH="${PATH}:/opt/local/bin:/opt/local/sbin"
+# bash completion
+if [[ -r /opt/local/etc/profile.d/bash_completion.sh ]]; then
+  . /opt/local/etc/profile.d/bash_completion.sh
+fi
+# kubectl completion
+if [[ -d /opt/local/etc/bash_completion.d ]]; then
+  if [[ -x kubectl ]]; then
+    kubectl completion bash > /opt/local/etc/bash_completion.d/kubectl
+  fi
+fi
+
+#
+# Homebrew
+#
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# bash completion
+if [[ -r /opt/homebrew/etc/profile.d/bash_completion.sh ]]; then
+  . /opt/homebrew/etc/profile.d/bash_completion.sh
+fi
+# kubectl completion
+if [[ -d /opt/homebrew/etc/bash_completion.d ]]; then
+  if [[ -x kubectl ]]; then
+    kubectl completion bash > /opt/homebrew/etc/bash_completion.d/kubectl
+  fi
+fi
+
+# iTerm2
+if [[ -e ~/.iterm2_shell_integration.bash ]]; then
+  . ~/.iterm2_shell_integration.bash
+fi

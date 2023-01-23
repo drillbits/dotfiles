@@ -36,7 +36,7 @@
 	compactionHeuristic = true
 
 [ghq]
-	root = ~/src
+	root = ~/go/src
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
