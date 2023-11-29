@@ -8,3 +8,6 @@
 .vscode/argv.json
 
 .tmp-data/
+
+.DEPLOY.md
+.MEMO.md
