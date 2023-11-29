@@ -66,6 +66,12 @@ compreply_ssh(){
 }
 complete -F compreply_ssh ssh
 
+# disable stop(Ctrl+s), start(Ctrl+q)
+if [[ -t 0 ]]; then
+  stty stop undef
+  stty start undef
+fi
+
 #
 # Load local
 #
