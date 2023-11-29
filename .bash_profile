@@ -9,6 +9,11 @@ if [[ "$(uname)" == 'Darwin' ]]; then
   test -r ~/.bash_profile.darwin && . ~/.bash_profile.darwin
 fi
 
+# Bash
+HISTSIZE=100000
+HISTFILESIZE=100000
+HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
+
 # Editor
 export EDITOR=vim
 
