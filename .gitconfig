@@ -1,6 +1,5 @@
 [core]
 	pager = less -q -R
-	excludesfile = ~/.gitignore
 	preloadindex = true
 	editor = vim
 	autocrlf = false
