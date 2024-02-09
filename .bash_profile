@@ -17,6 +17,14 @@ HISTTIMEFORMAT='%Y-%m-%dT%H:%M:%S '
 # Editor
 export EDITOR=vim
 
+# fzf
+if [[ -r /usr/share/fzf/key-bindings.bash ]]; then
+  . /usr/share/fzf/key-bindings.bash
+fi
+if [[ -r /usr/share/fzf/completion.bash ]]; then
+  . /usr/share/fzf/completion.bash
+fi
+
 # Git
 export PATH="${PATH}:/usr/local/share/git-core/contrib/diff-highlight"
 

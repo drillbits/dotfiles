@@ -49,7 +49,7 @@ PROMPT_COMMAND='share_history'
 shopt -u histappend
 
 # Change the working directory to selected Git repository with ghq + peco
-cd_git_repo() {
+function ghq_peco() {
   local sel=$(ghq list -p | peco --query "${LBUFFER}")
   if [[ -n "${sel}" ]]; then
     if [[ -t 1 ]]; then
@@ -57,8 +57,19 @@ cd_git_repo() {
     fi
   fi
 }
-bind -x '"\201": cd_git_repo'
-bind '"\C-]":"\201\C-m"'
+# bind -x '"\201": ghq_peco'
+# bind '"\C-]":"\201\C-m"'
+
+function ghq_fzf() {
+  local project_name=$(ghq list | sort | $(__fzfcmd))
+  if [ -n "$project_name" ]; then
+    local project_full_path=$(ghq root)/$project_name
+    local project_relative_path="~/$(realpath --relative-to=$HOME $project_full_path)"
+    READLINE_LINE="cd $project_relative_path"
+    READLINE_POINT=${#READLINE_LINE}
+  fi
+}
+bind -x '"\C-]": ghq_fzf'
 
 # SSH host completion
 compreply_ssh(){
