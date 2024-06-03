@@ -4,6 +4,12 @@ if [[ -z "${DISPLAY}" ]] && [[ "${XDG_VTNR}" -eq 1 ]]; then
   exec startx
 fi
 
+# ssh agent setup
+# auto start by systemd: $HOME/.config/systemd/user/ssh-agent.service
+# eval `ssh-agent` > /dev/null 2>&1
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+eval `ssh-add ~/.ssh/id_ed25519 > /dev/null 2>&1`
+
 # Load darwin
 if [[ "$(uname)" == 'Darwin' ]]; then
   test -r ~/.bash_profile.darwin && . ~/.bash_profile.darwin
