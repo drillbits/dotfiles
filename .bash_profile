@@ -33,6 +33,7 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUSERBASE=~/.local
 # export PATH="${PATH}:${PYTHONUSERBASE}/bin"
 export PATH="${PATH}:${HOME}/.poetry/bin"
+source "$HOME/.rye/env"
 
 # Go
 export PATH="${PATH}:$(go env GOPATH)/bin"
