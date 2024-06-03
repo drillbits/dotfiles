@@ -25,7 +25,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias t='tmux'
 # macOS-like commands
-if [[ ! is_darwin ]]; then
+if ! is_darwin; then
   alias open='xdg-open'
   alias pbcopy='xclip -selection c'
   alias pbpaste='xclip -selection c -o'
