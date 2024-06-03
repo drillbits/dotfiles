@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-is_darwin() {
+function is_darwin() {
   [[ "$(uname)" == 'Darwin' ]]
 }
 
@@ -37,7 +37,7 @@ fi
 
 # Share bash history
 # see: https://piro.sakura.ne.jp/latest/blosxom.cgi/webtech/2018-03-04_history-nodup-with-tmux.htm
-share_history() {
+function share_history() {
   history -a
   tac ~/.bash_history | awk '!a[$0]++' | tac > ~/.bash_history.tmp
   [ -f ~/.bash_history.tmp ] &&
@@ -77,7 +77,7 @@ function ghq_fzf() {
 bind -x '"\C-]": ghq_fzf'
 
 # SSH host completion
-compreply_ssh(){
+function compreply_ssh(){
   COMPREPLY=(`cat ~/.ssh/config | grep -i -e '^host' | cut -d " " -f 2 | grep -E "$2"`)
 }
 complete -F compreply_ssh ssh
