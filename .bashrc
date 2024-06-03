@@ -61,12 +61,17 @@ function ghq_peco() {
 # bind '"\C-]":"\201\C-m"'
 
 function ghq_fzf() {
-  local project_name=$(ghq list | sort | $(__fzfcmd))
+  local project_name=$(ghq list | sort | $(__fzfcmd) --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*")
   if [ -n "$project_name" ]; then
     local project_full_path=$(ghq root)/$project_name
     local project_relative_path="~/$(realpath --relative-to=$HOME $project_full_path)"
-    READLINE_LINE="cd $project_relative_path"
+    READLINE_LINE="cd ${project_relative_path}"
     READLINE_POINT=${#READLINE_LINE}
+    # simulate enter key
+    # history -s "$READLINE_LINE"  # add command to history
+    # eval "$READLINE_LINE"        # exec command
+    # READLINE_LINE=''             # clear line
+    # READLINE_POINT=0             # reset cursor
   fi
 }
 bind -x '"\C-]": ghq_fzf'
