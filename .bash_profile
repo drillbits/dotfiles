@@ -31,6 +31,9 @@ if [[ -r /usr/share/fzf/completion.bash ]]; then
   . /usr/share/fzf/completion.bash
 fi
 
+# Local tools
+export PATH="${PATH}:$HOME/.local/bin"
+
 # Git
 export PATH="${PATH}:/usr/local/share/git-core/contrib/diff-highlight"
 
