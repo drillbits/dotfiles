@@ -42,6 +42,7 @@ export PATH="${PATH}:${HOME}/.poetry/bin"
 source "$HOME/.rye/env"
 
 # Go
+export PATH="${PATH}:/usr/local/go/bin"
 export PATH="${PATH}:$(go env GOPATH)/bin"
 
 # Node
