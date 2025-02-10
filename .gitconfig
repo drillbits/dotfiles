@@ -42,7 +42,7 @@
 [user]
 	name = neji
 	email = mail@nejixxx.com
-	signingkey = DE6CB0207B0B6D6E
+	signingkey = 6F99A1C407AD0472
 
 [diff]
 	compactionHeuristic = true
