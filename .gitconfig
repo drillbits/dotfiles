@@ -22,12 +22,22 @@
 	diffs = diff --cached
 	ds = diff --cached
 	pp = pull --prune
+	vacuum = !"f () { \
+	  git checkout $1; \
+	  git branch --merged|grep -E -v '\\*|develop|main|master'|xargs git branch -d; \
+	  git fetch --prune; \
+	};f"
+	home = !"f () { \
+	  git pull origin $1:$1 && \
+	  git switch $1; \
+	};f"
+	dev = home develop
 
 [pull]
 	rebase = false
 
 [push]
-	default = current
+	autoSetupRemote = true
 
 [user]
 	name = drillbits
