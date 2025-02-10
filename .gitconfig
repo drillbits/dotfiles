@@ -40,9 +40,9 @@
 	autoSetupRemote = true
 
 [user]
-	name = drillbits
-	email = neji@drillbits.jp
-	signingkey = AF1D2B41AAC238CF
+	name = neji
+	email = mail@nejixxx.com
+	signingkey = DE6CB0207B0B6D6E
 
 [diff]
 	compactionHeuristic = true
@@ -55,6 +55,7 @@
 
 [commit]
 	gpgsign = true
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
