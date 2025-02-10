@@ -9,6 +9,7 @@ all: install
 link:
 	@echo 'Link .files to home directory.'
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+	@mkdir -p $(HOME)/.config/git
 	@ln -sfnv $(abspath .config/git/ignore) $(HOME)/.config/git/ignore
 
 init:
