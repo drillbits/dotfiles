@@ -8,7 +8,9 @@ fi
 # auto start by systemd: $HOME/.config/systemd/user/ssh-agent.service
 # eval `ssh-agent` > /dev/null 2>&1
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-eval `ssh-add ~/.ssh/id_ed25519 > /dev/null 2>&1`
+if ! ssh-add -l >/dev/null 2>&1; then
+  ssh-add ~/.ssh/id_ed25519
+fi
 
 # Load darwin
 if [[ "$(uname)" == 'Darwin' ]]; then
