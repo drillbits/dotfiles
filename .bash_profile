@@ -43,15 +43,12 @@ export PATH="${PATH}:/usr/local/share/git-core/contrib/diff-highlight"
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONUSERBASE=~/.local
 # export PATH="${PATH}:${PYTHONUSERBASE}/bin"
-export PATH="${PATH}:${HOME}/.poetry/bin"
-source "$HOME/.rye/env"
 
 # Go
 export PATH="${PATH}:/usr/local/go/bin"
 export PATH="${PATH}:$(go env GOPATH)/bin"
 
 # Node
-export PATH="${PATH}:${HOME}/.local/bin"
 export npm_config_prefix="$HOME/.local"
 eval "$(nodenv init -)"
 
