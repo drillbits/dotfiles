@@ -12,3 +12,5 @@
 .tmp
 .DEPLOY.md
 .MEMO.md
+
+**/.claude/settings.local.json
