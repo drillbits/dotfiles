@@ -92,3 +92,6 @@ fi
 # Load local
 #
 test -r ~/.bashrc.local && . ~/.bashrc.local
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/drillbits/.pulumi/bin
