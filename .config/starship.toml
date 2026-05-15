@@ -1,0 +1,41 @@
+add_newline = false
+
+[character]
+success_symbol = "[\\$](bold)"
+error_symbol = "[\\$](bold red)"
+
+[directory]
+truncation_length = 3
+
+[git_branch]
+symbol = ""
+
+[git_status]
+format = '[$all_status$ahead_behind]($style) '
+
+[nodejs]
+disabled = true
+
+[golang]
+disabled = true
+
+[python]
+disabled = true
+
+[rust]
+disabled = true
+
+[java]
+disabled = true
+
+[package]
+disabled = true
+
+[buf]
+disabled = true
+
+[gcloud]
+format = '☁️ [$project]($style) '
+symbol = "☁️ "
+style = "bold blue"
+

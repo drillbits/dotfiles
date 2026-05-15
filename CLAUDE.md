@@ -16,15 +16,22 @@ make link
 make install
 ```
 
-`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`. It also explicitly symlinks `.config/git/ignore` and creates `~/.terraform.d/plugin-cache`.
+`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`. It also explicitly symlinks `.config/git/ignore`, `.config/starship.toml`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`.
 
 ## Architecture
 
 ### Shell
 
-- `.bash_profile` — entry point: SSH agent, PATH setup, prompt, loads `.bash_profile.darwin` on macOS, then `.bashrc`
-- `.bash_profile.darwin` — macOS-only: MacPorts, Homebrew, iTerm2 integration
-- `.bashrc` — aliases, functions (`ghq_fzf` via `Ctrl+]`, `share_history`), local overrides via `.bashrc.local`
+Primary shell is **zsh**. Load order: `.zshenv` (all invocations) → `.zshrc` (interactive only).
+
+- `.zshenv` — sets `ZDOTDIR=$HOME/.config/zsh` (must be first, before XDG vars), XDG base dirs, `$PATH` via `typeset -U path`, SSH agent export, cross-platform `pbcopy`/`pbpaste`
+- `.config/zsh/.zshrc` — completion (compinit with XDG cache), history with `SHARE_HISTORY`, fzf keybindings, `ghq_fzf` (`Ctrl+]`), aliases (eza/bat), starship prompt init
+- `.config/zsh/` — all zsh dotfiles (`.zprofile`, `.zlogin`, etc.) live here; `make link` symlinks them via wildcard
+- `.config/starship.toml` — minimal prompt, git status, gcloud module, language modules disabled
+
+Because `ZDOTDIR` is set, zsh reads `.zshrc` and other startup files from `~/.config/zsh/` rather than `$HOME`. `.zshenv` itself stays at `$HOME/.zshenv` — zsh always reads it from `$HOME` before `ZDOTDIR` takes effect.
+
+Bash files (`.bash_profile`, `.bash_profile.darwin`, `.bashrc`) remain for compatibility.
 
 ### Vim
 
