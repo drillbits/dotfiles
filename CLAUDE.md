@@ -31,7 +31,12 @@ Primary shell is **zsh**. Load order: `.zshenv` (all invocations) → `.zshrc` (
 
 Because `ZDOTDIR` is set, zsh reads `.zshrc` and other startup files from `~/.config/zsh/` rather than `$HOME`. `.zshenv` itself stays at `$HOME/.zshenv` — zsh always reads it from `$HOME` before `ZDOTDIR` takes effect.
 
-Bash files (`.bash_profile`, `.bash_profile.darwin`, `.bashrc`) remain for compatibility.
+Bash files use the same stub pattern — `$HOME/.bash_profile` and `$HOME/.bashrc` are thin stubs that source from `~/.config/bash/`:
+
+- `.config/bash/profile` — actual login shell config (was `.bash_profile`)
+- `.config/bash/rc` — actual interactive shell config (was `.bashrc`)
+- `.config/bash/profile.darwin` — macOS-only overrides
+- `.config/bash/git-prompt.sh` / `.config/bash/git-completion.bash` — sourced from `profile`
 
 ### Vim
 
