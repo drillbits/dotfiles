@@ -38,6 +38,8 @@ local function font_with_fallback(preferred, params)
 end
 
 return {
+  automatically_reload_config = true,
+
   -- input
   use_ime = true,
   ime_preedit_rendering = 'System',
@@ -47,5 +49,10 @@ return {
   font_size = 12.0,
   cell_width = 0.95,
   line_height = 1.20,
+
+  -- theme
+  color_scheme = 'Dracula',
+  window_background_opacity = 0.9,
+  wayland_window_background_blur = true,
 }
 
