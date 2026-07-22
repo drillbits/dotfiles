@@ -176,3 +176,11 @@ if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
+# ============================================================
+# Local overrides (machine-specific, not tracked in this repo)
+# ============================================================
+
+if [[ -f "$ZDOTDIR/.zshrc.local" ]]; then
+  source "$ZDOTDIR/.zshrc.local"
+fi
+
