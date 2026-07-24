@@ -23,6 +23,7 @@ link:
 	@ln -sfnv $(abspath .claude/rules) $(HOME)/.claude/rules
 	@ln -sfnv $(abspath .config/git/ignore) $(HOME)/.config/git/ignore
 	@ln -sfnv $(abspath .config/starship.toml) $(HOME)/.config/starship.toml
+	@ln -sfnv $(abspath .zshenv) $(HOME)/.config/zsh/.zshenv
 	@$(foreach val, $(BASH_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(WEZTERM_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ZSH_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)

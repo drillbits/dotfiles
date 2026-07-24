@@ -29,7 +29,7 @@ Primary shell is **zsh**. Load order: `.zshenv` (all invocations) → `.zshrc` (
 - `.config/zsh/` — all zsh dotfiles (`.zprofile`, `.zlogin`, etc.) live here; `make link` symlinks them via wildcard
 - `.config/starship.toml` — minimal prompt, git status, gcloud module, language modules disabled
 
-Because `ZDOTDIR` is set, zsh reads `.zshrc` and other startup files from `~/.config/zsh/` rather than `$HOME`. `.zshenv` itself stays at `$HOME/.zshenv` — zsh always reads it from `$HOME` before `ZDOTDIR` takes effect.
+Because `ZDOTDIR` is set, zsh reads `.zshrc` and other startup files from `~/.config/zsh/` rather than `$HOME`. `.zshenv` is canonically at `$HOME/.zshenv`, but zsh only reads it from `$HOME` when `ZDOTDIR` is *not yet* in the environment (the very first shell in a process tree). Any nested zsh invocation that inherits an already-exported `ZDOTDIR` (subshells, `zsh -c`, VS Code's integrated terminal/extensions, etc.) looks for `.zshenv` inside `$ZDOTDIR` instead — so `.zshenv` is also symlinked to `$HOME/.config/zsh/.zshenv` (`make link`) to make sure it's found either way.
 
 Bash files use the same stub pattern — `$HOME/.bash_profile` and `$HOME/.bashrc` are thin stubs that source from `~/.config/bash/`:
 

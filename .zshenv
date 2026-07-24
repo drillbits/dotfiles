@@ -68,10 +68,20 @@ export PATH
 ### SSH agent consistency
 # Ensure SSH_AUTH_SOCK is always exported so tmux panes and
 # child shells can access the same SSH agent.
+#
+# Prefer the persistent GNOME Keyring ssh-agent socket (systemd
+# user unit gcr-ssh-agent.socket) over spawning a new `ssh-agent`
+# per shell. Keys added via ssh-add are remembered across shells.
 
-if [[ -n "$SSH_AUTH_SOCK" ]]; then
+_gcr_ssh_sock="$XDG_RUNTIME_DIR/gcr/ssh"
+
+if [[ -S "$_gcr_ssh_sock" ]]; then
+  export SSH_AUTH_SOCK="$_gcr_ssh_sock"
+elif [[ -n "$SSH_AUTH_SOCK" ]]; then
   export SSH_AUTH_SOCK
 fi
+
+unset _gcr_ssh_sock
 
 # ============================================================
 # Cross-platform clipboard utilities
