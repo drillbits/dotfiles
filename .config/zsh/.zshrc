@@ -48,8 +48,10 @@ export VIMINIT="source ${XDG_CONFIG_HOME}/vim/vimrc"
 # mise
 eval "$(~/.local/bin/mise activate zsh)"    
 
-# nodenv
-eval "$(nodenv init -)"
+# nodenv (only on machines that use Node via nodenv)
+if command -v nodenv >/dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
 
 # ------------------------------------------------------------
 # Google Cloud SDK

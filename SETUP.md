@@ -180,12 +180,12 @@ curl https://mise.run | sh
 シンボリックリンク越しにリポジトリの config.toml が書き換わるので、それを commit すれば全マシンに共有される。
 Terraform の plugin cache ディレクトリ（`~/.terraform.d/plugin-cache`）は `make link` が作成済み。
 
-## 8. nodenv のインストール
+## 8. nodenv のインストール（Node を使うマシンのみ）
 
-`.zshrc` は `eval "$(nodenv init -)"` をガードなしで実行するため、nodenv がないとシェルを起動するたびにエラーが出る。
-Arch では AUR の `nodenv`、macOS では `brew install nodenv`、それ以外は公式 README の git clone 手順で入れる。
+`.zshrc` と bash の `profile` は nodenv があるときだけ `eval "$(nodenv init -)"` を実行するので、Node が不要なマシン（サーバーなど）では何もしなくてよい。
+使うマシンでは、Arch は AUR の `nodenv`、macOS は `brew install nodenv`、それ以外は公式 README の git clone 手順で入れる。
 
-Node のバージョン管理を mise に寄せるなら、`.zshrc` から nodenv の行を外すのが正しい対応になる。
+Node のバージョン管理を mise に寄せるなら、nodenv をやめて `mise use -g node@<version>` に移行する（その場合はこの節ごと不要になる）。
 
 ## 9. フォント
 

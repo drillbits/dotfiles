@@ -53,7 +53,9 @@ export PATH="${PATH}:$(go env GOPATH)/bin"
 
 # Node
 export npm_config_prefix="$HOME/.local"
-eval "$(nodenv init -)"
+if command -v nodenv >/dev/null 2>&1; then
+  eval "$(nodenv init -)"
+fi
 
 # Docker
 export DOCKER_BUILDKIT=1
