@@ -105,10 +105,26 @@ bindkey '^N' history-beginning-search-forward
 
 # ============================================================
 # fzf integration
+# ------------------------------------------------------------
+# fzf >= 0.48 generates its own key bindings via `fzf --zsh`.
+# Older packages (e.g. Ubuntu 24.04 LTS ships 0.44) fall back
+# to sourcing the file from known per-distro locations.
 # ============================================================
 
-if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-  source /usr/share/fzf/key-bindings.zsh
+if command -v fzf >/dev/null 2>&1; then
+  _fzf_init="$(fzf --zsh 2>/dev/null)"
+  if [[ -n "$_fzf_init" ]]; then
+    eval "$_fzf_init"
+  else
+    for _f in \
+      /usr/share/fzf/key-bindings.zsh \
+      /usr/share/doc/fzf/examples/key-bindings.zsh \
+      /opt/homebrew/opt/fzf/shell/key-bindings.zsh \
+      /usr/local/opt/fzf/shell/key-bindings.zsh; do
+      [[ -f "$_f" ]] && source "$_f" && break
+    done
+  fi
+  unset _fzf_init _f
 fi
 
 # ============================================================
