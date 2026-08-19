@@ -1,9 +1,11 @@
 [tools]
 bat = "latest"
 eza = "latest"
+fd = "latest"
 fzf = "latest"
 ghq = "latest"
 jq = "latest"
+ripgrep = "latest"
 starship = "latest"
 terraform = "latest"
 uv = "latest"
