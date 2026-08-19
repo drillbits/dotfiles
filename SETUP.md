@@ -61,28 +61,52 @@ bash 側の設定が `ssh-add ~/.ssh/id_ed25519` を前提にしている。
 ssh -T git@github.com
 ```
 
-## 3. GPG 鍵の移行
+## 3. GPG 署名サブキーの発行
 
-`.gitconfig` は `commit.gpgsign = true` で、署名鍵 `95AE0F1581DEEBC7` を指定している。
-この鍵が鍵輪にないと、リンク後はすべての `git commit` が失敗する。
+鍵の運用モデルは「主鍵は保管場所のみ、各マシンは自分専用の署名サブキー」とする。
 
-既存の鍵を使い回す場合、旧マシンで秘密鍵をエクスポートする。
+- **主鍵**（`45D211D4E836F921F86C0ECA6F99A1C407AD0472`、ed25519、証明専用）：安全な保管場所にだけ置き、日常のマシンには秘密鍵を残さない
+- **署名サブキー**：マシンごとに主鍵から発行する。コミット署名はこれで行う
+
+`.gitconfig` の `signingkey` は主鍵のフィンガープリント指定なので、gpg がそのマシンにある署名サブキーを自動選択する。
+マシンごとに設定を変える必要はない。
+サブキーが 1 つもないと、リンク後はすべての `git commit` が失敗する。
+
+保管してある主鍵を取り込み、信頼度を設定する。
 
 ```sh
-gpg --export-secret-keys --armor 95AE0F1581DEEBC7 > private-key.asc
-```
-
-新マシンでインポートし、信頼度を設定する。
-
-```sh
-gpg --import private-key.asc
-gpg --edit-key 95AE0F1581DEEBC7
+gpg --import /path/to/primary-key.asc
+gpg --edit-key 45D211D4E836F921F86C0ECA6F99A1C407AD0472
 # gpg> trust → 5 (ultimate) → save
 ```
 
-`private-key.asc` は USB などネットワークを介さない経路で運び、インポートを確認したら両方のマシンから削除する。
+このマシン用の署名サブキーを発行する（有効期限 2 年の例）。
 
-新しい鍵を作る場合は `gpg --full-generate-key` で作成し、`.gitconfig` の `signingkey` を新しい鍵 ID に更新して、公開鍵を GitHub にも登録する。
+```sh
+gpg --quick-add-key 45D211D4E836F921F86C0ECA6F99A1C407AD0472 ed25519 sign 2y
+```
+
+主鍵の秘密鍵をこのマシンから外し、サブキーの秘密鍵だけを残す。
+
+```sh
+gpg --export-secret-subkeys --armor 45D211D4E836F921F86C0ECA6F99A1C407AD0472 > /tmp/subkeys.asc
+gpg --delete-secret-keys 45D211D4E836F921F86C0ECA6F99A1C407AD0472
+gpg --import /tmp/subkeys.asc
+shred -u /tmp/subkeys.asc
+gpg -K
+# 主鍵の行が `sec#` と表示されれば、主鍵の秘密鍵が無い状態になっている
+```
+
+全サブキーを含む公開鍵を GitHub に登録し直す。
+
+```sh
+gpg --armor --export 45D211D4E836F921F86C0ECA6F99A1C407AD0472
+```
+
+出力を GitHub の Settings > SSH and GPG keys に登録する。
+GitHub はアップロード済みの公開鍵に含まれるサブキーの署名だけを Verified にするため、サブキーを発行するたびに既存のエントリを削除して登録し直す。
+
+マシンを手放すときは、保管してある主鍵でそのマシンのサブキーを失効させ（`gpg --edit-key` → `key N` → `revkey`）、公開鍵を再登録する。
 
 ## 4. リポジトリの clone
 
