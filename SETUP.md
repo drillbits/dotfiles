@@ -90,6 +90,10 @@ gpg --quick-add-key 45D211D4E836F921F86C0ECA6F99A1C407AD0472 ed25519 sign 2y
 
 ```sh
 gpg --export-secret-subkeys --armor 45D211D4E836F921F86C0ECA6F99A1C407AD0472 > /tmp/subkeys.asc
+gpg --show-keys /tmp/subkeys.asc
+# ssb が表示されることを確認してから先へ進む。
+# export は passphrase 入力（pinentry）に失敗すると空ファイルを作るだけなので、
+# 確認せずに delete すると、このマシンのサブキーの秘密鍵を失う。
 gpg --delete-secret-keys 45D211D4E836F921F86C0ECA6F99A1C407AD0472
 gpg --import /tmp/subkeys.asc
 shred -u /tmp/subkeys.asc
