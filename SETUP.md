@@ -65,7 +65,7 @@ ssh -T git@github.com
 
 鍵の運用モデルは「主鍵は保管場所のみ、各マシンは自分専用の署名サブキー」とする。
 
-- **主鍵**（`45D211D4E836F921F86C0ECA6F99A1C407AD0472`、ed25519、証明専用）：安全な保管場所にだけ置き、日常のマシンには秘密鍵を残さない
+- **主鍵**（`45D211D4E836F921F86C0ECA6F99A1C407AD0472`、ed25519、証明専用）：安全な保管場所にだけ置き、日常のマシンには秘密鍵を残さない。保管ファイルには主鍵の秘密鍵だけを入れ、サブキーの秘密鍵を含めない
 - **署名サブキー**：マシンごとに主鍵から発行する。コミット署名はこれで行う
 
 `.gitconfig` の `signingkey` は主鍵のフィンガープリント指定なので、gpg がそのマシンにある署名サブキーを自動選択する。
@@ -90,11 +90,22 @@ gpg --quick-add-key 45D211D4E836F921F86C0ECA6F99A1C407AD0472 ed25519 sign 2y
 
 ```sh
 gpg --export-secret-subkeys --armor 45D211D4E836F921F86C0ECA6F99A1C407AD0472 > /tmp/subkeys.asc
+gpg --show-keys /tmp/subkeys.asc
+# ssb が表示されることを確認してから先へ進む。
+# export は passphrase 入力（pinentry）に失敗すると空ファイルを作るだけなので、
+# 確認せずに delete すると、このマシンのサブキーの秘密鍵を失う。
 gpg --delete-secret-keys 45D211D4E836F921F86C0ECA6F99A1C407AD0472
 gpg --import /tmp/subkeys.asc
 shred -u /tmp/subkeys.asc
 gpg -K
 # 主鍵の行が `sec#` と表示されれば、主鍵の秘密鍵が無い状態になっている
+```
+
+他のマシンのサブキーの公開部分を GitHub から取り込む。
+このマシンの keyring には他のマシンのサブキーが存在しないため、取り込まずに export した公開鍵で再登録すると、他のマシンの署名が Unverified になる。
+
+```sh
+curl -s https://github.com/drillbits.gpg | gpg --import
 ```
 
 全サブキーを含む公開鍵を GitHub に登録し直す。
