@@ -252,6 +252,7 @@ resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。
 
 - **~/.config/zsh/.zshrc.local**：zsh の追加設定。マシン固有の PATH 追加や環境変数はここに書く
 - **~/.config/mise/conf.d/*.toml**：マシン固有の mise ツール。共有の config.toml に加えて読み込まれる
+- **~/.ssh/config.local**：ssh の Host 定義。リポジトリは public なので、ホスト名・IP・ユーザー名は必ずこちらへ書く。リンクされる `~/.ssh/config` は共有デフォルト（keepalive、AddKeysToAgent）だけを持ち、先頭の `Include config.local` で読み込む（ssh_config は先勝ちなので、ローカル側が共有デフォルトを上書きできる）
 - **~/.vimrc.local**：vim（`.vimrc` 経由で起動する場合）
 - **~/.bash_profile.local と ~/.bashrc.local**：bash
 

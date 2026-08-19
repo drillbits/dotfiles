@@ -16,7 +16,9 @@ make link
 make install
 ```
 
-`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`. It also explicitly symlinks `.config/git/ignore`, `.config/starship.toml`, `.config/tmux/tmux.conf`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`.
+`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`.
+
+`.ssh/config` in the repo holds shared defaults only (keepalive, `AddKeysToAgent`). Host entries (names, IPs, users) must never be committed — the repo is public; they belong in the untracked `~/.ssh/config.local`, loaded via `Include`.
 
 ## Architecture
 
