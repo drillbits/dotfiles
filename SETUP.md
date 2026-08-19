@@ -1,0 +1,208 @@
+# 新しいマシンへのセットアップ
+
+このリポジトリを新しいマシンに適用する手順。
+`make link` はシンボリックリンクを張るだけで、リンクされる設定ファイルは外部ツールと鍵の存在を前提にしている。
+そのため、リンクの前後に以下の準備が要る。
+手順は依存関係の順に並べてある。
+
+## 1. パッケージのインストール
+
+最初に、clone と以降の手順に必要なコマンドをパッケージマネージャで入れる。
+mise と nodenv とフォントは入れ方に注意があるので別の節で扱う。
+
+### Arch Linux
+
+```sh
+sudo pacman -S --needed git openssh gnupg zsh vim tmux make unzip curl \
+  fzf eza bat starship github-cli xclip wl-clipboard
+```
+
+クリップボード連携（`pbcopy`/`pbpaste` 互換関数）は、`.zshenv` が wl-copy の存在を先に調べ、なければ xclip に切り替える。
+セッション種別ではなくコマンドの有無で決まるため、X11 専用のマシンでは wl-clipboard を入れず xclip だけにする。
+
+### macOS
+
+```sh
+brew install git gnupg zsh vim tmux make unzip fzf eza bat starship gh
+```
+
+`pbcopy`/`pbpaste` は OS 標準のものがそのまま使われる。
+
+### Ubuntu / Debian
+
+```sh
+sudo apt install git openssh-client gnupg zsh vim tmux make unzip curl \
+  fzf bat xclip wl-clipboard
+```
+
+apt だけでは揃わないものがある。
+
+- **bat**：実行ファイル名が `batcat` になる。`mkdir -p ~/.local/bin && ln -s "$(command -v batcat)" ~/.local/bin/bat` でエイリアス先の名前に合わせる
+- **eza**：apt にないバージョンが多い。mise（`mise use -g eza@latest`）か公式の apt リポジトリで入れる
+- **starship**：公式インストーラで入れる（`curl -sS https://starship.rs/install.sh | sh`）
+- **gh**：公式の apt リポジトリ（cli.github.com）から入れる
+- **fzf のキーバインド**：`.zshrc` は `fzf --zsh`（0.48 以降）を優先し、非対応の古い版では Arch、Debian 系、Homebrew の既知パスを順に探す。Ubuntu 24.04 LTS の apt 版（0.44）でも Debian 系のパスにフォールバックするため追加作業は不要
+- **クリップボード**：X11 専用のマシンでは wl-clipboard を入れず xclip だけにする（前述のとおり wl-copy があると優先されるため）
+
+## 2. SSH 鍵の作成と GitHub への登録
+
+```sh
+ssh-keygen -t ed25519 -C "$(whoami)@$(hostname)"
+```
+
+公開鍵 `~/.ssh/id_ed25519.pub` を GitHub の Settings > SSH and GPG keys に登録する。
+
+この手順は、dotfiles に push しない場合でも省略できない。
+`.gitconfig` に `https://github.com/` を `git@github.com:` へ書き換える設定があり、`make link` 後は GitHub との通信が clone や fetch を含めてすべて SSH になるためである。
+
+鍵のファイル名は `id_ed25519` のままにしておく。
+bash 側の設定が `ssh-add ~/.ssh/id_ed25519` を前提にしている。
+
+登録できたか確認する。
+
+```sh
+ssh -T git@github.com
+```
+
+## 3. GPG 鍵の移行
+
+`.gitconfig` は `commit.gpgsign = true` で、署名鍵 `95AE0F1581DEEBC7` を指定している。
+この鍵が鍵輪にないと、リンク後はすべての `git commit` が失敗する。
+
+既存の鍵を使い回す場合、旧マシンで秘密鍵をエクスポートする。
+
+```sh
+gpg --export-secret-keys --armor 95AE0F1581DEEBC7 > private-key.asc
+```
+
+新マシンでインポートし、信頼度を設定する。
+
+```sh
+gpg --import private-key.asc
+gpg --edit-key 95AE0F1581DEEBC7
+# gpg> trust → 5 (ultimate) → save
+```
+
+`private-key.asc` は USB などネットワークを介さない経路で運び、インポートを確認したら両方のマシンから削除する。
+
+新しい鍵を作る場合は `gpg --full-generate-key` で作成し、`.gitconfig` の `signingkey` を新しい鍵 ID に更新して、公開鍵を GitHub にも登録する。
+
+## 4. リポジトリの clone
+
+ghq の root を `~/go/src` に設定してあるので、その配置規約に合わせて clone する。
+
+```sh
+mkdir -p ~/go/src/github.com/drillbits
+cd ~/go/src/github.com/drillbits
+git clone git@github.com:drillbits/dotfiles.git
+cd dotfiles
+```
+
+## 5. make link
+
+```sh
+make link
+```
+
+`.??*` にマッチするファイルを `$HOME` へシンボリックリンクし、`.config` 配下の zsh、bash、wezterm、git、starship の設定と `.claude` を個別にリンクする。
+`~/.terraform.d/plugin-cache` などの必要なディレクトリもここで作られる。
+
+`make install` は `link` に加えて `init` を実行するが、`init` は現状 TODO の echo だけなので、実質 `make link` と同じ。
+
+なお、Makefile のワイルドカードが `.config/zsh/.` と `..` にもマッチするため、`cannot overwrite directory` というエラーが 2 行表示される。
+リンク自体は成功しており、無害。
+
+## 6. デフォルトシェルの変更
+
+```sh
+chsh -s "$(command -v zsh)"
+```
+
+zsh のパスが `/etc/shells` に載っていることを確認しておく。
+反映には再ログインが必要。
+
+この時点では手順 7 と 8 が未完了のため、zsh の起動時に mise と nodenv のエラーが表示される。
+無害であり、7 と 8 を終えれば消える。
+
+## 7. mise のインストール
+
+`.zshrc` が `~/.local/bin/mise` をパス直指定で実行するため、公式インストーラで入れる。
+パッケージマネージャ経由だと `/usr/bin/mise` に入り、この参照と一致しない。
+
+```sh
+curl https://mise.run | sh
+```
+
+ghq は mise で入れる。
+
+```sh
+~/.local/bin/mise use -g ghq@latest
+```
+
+## 8. nodenv のインストール
+
+`.zshrc` は `eval "$(nodenv init -)"` をガードなしで実行するため、nodenv がないとシェルを起動するたびにエラーが出る。
+Arch では AUR の `nodenv`、macOS では `brew install nodenv`、それ以外は公式 README の git clone 手順で入れる。
+
+Node のバージョン管理を mise に寄せるなら、`.zshrc` から nodenv の行を外すのが正しい対応になる。
+
+## 9. フォント
+
+WezTerm の設定は CommitMono を第一候補にし、フォールバックとして Intel One Mono、Hack Nerd Font Mono、Noto Sans Mono CJK JP を指定している。
+最低限、CommitMono と Hack Nerd Font と日本語表示用の Noto Sans Mono CJK JP を入れる。
+eza の `--icons` 表示も Nerd Font のグリフに依存する。
+
+- **Arch Linux**：`sudo pacman -S ttf-hack-nerd noto-fonts-cjk`。CommitMono は AUR か[公式サイト](https://commitmono.com/)から
+- **macOS**：`brew install --cask font-commit-mono font-hack-nerd-font`
+- **その他**：公式サイトから取得して `~/.local/share/fonts` に置き、`fc-cache -f` を実行する
+
+## 10. tmux プラグインマネージャ（tpm）
+
+tpm は手動で clone する必要がある。
+
+```sh
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+tmux を起動し、`Ctrl+t` `I` でプラグイン（tmux-resurrect、tmux-continuum）をインストールする。
+prefix は `Ctrl+t` に変更してある。
+
+## 11. Vim 設定の配置
+
+`.zshrc` は `VIMINIT` で `~/.config/vim/vimrc` を読み込むよう設定しているが、このファイルはリポジトリで管理されていない。
+旧マシンからコピーして置く。
+置かないと、zsh から vim を起動するたびに読み込みエラーが出る。
+
+リポジトリにある `.vimrc` と `.vimrc.*`（dein 使用）は `$HOME` にリンクされるものの、`VIMINIT` が設定された環境では読まれない。
+`~/.config/vim/vimrc` をリポジトリに取り込んで管理するのが今後の課題。
+
+## 12. 環境に応じて入れるもの
+
+以下は設定側にガードがあるか、PATH の追加だけなので、使うマシンにだけ入れればよい。
+
+- **Go**：zsh 側の PATH 追加は `~/go/bin`（GOPATH の bin）だけで、`/usr/local/go/bin` を足すのは bash 側の設定のみ。zsh で使うならパッケージマネージャの go を入れるか、公式 tarball の場合は `.zshrc.local` で PATH を足す
+- **Google Cloud SDK**：`~/.local/opt/google-cloud-sdk` に展開すると `.zshrc` が PATH と補完を読み込む。なければ何も起きない
+- **GitHub CLI（gh）**：`.gitconfig` の credential helper が `/usr/bin/gh` を参照する。GitHub への HTTPS 認証を使う場面があるなら `gh auth login` まで済ませておく
+- **Docker、Terraform、Pulumi**：環境変数と PATH の追加だけ。Terraform の plugin cache ディレクトリは `make link` が作成済み
+
+## 13. マシンローカルの上書き
+
+各設定は、リポジトリで追跡しないローカルファイルを末尾で読みに行く。
+マシン固有の設定はこちらへ書く。
+
+- **~/.config/zsh/.zshrc.local**：zsh の追加設定。マシン固有の PATH 追加や環境変数はここに書く
+- **~/.vimrc.local**：vim（`.vimrc` 経由で起動する場合）
+- **~/.bash_profile.local と ~/.bashrc.local**：bash
+
+`.gitconfig` はリンクで全マシン共通のため、マシンごとにコミットのメールアドレスや署名鍵を変える仕組みは今のところない。
+必要になったら `[include]` でローカルファイルを読む対応を入れる。
+
+## 14. 動作確認
+
+- 新しいターミナルを開き、エラーなしで zsh が起動して starship のプロンプトが出る
+- `ls` が eza、`cat` が bat で表示され、アイコンが化けない
+- `Ctrl+]` で ghq のリポジトリ切り替えが開く（fzf と ghq を使う）
+- `Ctrl+R` で fzf の履歴検索が開く
+- `git commit --allow-empty -m "chore: test signing"` が通り、`git log --show-signature -1` で署名を確認できる
+- tmux で `Ctrl+t` `I` によりプラグインが入る
+- `vim` がエラーなしで起動する
