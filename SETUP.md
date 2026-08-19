@@ -200,13 +200,25 @@ eza の `--icons` 表示も Nerd Font のグリフに依存する。
 ## 10. tmux プラグインマネージャ（tpm）
 
 tpm は手動で clone する必要がある。
+tmux 設定は XDG レイアウト（`~/.config/tmux/tmux.conf`）なので、tpm も `~/.config/tmux/plugins/` に置く。
 
 ```sh
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 ```
 
 tmux を起動し、`Ctrl+t` `I` でプラグイン（tmux-resurrect、tmux-continuum）をインストールする。
 prefix は `Ctrl+t` に変更してある。
+
+旧レイアウト（`~/.tmux.conf` + `~/.tmux/plugins/`）のマシンを移行する場合は、clone の代わりに以下を実行する。
+古い `~/.tmux.conf` を残すと、tmux のバージョンによって新設定が読まれなかったり（3.4 以前は最初に見つけた 1 ファイルのみ）、二重に読まれたり（3.7 以降は両方読む）するため、必ず消す。
+
+```sh
+rm -f ~/.tmux.conf
+mkdir -p ~/.config/tmux
+mv ~/.tmux/plugins ~/.config/tmux/plugins
+```
+
+resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。新しい場所のプラグインもそこを優先して読むため、セッション履歴は失われない。
 
 ## 11. Vim 設定の配置
 

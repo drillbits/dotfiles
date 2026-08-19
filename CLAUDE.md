@@ -16,7 +16,7 @@ make link
 make install
 ```
 
-`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`. It also explicitly symlinks `.config/git/ignore`, `.config/starship.toml`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`.
+`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`. It also explicitly symlinks `.config/git/ignore`, `.config/starship.toml`, `.config/tmux/tmux.conf`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`.
 
 ## Architecture
 
@@ -44,7 +44,9 @@ Bash files use the same stub pattern — `$HOME/.bash_profile` and `$HOME/.bashr
 
 ### tmux
 
-Prefix is `Ctrl+t`. Uses [tpm](https://github.com/tmux-plugins/tpm) with `tmux-resurrect` and `tmux-continuum` (auto-restore on).
+Config lives at `.config/tmux/tmux.conf` (XDG layout; there is no `~/.tmux.conf` — old tmux loads only the first config it finds, so keep a single file). Prefix is `Ctrl+t`. Uses [tpm](https://github.com/tmux-plugins/tpm) (cloned to `~/.config/tmux/plugins/tpm`) with `tmux-resurrect` and `tmux-continuum` (auto-restore on).
+
+Clipboard: `mouse on` + `set-clipboard on` — tmux sends every copy (mouse drag, `y`/`Enter` in copy-mode-vi) to the outer terminal via OSC 52, which works locally and over SSH (wezterm supports it). No `xclip`/`wl-copy` piping. The Linux console (VT) supports neither OSC 52 nor a clipboard; only tmux-internal paste works there.
 
 ### Git
 
