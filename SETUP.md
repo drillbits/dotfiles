@@ -183,7 +183,14 @@ Terraform の plugin cache ディレクトリ（`~/.terraform.d/plugin-cache`）
 ## 8. nodenv のインストール（Node を使うマシンのみ）
 
 `.zshrc` と bash の `profile` は nodenv があるときだけ `eval "$(nodenv init -)"` を実行するので、Node が不要なマシン（サーバーなど）では何もしなくてよい。
-使うマシンでは、Arch は AUR の `nodenv`、macOS は `brew install nodenv`、それ以外は公式 README の git clone 手順で入れる。
+使うマシンでは、Arch は AUR の `nodenv`、macOS は `brew install nodenv`、それ以外は git clone で `~/.nodenv` に入れる。
+`~/.nodenv/bin` の PATH 追加は `.zshenv` と bash の `profile` が存在チェック付きでやるので、シェル設定への追記は不要。
+`nodenv install` を使うには node-build も plugin として clone する。
+
+```sh
+git clone https://github.com/nodenv/nodenv ~/.nodenv
+git clone https://github.com/nodenv/node-build ~/.nodenv/plugins/node-build
+```
 
 Node のバージョン管理を mise に寄せるなら、nodenv をやめて `mise use -g node@<version>` に移行する（その場合はこの節ごと不要になる）。
 
