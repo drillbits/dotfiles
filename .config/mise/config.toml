@@ -1,0 +1,9 @@
+[tools]
+bat = "latest"
+eza = "latest"
+fzf = "latest"
+ghq = "latest"
+jq = "latest"
+starship = "latest"
+terraform = "latest"
+uv = "latest"

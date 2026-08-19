@@ -8,13 +8,14 @@
 ## 1. パッケージのインストール
 
 最初に、clone と以降の手順に必要なコマンドをパッケージマネージャで入れる。
+CLI ツール（fzf、eza、bat、starship、jq、uv、terraform、ghq）は OS のパッケージではなく mise で一括管理するので、ここでは入れない（手順 7）。
 mise と nodenv とフォントは入れ方に注意があるので別の節で扱う。
 
 ### Arch Linux
 
 ```sh
 sudo pacman -S --needed git openssh gnupg zsh vim tmux make unzip curl \
-  fzf eza bat starship github-cli xclip wl-clipboard
+  github-cli xclip wl-clipboard
 ```
 
 クリップボード連携（`pbcopy`/`pbpaste` 互換関数）は、`.zshenv` が wl-copy の存在を先に調べ、なければ xclip に切り替える。
@@ -23,7 +24,7 @@ sudo pacman -S --needed git openssh gnupg zsh vim tmux make unzip curl \
 ### macOS
 
 ```sh
-brew install git gnupg zsh vim tmux make unzip fzf eza bat starship gh
+brew install git gnupg zsh vim tmux make unzip gh
 ```
 
 `pbcopy`/`pbpaste` は OS 標準のものがそのまま使われる。
@@ -32,16 +33,12 @@ brew install git gnupg zsh vim tmux make unzip fzf eza bat starship gh
 
 ```sh
 sudo apt install git openssh-client gnupg zsh vim tmux make unzip curl \
-  fzf bat xclip wl-clipboard
+  xclip wl-clipboard
 ```
 
-apt だけでは揃わないものがある。
+apt では次の点に注意する。
 
-- **bat**：実行ファイル名が `batcat` になる。`mkdir -p ~/.local/bin && ln -s "$(command -v batcat)" ~/.local/bin/bat` でエイリアス先の名前に合わせる
-- **eza**：apt にないバージョンが多い。mise（`mise use -g eza@latest`）か公式の apt リポジトリで入れる
-- **starship**：公式インストーラで入れる（`curl -sS https://starship.rs/install.sh | sh`）
 - **gh**：公式の apt リポジトリ（cli.github.com）から入れる
-- **fzf のキーバインド**：`.zshrc` は `fzf --zsh`（0.48 以降）を優先し、非対応の古い版では Arch、Debian 系、Homebrew の既知パスを順に探す。Ubuntu 24.04 LTS の apt 版（0.44）でも Debian 系のパスにフォールバックするため追加作業は不要
 - **クリップボード**：X11 専用のマシンでは wl-clipboard を入れず xclip だけにする（前述のとおり wl-copy があると優先されるため）
 
 ## 2. SSH 鍵の作成と GitHub への登録
@@ -124,7 +121,7 @@ zsh のパスが `/etc/shells` に載っていることを確認しておく。
 この時点では手順 7 と 8 が未完了のため、zsh の起動時に mise と nodenv のエラーが表示される。
 無害であり、7 と 8 を終えれば消える。
 
-## 7. mise のインストール
+## 7. mise のインストールと CLI ツールの一括導入
 
 `.zshrc` が `~/.local/bin/mise` をパス直指定で実行するため、公式インストーラで入れる。
 パッケージマネージャ経由だと `/usr/bin/mise` に入り、この参照と一致しない。
@@ -133,11 +130,17 @@ zsh のパスが `/etc/shells` に載っていることを確認しておく。
 curl https://mise.run | sh
 ```
 
-ghq は mise で入れる。
+グローバルに使う CLI ツールは `.config/mise/config.toml` で管理していて、`make link` で `~/.config/mise/config.toml` にリンク済み。
+リンクの実体がリポジトリ内にあるため、初回は trust してからインストールする。
 
 ```sh
-~/.local/bin/mise use -g ghq@latest
+~/.local/bin/mise trust ~/go/src/github.com/drillbits/dotfiles/.config/mise/config.toml
+~/.local/bin/mise install
 ```
+
+共有ツールを増やすときは `mise use -g <tool>@latest` を実行する。
+シンボリックリンク越しにリポジトリの config.toml が書き換わるので、それを commit すれば全マシンに共有される。
+Terraform の plugin cache ディレクトリ（`~/.terraform.d/plugin-cache`）は `make link` が作成済み。
 
 ## 8. nodenv のインストール
 
@@ -183,7 +186,7 @@ prefix は `Ctrl+t` に変更してある。
 - **Go**：zsh 側の PATH 追加は `~/go/bin`（GOPATH の bin）だけで、`/usr/local/go/bin` を足すのは bash 側の設定のみ。zsh で使うならパッケージマネージャの go を入れるか、公式 tarball の場合は `.zshrc.local` で PATH を足す
 - **Google Cloud SDK**：`~/.local/opt/google-cloud-sdk` に展開すると `.zshrc` が PATH と補完を読み込む。なければ何も起きない
 - **GitHub CLI（gh）**：`.gitconfig` の credential helper が `/usr/bin/gh` を参照する。GitHub への HTTPS 認証を使う場面があるなら `gh auth login` まで済ませておく
-- **Docker、Terraform、Pulumi**：環境変数と PATH の追加だけ。Terraform の plugin cache ディレクトリは `make link` が作成済み
+- **Docker、Pulumi**：環境変数と PATH の追加だけ
 
 ## 13. マシンローカルの上書き
 
@@ -191,6 +194,7 @@ prefix は `Ctrl+t` に変更してある。
 マシン固有の設定はこちらへ書く。
 
 - **~/.config/zsh/.zshrc.local**：zsh の追加設定。マシン固有の PATH 追加や環境変数はここに書く
+- **~/.config/mise/conf.d/*.toml**：マシン固有の mise ツール。共有の config.toml に加えて読み込まれる
 - **~/.vimrc.local**：vim（`.vimrc` 経由で起動する場合）
 - **~/.bash_profile.local と ~/.bashrc.local**：bash
 
@@ -200,6 +204,7 @@ prefix は `Ctrl+t` に変更してある。
 ## 14. 動作確認
 
 - 新しいターミナルを開き、エラーなしで zsh が起動して starship のプロンプトが出る
+- `mise ls` で config.toml のツールがすべてインストール済みになっている
 - `ls` が eza、`cat` が bat で表示され、アイコンが化けない
 - `Ctrl+]` で ghq のリポジトリ切り替えが開く（fzf と ghq を使う）
 - `Ctrl+R` で fzf の履歴検索が開く
