@@ -1,0 +1,30 @@
+#
+# ~/.config/herdr/config.toml
+#
+# Minimal config — only deviations from herdr defaults live here.
+# Defaults already match the tmux setup where it counts: new tab is
+# prefix+c, pane focus is vim-style prefix+h/j/k/l, and mouse capture
+# with copy-on-select is on.
+#
+# Full reference: herdr --default-config
+# Apply changes:  herdr server reload-config
+
+# Skip the first-run notification wizard on fresh machines;
+# notification delivery is set explicitly under [ui.toast] below.
+onboarding = false
+
+[keys]
+# Same prefix as tmux (Ctrl+t). When herdr runs inside tmux, tmux
+# captures Ctrl+t first — press it twice (tmux binds C-t to
+# send-prefix) to reach herdr.
+prefix = "ctrl+t"
+
+# Next tab on prefix+Space, like next-window in tmux.
+next_tab = "prefix+space"
+
+[ui.toast]
+# Ask the outer terminal to raise a desktop notification when an agent
+# needs attention. Like the OSC 52 clipboard in tmux.conf, this rides
+# tty escape sequences (wezterm supports it), so it works locally and
+# over SSH without external notify commands.
+delivery = "terminal"
