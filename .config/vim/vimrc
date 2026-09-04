@@ -1,0 +1,103 @@
+" ==============================
+" Editing
+" ==============================
+
+set scrolloff=5
+set textwidth=0
+set autoread
+set hidden
+set formatoptions=lmoq
+set vb t_vb=
+set whichwrap=b,s,h,l,<,>,[,]
+set showcmd
+set showmode
+set modelines=0
+
+" ==============================
+" Syntax / Filetype
+" ==============================
+
+syntax enable
+filetype plugin indent on
+
+" ==============================
+" Clipboard
+" ==============================
+
+if has('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
+
+" ==============================
+" XDG: backup / swap / undo / viminfo / netrw
+" ==============================
+
+let s:cachedir = expand('~/.cache/vim')
+for s:d in ['backup', 'swap', 'undo']
+  if !isdirectory(s:cachedir . '/' . s:d)
+    call mkdir(s:cachedir . '/' . s:d, 'p')
+  endif
+endfor
+
+set backup
+set backupdir^=~/.cache/vim/backup//
+set writebackup
+set directory^=~/.cache/vim/swap//
+set undofile
+set undodir^=~/.cache/vim/undo//
+
+" registers survive restarts up to 1000 lines each
+set viminfo='50,<1000,s100
+if exists('&viminfofile')
+  let s:statedir = ($XDG_STATE_HOME !=# '' ? $XDG_STATE_HOME : expand('~/.local/state')) . '/vim'
+  if !isdirectory(s:statedir)
+    call mkdir(s:statedir, 'p')
+  endif
+  let &viminfofile = s:statedir . '/viminfo'
+endif
+
+" keep netrw history out of ~/.vim
+let s:datadir = ($XDG_DATA_HOME !=# '' ? $XDG_DATA_HOME : expand('~/.local/share')) . '/vim'
+if !isdirectory(s:datadir)
+  call mkdir(s:datadir, 'p')
+endif
+let g:netrw_home = s:datadir
+
+" ==============================
+" Statusline
+" ==============================
+
+set laststatus=2
+set ruler
+set statusline=%<%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']'}%y\ %f\ %=\ %l,%c\ %8P
+
+" ==============================
+" Moving
+" ==============================
+
+" move window by tab
+nnoremap <silent><Tab> <C-w>w
+
+" hjkl+ae in insert mode
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+augroup vimrc
+  autocmd!
+  " jump to the last known cursor position
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+" ==============================
+" Local overrides
+" ==============================
+
+if filereadable(expand('~/.config/vim/vimrc.local'))
+  source ~/.config/vim/vimrc.local
+endif

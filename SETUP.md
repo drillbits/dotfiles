@@ -229,12 +229,20 @@ resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。
 
 ## 11. Vim 設定の配置
 
-`.zshrc` は `VIMINIT` で `~/.config/vim/vimrc` を読み込むよう設定しているが、このファイルはリポジトリで管理されていない。
-旧マシンからコピーして置く。
-置かないと、zsh から vim を起動するたびに読み込みエラーが出る。
+vim の設定は `.config/vim/vimrc` にあり、`make link` が `~/.config/vim/vimrc` にリンクする。
+`.zshrc` が `VIMINIT` でこのファイルを読み込むため、vim のバージョンによらず同じ設定が使われる(vim 9.1.0327 以降は `VIMINIT` がなくても XDG の場所を自分で見つける)。
+以前 `~/.config/vim/vimrc` を手動で置いていたマシンでも、`make link` の `ln -sfn` がそのままリンクに置き換えるので追加の手順はない。
 
-リポジトリにある `.vimrc` と `.vimrc.*`（dein 使用）は `$HOME` にリンクされるものの、`VIMINIT` が設定された環境では読まれない。
-`~/.config/vim/vimrc` をリポジトリに取り込んで管理するのが今後の課題。
+旧構成(ルートの `.vimrc` と `.vimrc.*` を `$HOME` にリンクする方式)から移行する場合は、残った symlink を消す。
+`~/.vimrc.local` だけはリポジトリ管理外の実ファイルなので、消さずに新しい読み込み先へ移す。
+
+```sh
+rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.vimrc.statusline
+[ -L ~/.vim ] && rm ~/.vim
+[ -f ~/.vimrc.local ] && mv ~/.vimrc.local ~/.config/vim/vimrc.local
+```
+
+`~/.vim` が symlink ではなく実ディレクトリのマシンでは、中に必要なもの(自作の ftplugin など)がないか確認してから消す。
 
 ## 12. 環境に応じて入れるもの
 
@@ -253,7 +261,7 @@ resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。
 - **~/.config/zsh/.zshrc.local**：zsh の追加設定。マシン固有の PATH 追加や環境変数はここに書く
 - **~/.config/mise/conf.d/*.toml**：マシン固有の mise ツール。共有の config.toml に加えて読み込まれる
 - **~/.ssh/config.local**：ssh の Host 定義。リポジトリは public なので、ホスト名・IP・ユーザー名は必ずこちらへ書く。リンクされる `~/.ssh/config` は共有デフォルト（keepalive、AddKeysToAgent）だけを持ち、先頭の `Include config.local` で読み込む（ssh_config は先勝ちなので、ローカル側が共有デフォルトを上書きできる）
-- **~/.vimrc.local**：vim（`.vimrc` 経由で起動する場合）
+- **~/.config/vim/vimrc.local**：vim。vimrc の末尾で読み込まれる
 - **~/.bash_profile.local と ~/.bashrc.local**：bash
 
 `.gitconfig` はリンクで全マシン共通のため、マシンごとにコミットのメールアドレスや署名鍵を変える仕組みは今のところない。

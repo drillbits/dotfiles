@@ -42,7 +42,7 @@ Bash files use the same stub pattern — `$HOME/.bash_profile` and `$HOME/.bashr
 
 ### Vim
 
-`.vimrc` is a loader only — it sources `.vimrc.{plugin,basic,statusline,moving,color,local}` in order. Machine-local overrides go in `.vimrc.local` (not tracked).
+Config is a single plugin-less file at `.config/vim/vimrc` (XDG layout; no `~/.vimrc`). Loaded via `VIMINIT` exported from `.zshrc`, so every vim reads it regardless of version (vim 9.1.0327+ would also find it natively). Backup/swap/undo go to `~/.cache/vim/`, viminfo to `~/.local/state/vim/`, netrw history to `~/.local/share/vim/`. Machine-local overrides go in `~/.config/vim/vimrc.local` (not tracked).
 
 ### tmux
 
