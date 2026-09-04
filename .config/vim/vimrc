@@ -48,7 +48,8 @@ let &directory = s:cachedir . '/swap//'
 set undofile
 let &undodir = s:cachedir . '/undo//'
 
-" registers survive restarts up to 1000 lines each
+" persist marks, registers, command/search history across sessions
+" (registers up to 1000 lines each, vs the 50-line default)
 set viminfo='50,<1000,s100
 if exists('&viminfofile')
   let s:statedir = ($XDG_STATE_HOME !=# '' ? $XDG_STATE_HOME : expand('~/.local/state')) . '/vim'
