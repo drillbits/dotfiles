@@ -234,10 +234,11 @@ resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。
 ## 11. Vim 設定の配置
 
 vim の設定は `.config/vim/vimrc` にあり、`make link` が `~/.config/vim/vimrc` にリンクする。
-`.zshrc` が `VIMINIT` でこのファイルを読み込むため、vim のバージョンによらず同じ設定が使われる(vim 9.1.0327 以降は `VIMINIT` がなくても XDG の場所を自分で見つける)。
+zsh から起動する vim は、`.zshrc` が `VIMINIT` でこのファイルを読み込むため、バージョンによらず同じ設定を使う。
+`VIMINIT` が渡らない起動経路（GUI ランチャや sudo など）では、vim 9.1.0327 以降が XDG の場所を自分で見つけて読む。
 以前 `~/.config/vim/vimrc` を手動で置いていたマシンでも、`make link` の `ln -sfn` がそのままリンクに置き換えるので追加の手順はない。
 
-旧構成(ルートの `.vimrc` と `.vimrc.*` を `$HOME` にリンクする方式)から移行する場合は、残った symlink を消す。
+旧構成（ルートの `.vimrc` と `.vimrc.*` を `$HOME` にリンクする方式）から移行する場合は、残った symlink を消す。
 `~/.vimrc.local` だけはリポジトリ管理外の実ファイルなので、消さずに新しい読み込み先へ移す。
 
 ```sh
@@ -246,7 +247,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 [ -f ~/.vimrc.local ] && mv ~/.vimrc.local ~/.config/vim/vimrc.local
 ```
 
-`~/.vim` が symlink ではなく実ディレクトリのマシンでは、中に必要なもの(自作の ftplugin など)がないか確認してから消す。
+`~/.vim` が symlink ではなく実ディレクトリのマシンでは、中に必要なもの（自作の ftplugin など）がないか確認してから消す。
 
 ## 12. 環境に応じて入れるもの
 

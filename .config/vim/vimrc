@@ -34,7 +34,7 @@ endif
 " XDG: backup / swap / undo / viminfo / netrw
 " ==============================
 
-let s:cachedir = expand('~/.cache/vim')
+let s:cachedir = ($XDG_CACHE_HOME !=# '' ? $XDG_CACHE_HOME : expand('~/.cache')) . '/vim'
 for s:d in ['backup', 'swap', 'undo']
   if !isdirectory(s:cachedir . '/' . s:d)
     call mkdir(s:cachedir . '/' . s:d, 'p')
@@ -42,11 +42,11 @@ for s:d in ['backup', 'swap', 'undo']
 endfor
 
 set backup
-set backupdir^=~/.cache/vim/backup//
 set writebackup
-set directory^=~/.cache/vim/swap//
+let &backupdir = s:cachedir . '/backup//'
+let &directory = s:cachedir . '/swap//'
 set undofile
-set undodir^=~/.cache/vim/undo//
+let &undodir = s:cachedir . '/undo//'
 
 " registers survive restarts up to 1000 lines each
 set viminfo='50,<1000,s100
