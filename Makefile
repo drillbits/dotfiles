@@ -3,7 +3,7 @@ DOTFILES    := $(wildcard .??*)
 EXCLUSIONS  := .DS_Store .git .gitmodules .config .claude .ssh
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(DOTFILES))
 BASH_CONFIGS   := $(wildcard .config/bash/*)
-ZSH_CONFIGS    := $(wildcard .config/zsh/.*)
+ZSH_CONFIGS    := $(wildcard .config/zsh/.??*)
 WEZTERM_CONFIGS := $(wildcard .config/wezterm/*)
 RELOAD      := $(source ~/.bash_profile)
 

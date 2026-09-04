@@ -144,8 +144,12 @@ make link
 
 `make install` は `link` に加えて `init` を実行するが、`init` は現状 TODO の echo だけなので、実質 `make link` と同じ。
 
-なお、Makefile のワイルドカードが `.config/zsh/.` と `..` にもマッチするため、`cannot overwrite directory` というエラーが 2 行表示される。
-リンク自体は成功しており、無害。
+以前の Makefile はワイルドカードが `.config/zsh/.` と `..` にもマッチし、不要なリンク `~/.config/zsh/zsh` と `~/.config/.config` を作っていた。
+過去に `make link` を実行したことがあるマシンでは消しておく。
+
+```sh
+rm -f ~/.config/zsh/zsh ~/.config/.config
+```
 
 ## 6. デフォルトシェルの変更
 
