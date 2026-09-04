@@ -8,7 +8,7 @@
 ## 1. パッケージのインストール
 
 最初に、clone と以降の手順に必要なコマンドをパッケージマネージャで入れる。
-CLI ツール（fzf、eza、bat、starship、jq、uv、terraform、ghq）は OS のパッケージではなく mise で一括管理するので、ここでは入れない（手順 7）。
+CLI ツール（bat、eza、fd、fzf、ghq、herdr、jq、ripgrep、starship、terraform、uv）は OS のパッケージではなく mise で一括管理するので、ここでは入れない（手順 7）。
 mise と nodenv とフォントは入れ方に注意があるので別の節で扱う。
 
 ### Arch Linux
@@ -139,7 +139,7 @@ cd dotfiles
 make link
 ```
 
-`.??*` にマッチするファイルを `$HOME` へシンボリックリンクし、`.config` 配下の zsh、bash、wezterm、git、starship の設定と `.claude` を個別にリンクする。
+`.??*` にマッチするファイルを `$HOME` へシンボリックリンクし、`.config` 配下の zsh、bash、wezterm、git、mise、tmux、herdr、starship の設定と `.claude` を個別にリンクする。
 `~/.terraform.d/plugin-cache` などの必要なディレクトリもここで作られる。
 
 `make install` は `link` に加えて `init` を実行するが、`init` は現状 TODO の echo だけなので、実質 `make link` と同じ。
@@ -263,6 +263,7 @@ resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。
 
 - 新しいターミナルを開き、エラーなしで zsh が起動して starship のプロンプトが出る
 - `mise ls` で config.toml のツールがすべてインストール済みになっている
+- `herdr` が起動し、tmux と同じ `Ctrl+t` が prefix として効く（設定は `~/.config/herdr/config.toml` にリンク済み）
 - `ls` が eza、`cat` が bat で表示され、アイコンが化けない
 - `Ctrl+]` で ghq のリポジトリ切り替えが開く（fzf と ghq を使う）
 - `Ctrl+R` で fzf の履歴検索が開く
