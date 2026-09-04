@@ -24,9 +24,10 @@ filetype plugin indent on
 " Clipboard
 " ==============================
 
+" + register on X11/Wayland; on macOS the * register is the OS clipboard
 if has('unnamedplus')
   set clipboard=unnamedplus
-else
+elseif has('clipboard')
   set clipboard=unnamed
 endif
 
