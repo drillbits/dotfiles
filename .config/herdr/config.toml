@@ -22,6 +22,20 @@ prefix = "ctrl+t"
 # Next tab on prefix+Space, like next-window in tmux.
 next_tab = "prefix+space"
 
+# Pane keys aligned with tmux.conf. herdr's defaults already cover most
+# of it: prefix+- splits down (stacked), prefix+x closes the pane, and
+# terminal.new_cwd = "follow" starts new panes in the current directory.
+# Only the side-by-side split and the next-pane key differ.
+
+# Split side by side (left / right) on prefix+|, like split-window -h.
+split_vertical = "prefix+|"
+
+# Next pane on prefix+o, like select-pane -t :.+. herdr binds prefix+o
+# to open_notification_target by default and keeps that one when two
+# actions share a key, so move it to prefix+shift+o first.
+open_notification_target = "prefix+shift+o"
+cycle_pane_next = "prefix+o"
+
 [ui.toast]
 # Ask the outer terminal to raise a desktop notification when an agent
 # needs attention. Like the OSC 52 clipboard in tmux.conf, this rides

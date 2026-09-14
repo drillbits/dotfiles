@@ -52,7 +52,7 @@ Clipboard: `mouse on` + `set-clipboard on` — tmux sends every copy (mouse drag
 
 ### herdr
 
-Terminal workspace manager for coding agents, installed via mise. Config at `.config/herdr/config.toml` holds only deviations from herdr defaults: prefix aligned with tmux (`Ctrl+t`), `prefix+Space` for next tab, toast notifications delivered through the outer terminal (works over SSH, same idea as the OSC 52 clipboard). Runs alongside tmux, not nested inside it — nesting requires double-pressing the prefix and breaks terminal-delivered notifications.
+Terminal workspace manager for coding agents, installed via mise. Config at `.config/herdr/config.toml` holds only deviations from herdr defaults: prefix aligned with tmux (`Ctrl+t`), `prefix+Space` for next tab, pane keys matching tmux (`prefix+|` split side by side, `prefix+o` next pane; the notification-target action moves to `prefix+shift+o` to free `o`), toast notifications delivered through the outer terminal (works over SSH, same idea as the OSC 52 clipboard). Runs alongside tmux, not nested inside it — nesting requires double-pressing the prefix and breaks terminal-delivered notifications.
 
 ### Git
 
