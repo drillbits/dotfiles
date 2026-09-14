@@ -1,0 +1,23 @@
+# herdr launcher entry for GNOME and other XDG desktops (Linux only;
+# `make link` symlinks it to ~/.local/share/applications/).
+#
+# herdr is a TUI, so this entry opens a terminal and runs herdr inside it.
+# - wezterm is named explicitly instead of Terminal=true because
+#   [ui.toast] delivery = "terminal" in config.toml relies on wezterm's
+#   escape sequences; GNOME's default-terminal fallback would pick kgx.
+# - `mise x -- herdr` resolves herdr through mise: the desktop session's
+#   PATH has ~/.local/bin (mise itself) but not mise's shims.
+# - --class herdr gives the window its own app_id, matching
+#   StartupWMClass, so the dock shows herdr as its own app rather than
+#   another WezTerm window, and clicking the running icon focuses it
+#   instead of spawning a second client.
+[Desktop Entry]
+Type=Application
+Name=herdr
+Comment=Terminal workspace manager for coding agents
+Exec=wezterm start --always-new-process --class herdr -- mise x -- herdr
+Icon=utilities-terminal
+Terminal=false
+Categories=Development;
+StartupWMClass=herdr
+Keywords=agent;tmux;terminal;

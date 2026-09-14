@@ -1,11 +1,12 @@
 ROOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 DOTFILES    := $(wildcard .??*)
-EXCLUSIONS  := .DS_Store .git .gitmodules .config .claude .ssh
+EXCLUSIONS  := .DS_Store .git .gitmodules .config .claude .local .ssh
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(DOTFILES))
 BASH_CONFIGS   := $(wildcard .config/bash/*)
 ZSH_CONFIGS    := $(wildcard .config/zsh/.??*)
 WEZTERM_CONFIGS := $(wildcard .config/wezterm/*)
 RELOAD      := $(source ~/.bash_profile)
+UNAME_S     := $(shell uname -s)
 
 all: install
 
@@ -37,6 +38,10 @@ link:
 	@$(foreach val, $(BASH_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(WEZTERM_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(ZSH_CONFIGS), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
+ifeq ($(UNAME_S),Linux)
+	@mkdir -p $(HOME)/.local/share/applications
+	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
+endif
 
 init:
 	@echo 'TODO: initialize: install, build, configure apps, packages, etc...'
