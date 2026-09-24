@@ -1,0 +1,56 @@
+#!/bin/sh
+# Register GNOME custom keyboard shortcuts via gsettings. Idempotent: an entry
+# whose name already exists is updated in place; a new name takes the lowest
+# free customN slot. Shortcuts with other names are left untouched.
+#
+# Add shortcuts at the bottom with: set_key NAME COMMAND BINDING
+# Run with: make gnome-keys
+set -eu
+
+SCHEMA=org.gnome.settings-daemon.plugins.media-keys
+KEY_SCHEMA=$SCHEMA.custom-keybinding
+SLOT_PREFIX=/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+
+if ! command -v gsettings >/dev/null 2>&1; then
+  echo 'gsettings not found; skipping GNOME shortcuts' >&2
+  exit 0
+fi
+
+# Registered slot paths, one per line. The raw value looks like
+# ['/…/custom0/', '/…/custom1/'] or "@as []" when empty.
+slots() {
+  gsettings get "$SCHEMA" custom-keybindings \
+    | sed -e 's/^@as //' -e "s/[][' ]//g" | tr ',' '\n' | sed '/^$/d'
+}
+
+# get SLOT KEY -> value without the surrounding quotes
+get() {
+  gsettings get "$KEY_SCHEMA:$1" "$2" | sed -e "s/^'//" -e "s/'\$//"
+}
+
+set_key() {
+  name=$1 cmd=$2 binding=$3
+  slot=
+  for s in $(slots); do
+    if [ "$(get "$s" name)" = "$name" ]; then
+      slot=$s
+      break
+    fi
+  done
+  if [ -z "$slot" ]; then
+    n=0
+    while slots | grep -qx "$SLOT_PREFIX/custom$n/"; do n=$((n + 1)); done
+    slot=$SLOT_PREFIX/custom$n/
+    list=
+    for s in $(slots) "$slot"; do
+      list="${list:+$list, }'$s'"
+    done
+    gsettings set "$SCHEMA" custom-keybindings "[$list]"
+  fi
+  gsettings set "$KEY_SCHEMA:$slot" name "$name"
+  gsettings set "$KEY_SCHEMA:$slot" command "$cmd"
+  gsettings set "$KEY_SCHEMA:$slot" binding "$binding"
+  echo "$binding  $name  ($cmd)"
+}
+
+set_key 'Toggle audio output' "$HOME/.local/bin/audio-output-toggle" '<Super>F9'

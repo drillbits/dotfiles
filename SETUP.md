@@ -257,6 +257,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 - **Google Cloud SDK**：`~/.local/opt/google-cloud-sdk` に展開すると `.zshrc` が PATH と補完を読み込む。なければ何も起きない
 - **GitHub CLI（gh）**：`.gitconfig` の credential helper が `/usr/bin/gh` を参照する。GitHub への HTTPS 認証を使う場面があるなら `gh auth login` まで済ませておく
 - **Docker、Pulumi**：環境変数と PATH の追加だけ
+- **GNOME**：`make gnome-keys` で GNOME のカスタムショートカットを登録する（`Super+F9` で音声出力先を切り替える `audio-output-toggle` など）。gsettings の状態はマシンごとなので `make link` 後に GNOME のマシンで実行する。同名のエントリは上書き、手で登録した他のショートカットは触らないので、何度実行してもよい
 
 ## 13. マシンローカルの上書き
 
@@ -283,3 +284,4 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 - `git commit --allow-empty -m "chore: test signing"` が通り、`git log --show-signature -1` で署名を確認できる
 - tmux で `Ctrl+t` `I` によりプラグインが入る
 - `vim` がエラーなしで起動する
+- GNOME では `Super+F9` で音声出力先が切り替わり、切り替え先のデバイス名が通知される

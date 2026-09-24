@@ -14,6 +14,9 @@ make link
 
 # Full setup: link + init
 make install
+
+# Register GNOME custom keyboard shortcuts (Linux/GNOME only; idempotent)
+make gnome-keys
 ```
 
 `make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
@@ -60,7 +63,9 @@ Terminal workspace manager for coding agents, installed via mise. Config at `.co
 
 Small helper scripts live in `.local/bin/` and are linked into `~/.local/bin` (already on `$PATH` via `.zshenv`).
 
-- `audio-output-toggle` — cycles the default audio sink to the next one (PipeWire via pipewire-pulse, or PulseAudio; uses `pactl` so it works on both Arch and Ubuntu). Device names are never hard-coded. Intended to be bound to a GNOME custom shortcut or a Stream Deck button (OpenDeck "Run Command"); those don't run through zsh, so reference it by absolute path.
+- `audio-output-toggle` — cycles the default audio sink to the next one (PipeWire via pipewire-pulse, or PulseAudio; uses `pactl` so it works on both Arch and Ubuntu). Device names are never hard-coded. Intended to be bound to a GNOME custom shortcut or a Stream Deck button (OpenDeck "Run Command"); those don't run through zsh, so reference it by absolute path. `make gnome-keys` registers it on `Super+F9`.
+
+`scripts/gnome-keys` holds the GNOME custom shortcuts as `set_key NAME COMMAND BINDING` lines and applies them with gsettings. It is idempotent: an entry with the same name is updated in place, a new one takes the lowest free `customN` slot, and shortcuts with other names (registered by hand or by other apps) are left alone. gsettings state is per machine, so run it on each GNOME box after `make link`.
 
 ### Git
 

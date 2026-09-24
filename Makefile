@@ -46,6 +46,9 @@ ifeq ($(UNAME_S),Linux)
 	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
 endif
 
+gnome-keys:
+	@sh scripts/gnome-keys
+
 init:
 	@echo 'TODO: initialize: install, build, configure apps, packages, etc...'
 
