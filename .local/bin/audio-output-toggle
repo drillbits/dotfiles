@@ -1,0 +1,35 @@
+#!/bin/sh
+# Cycle the default audio output (sink) to the next available one.
+#
+# Works with PipeWire (via pipewire-pulse) and PulseAudio, so the same script
+# runs on Arch and Ubuntu. Sink names differ per machine, so nothing is
+# hard-coded: it always picks the sink after the current default (wrapping
+# around to the first). Meant to be bound to a GNOME custom shortcut or a
+# Stream Deck button; use the absolute path there, since those don't go
+# through zsh and won't see $PATH from .zshenv.
+set -eu
+
+current=$(pactl get-default-sink)
+sinks=$(pactl list short sinks | cut -f2)
+next=$(printf '%s\n%s\n' "$sinks" "$sinks" \
+  | awk -v cur="$current" 'hit { print; exit } $0 == cur { hit = 1 }')
+[ -n "$next" ] || next=$(printf '%s\n' "$sinks" | head -n1)
+
+pactl set-default-sink "$next"
+
+# Streams that follow the default move automatically under PipeWire; this
+# also drags along streams pinned to a device by the app (e.g. via pavucontrol).
+pactl list short sink-inputs | cut -f1 | while read -r id; do
+  pactl move-sink-input "$id" "$next" || true
+done
+
+if command -v notify-send >/dev/null 2>&1; then
+  desc=$(pactl list sinks | awk -v n="$next" '
+    $1 == "Name:" { m = ($2 == n) }
+    m && /^[ \t]*Description:/ { sub(/^[ \t]*Description: /, ""); print; exit }')
+  # The synchronous hint makes daemons that support it (dunst, mako) replace
+  # the previous toast instead of stacking; GNOME ignores it harmlessly.
+  notify-send -t 1500 -i audio-headphones \
+    -h string:x-canonical-private-synchronous:audio-output \
+    'Audio Output' "${desc:-$next}"
+fi

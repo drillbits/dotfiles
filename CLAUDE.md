@@ -16,7 +16,7 @@ make link
 make install
 ```
 
-`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, and creates `~/.config/zsh/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
+`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
 
 `.ssh/config` in the repo holds shared defaults only (keepalive, `AddKeysToAgent`). Host entries (names, IPs, users) must never be committed — the repo is public; they belong in the untracked `~/.ssh/config.local`, loaded via `Include`.
 
@@ -55,6 +55,12 @@ Clipboard: `mouse on` + `set-clipboard on` — tmux sends every copy (mouse drag
 Terminal workspace manager for coding agents, installed via mise. Config at `.config/herdr/config.toml` holds only deviations from herdr defaults: prefix aligned with tmux (`Ctrl+t`), `prefix+Space` for next tab, pane keys matching tmux (`prefix+|` split side by side, `prefix+o` next pane; the notification-target action moves to `prefix+shift+o` to free `o`), toast notifications delivered through the outer terminal (works over SSH, same idea as the OSC 52 clipboard). Runs alongside tmux, not nested inside it — nesting requires double-pressing the prefix and breaks terminal-delivered notifications.
 
 `.local/share/applications/herdr.desktop` puts herdr in the GNOME app launcher (Linux only, linked by `make link`). It runs `mise x -- herdr` inside a dedicated wezterm window (`--class herdr`, so the dock shows it as its own app) because the desktop session's PATH has `~/.local/bin` but not mise's shims, and because terminal-delivered toasts need wezterm rather than GNOME's default terminal.
+
+### Scripts
+
+Small helper scripts live in `.local/bin/` and are linked into `~/.local/bin` (already on `$PATH` via `.zshenv`).
+
+- `audio-output-toggle` — cycles the default audio sink to the next one (PipeWire via pipewire-pulse, or PulseAudio; uses `pactl` so it works on both Arch and Ubuntu). Device names are never hard-coded. Intended to be bound to a GNOME custom shortcut or a Stream Deck button (OpenDeck "Run Command"); those don't run through zsh, so reference it by absolute path.
 
 ### Git
 
