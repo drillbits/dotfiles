@@ -11,6 +11,9 @@
 #   StartupWMClass, so the dock shows herdr as its own app rather than
 #   another WezTerm window, and clicking the running icon focuses it
 #   instead of spawning a second client.
+# - .local/bin/herd runs this same command line (plus --cwd, and --session
+#   when HERDR_SESSION is set) when no herdr server is running yet; keep
+#   the two in sync.
 [Desktop Entry]
 Type=Application
 Name=herdr

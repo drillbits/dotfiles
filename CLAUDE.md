@@ -59,11 +59,14 @@ Terminal workspace manager for coding agents, installed via mise. Config at `.co
 
 `.local/share/applications/herdr.desktop` puts herdr in the GNOME app launcher (Linux only, linked by `make link`). It runs `mise x -- herdr` inside a dedicated wezterm window (`--class herdr`, so the dock shows it as its own app) because the desktop session's PATH has `~/.local/bin` but not mise's shims, and because terminal-delivered toasts need wezterm rather than GNOME's default terminal.
 
+`herd DIR` (see Scripts) is the `code DIR` equivalent: it opens a directory as a workspace in the running herdr, launching that window first if needed.
+
 ### Scripts
 
 Small helper scripts live in `.local/bin/` and are linked into `~/.local/bin` (already on `$PATH` via `.zshenv`).
 
 - `audio-output-toggle` — cycles the default audio sink to the next one (PipeWire via pipewire-pulse, or PulseAudio; uses `pactl` so it works on both Arch and Ubuntu). Device names are never hard-coded. Intended to be bound to a GNOME custom shortcut or a Stream Deck button (OpenDeck "Run Command"); those don't run through zsh, so reference it by absolute path. `make gnome-keys` registers it on `Super+F9`.
+- `herd [DIR]` — opens a directory in herdr the way `code DIR` does in VS Code (DIR defaults to `.`). Focuses the workspace that already has a pane launched in DIR, otherwise creates one over the socket API (herdr labels it by basename), then raises the herdr window via GNOME Shell's `FocusApp`. If no server is running it launches herdr in a wezterm window with the same command line as `herdr.desktop` plus `--cwd DIR` (keep the two in sync), waits for the socket and for the client's first workspace, and then does the same focus-or-create step — needed because a restored session brings back its old workspaces rather than opening DIR. Run it from a shell: it needs `herdr` and `jq` on `$PATH`.
 
 `scripts/gnome-keys` holds the GNOME custom shortcuts as `set_key NAME COMMAND BINDING` lines and applies them with gsettings. It is idempotent: an entry with the same name is updated in place, a new one takes the lowest free `customN` slot, and shortcuts with other names (registered by hand or by other apps) are left alone. gsettings state is per machine, so run it on each GNOME box after `make link`.
 

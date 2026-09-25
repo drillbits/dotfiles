@@ -1,0 +1,101 @@
+#!/bin/sh
+# Open a directory in herdr, the way `code DIR` opens one in VS Code.
+#
+# herdr keeps a single persistent session, so "opening a directory" means
+# landing in the workspace whose shells started there: focus the workspace
+# that already has a pane in DIR, otherwise create one over the socket API.
+#
+# When no server is running, herdr is first launched in its own wezterm
+# window (the same command line as .local/share/applications/herdr.desktop,
+# keep the two in sync) with DIR as the cwd. A brand-new session opens its
+# first workspace there; a restored session brings back its old workspaces
+# instead, so once the socket is up the same focus-or-create step runs.
+#
+# From a terminal outside herdr the window is then raised through GNOME
+# Shell (GNOME only; it recognizes only windows started with --class herdr,
+# i.e. via herdr.desktop or this script). Elsewhere nothing is raised.
+#
+# DIR defaults to the current directory. HERDR_SESSION selects a named
+# session, as it does for herdr itself.
+set -eu
+
+case ${1:-} in
+  -h|--help)
+    echo "usage: herd [DIR]" >&2
+    exit 0
+    ;;
+esac
+[ $# -le 1 ] || { echo "usage: herd [DIR]" >&2; exit 2; }
+
+dir=${1:-.}
+[ -d "$dir" ] || { echo "herd: not a directory: $dir" >&2; exit 1; }
+# herdr reports pane cwds as resolved paths, so resolve ours to match.
+# CDPATH is cleared so a relative DIR can't be resolved elsewhere.
+dir=$(CDPATH= cd -- "$dir" && pwd -P)
+
+for tool in herdr jq; do
+  command -v "$tool" >/dev/null 2>&1 || { echo "herd: $tool not found in PATH" >&2; exit 1; }
+done
+
+# herdr answers in JSON: results on stdout, errors on stderr with a
+# non-zero exit.
+api() {
+  out=$(herdr "$@" 2>&1) || { printf 'herd: %s\n' "$out" >&2; exit 1; }
+  printf '%s' "$out"
+}
+
+# 0 while the server is down or has no workspace yet.
+pane_count() {
+  herdr pane list 2>/dev/null | jq -s '.[0].result.panes // [] | length'
+}
+
+launch() {
+  for tool in wezterm mise; do
+    command -v "$tool" >/dev/null 2>&1 \
+      || { echo "herd: herdr is not running and $tool is unavailable to launch it; run \`herdr\` in a terminal" >&2; exit 1; }
+  done
+  set -- mise x -- herdr
+  [ -z "${HERDR_SESSION:-}" ] || set -- "$@" --session "$HERDR_SESSION"
+  # --always-new-process keeps this wezterm process alive for the window's
+  # lifetime, so $! tells whether the launch is still up.
+  nohup wezterm start --always-new-process --class herdr --cwd "$dir" -- "$@" >/dev/null 2>&1 &
+}
+
+if ! panes=$(herdr pane list 2>&1); then
+  code=$(printf '%s' "$panes" | jq -r '.error.code // empty' 2>/dev/null || true)
+  [ "$code" = server_not_running ] || { printf 'herd: %s\n' "$panes" >&2; exit 1; }
+  launch
+  # Wait for the socket, then for the pane count to settle above zero: a
+  # brand-new session opens its first workspace in DIR a moment after the
+  # socket appears, and a restored session brings its workspaces back one
+  # by one. Waiting keeps us from failing early or opening DIR twice.
+  n=0; prev=-1
+  while count=$(pane_count) && { [ "$count" -eq 0 ] || [ "$count" -ne "$prev" ]; } && [ $n -lt 50 ]; do
+    kill -0 "$!" 2>/dev/null || { echo "herd: wezterm exited before herdr came up (no display?)" >&2; exit 1; }
+    prev=$count
+    sleep 0.2
+    n=$((n + 1))
+  done
+  panes=$(herdr pane list 2>/dev/null) || { echo "herd: herdr did not start within 10s" >&2; exit 1; }
+fi
+
+# A pane's `cwd` is where its shell was launched (not where it has since
+# cd'ed), so it identifies the workspace opened for DIR. Panes are listed in
+# workspace order, so the first hit is the oldest matching workspace.
+ws=$(printf '%s' "$panes" \
+  | jq -r --arg dir "$dir" '[.result.panes[] | select(.cwd == $dir) | .workspace_id] | first // empty')
+
+if [ -n "$ws" ]; then
+  api workspace focus "$ws" >/dev/null
+else
+  # herdr labels the workspace after the directory's basename by default.
+  api workspace create --cwd "$dir" --focus >/dev/null
+fi
+
+# Inside a herdr pane the window is already in front; from another terminal
+# ask GNOME Shell to raise it. It knows the wezterm window as herdr.desktop
+# through StartupWMClass.
+if [ -z "${HERDR_ENV:-}" ] && command -v gdbus >/dev/null 2>&1; then
+  gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+    --method org.gnome.Shell.FocusApp herdr.desktop >/dev/null 2>&1 || true
+fi
