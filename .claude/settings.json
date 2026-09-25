@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(basename:*)",
+      "Bash(buf generate:*)",
+      "Bash(cat:*)",
+      "Bash(cloud-sql-proxy:*)",
+      "Bash(cut:*)",
+      "Bash(date:*)",
+      "Bash(diff:*)",
+      "Bash(dirname:*)",
+      "Bash(docker build:*)",
+      "Bash(docker compose exec postgres psql *)",
+      "Bash(docker compose logs:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker network:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(gcloud builds describe:*)",
+      "Bash(gcloud builds list:*)",
+      "Bash(gcloud builds log:*)",
+      "Bash(gcloud builds triggers list:*)",
+      "Bash(gcloud config get:*)",
+      "Bash(gcloud logging read:*)",
+      "Bash(gcloud projects get-iam-policy:*)",
+      "Bash(gcloud run jobs describe:*)",
+      "Bash(gcloud run jobs executions list:*)",
+      "Bash(gcloud secrets versions access:*)",
+      "Bash(gcloud tasks list:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh project list:*)",
+      "Bash(gh run list:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(jq:*)",
+      "Bash(ls:*)",
+      "Bash(lsof:*)",
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(npm run check*)",
+      "Bash(npm run proto*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm view:*)",
+      "Bash(npx biome:*)",
+      "Bash(npx buf:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx tsx:*)",
+      "Bash(read f *)",
+      "Bash(sort:*)",
+      "Bash(stat:*)",
+      "Bash(tail:*)",
+      "Bash(tr:*)",
+      "Bash(tree:*)",
+      "Bash(uniq:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(xargs:*)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "security-guidance@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754034094567
+  },
+  "model": "claude-fable-5-1"
+}

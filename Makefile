@@ -29,6 +29,7 @@ link:
 	@ln -sfnv $(abspath .claude/CLAUDE.md) $(HOME)/.claude/CLAUDE.md
 	@ln -sfnv $(abspath .claude/agents) $(HOME)/.claude/agents
 	@ln -sfnv $(abspath .claude/rules) $(HOME)/.claude/rules
+	@ln -sfnv $(abspath .claude/settings.json) $(HOME)/.claude/settings.json
 	@ln -sfnv $(abspath .config/git/ignore) $(HOME)/.config/git/ignore
 	@ln -sfnv $(abspath .config/mise/config.toml) $(HOME)/.config/mise/config.toml
 	@ln -sfnv $(abspath .config/starship.toml) $(HOME)/.config/starship.toml
@@ -48,6 +49,9 @@ endif
 
 gnome-keys:
 	@sh scripts/gnome-keys
+
+herdr-integrations:
+	@sh scripts/herdr-integrations
 
 init:
 	@echo 'TODO: initialize: install, build, configure apps, packages, etc...'

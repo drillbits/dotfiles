@@ -1,0 +1,31 @@
+#!/bin/sh
+# Install herdr's Claude Code integration and keep .claude/settings.json
+# free of machine-specific paths.
+#
+# `herdr integration install claude` writes the herdr-managed hook script to
+# ~/.claude/hooks/herdr-agent-state.sh and adds a SessionStart entry to
+# settings.json that calls it by absolute path (/home/<user>/...). That path
+# must not land in the tracked, public settings.json, so this script replaces
+# herdr's entry with an equivalent one that goes through $HOME (Claude Code
+# runs hook commands through a shell, so it expands). herdr only recognizes
+# its own form and re-adds it on every install, hence the cleanup runs after
+# each install. Idempotent; re-run after `herdr update`.
+set -eu
+cd "$(dirname "$0")/.."
+
+mise x -- herdr integration install claude
+
+settings=.claude/settings.json
+portable='bash "$HOME/.claude/hooks/herdr-agent-state.sh" session'
+jq --arg cmd "$portable" --arg q "'" '
+  def herdr_own:
+    any(.hooks[]?; .command
+      | startswith("bash " + $q + "/") and endswith("/herdr-agent-state.sh" + $q + " session"));
+  def has_portable: any(.[]?; any(.hooks[]?; .command == $cmd));
+  .hooks.SessionStart |= (
+    (. // []) | map(select(herdr_own | not))
+    | if has_portable then .
+      else . + [{matcher: "*", hooks: [{type: "command", command: $cmd, timeout: 10}]}] end
+  )' "$settings" > "$settings.tmp"
+mv "$settings.tmp" "$settings"
+echo "ensured portable claude hook entry in $settings"

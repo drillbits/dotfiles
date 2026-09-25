@@ -17,9 +17,14 @@ make install
 
 # Register GNOME custom keyboard shortcuts (Linux/GNOME only; idempotent)
 make gnome-keys
+
+# Install herdr's Claude Code integration hook (idempotent; re-run after `herdr update`)
+make herdr-integrations
 ```
 
 `make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
+
+Claude Code's user-level config is tracked under `.claude/` and linked into `~/.claude/`: `CLAUDE.md`, `agents/`, `rules/` and `settings.json`. Claude Code itself writes to `settings.json` (e.g. when a permission is allowed permanently), so the repo will show such edits to commit or discard.
 
 `.ssh/config` in the repo holds shared defaults only (keepalive, `AddKeysToAgent`). Host entries (names, IPs, users) must never be committed — the repo is public; they belong in the untracked `~/.ssh/config.local`, loaded via `Include`.
 
@@ -60,6 +65,8 @@ Terminal workspace manager for coding agents, installed via mise. Config at `.co
 `.local/share/applications/herdr.desktop` puts herdr in the GNOME app launcher (Linux only, linked by `make link`). It runs `mise x -- herdr` inside a dedicated wezterm window (`--class herdr`, so the dock shows it as its own app) because the desktop session's PATH has `~/.local/bin` but not mise's shims, and because terminal-delivered toasts need wezterm rather than GNOME's default terminal.
 
 `herd DIR` (see Scripts) is the `code DIR` equivalent: it opens a directory as a workspace in the running herdr, launching that window first if needed.
+
+`make herdr-integrations` (`scripts/herdr-integrations`) runs `herdr integration install claude`, which writes the herdr-managed hook script `~/.claude/hooks/herdr-agent-state.sh` (untracked: herdr overwrites it on reinstall or update) and adds a `SessionStart` entry to `settings.json` calling it by absolute path. Because `settings.json` is tracked and the repo is public, the script then replaces herdr's entry with an equivalent one that goes through `$HOME` (hook commands run through a shell, so it expands). herdr only recognizes its own form and re-adds it on every install, so the cleanup is part of the target; never run `herdr integration install claude` by hand. The hook is a no-op outside herdr panes; inside one it reports the Claude Code session id so herdr can resume the session after a server restart. Re-run the target after `herdr update` to pick up a newer integration version.
 
 ### Scripts
 
