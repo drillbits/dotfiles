@@ -13,6 +13,25 @@
 # notification delivery is set explicitly under [ui.toast] below.
 onboarding = false
 
+[theme]
+# Match wezterm's Dracula colour scheme.
+name = "dracula"
+
+[theme.custom]
+# Split-pane frames: the focused pane is drawn in `accent` (dracula
+# purple #bd93f9), every other pane in `overlay0` (dracula comment
+# #6272a4), which is too faint on wezterm's translucent Dracula
+# background to tell panes apart. Lift it to the theme's own overlay1.
+# overlay0 also colours the muted sidebar labels (spaces / agents /
+# new / menu), so those get a little brighter as well.
+overlay0 = "#828cb4"
+
+# The line between the sidebar (spaces / agents) and the pane area, and
+# the rule between the two sidebar sections, use `surface_dim`, which
+# dracula sets to its background colour, so the line disappears. Use
+# the same tone as the unfocused pane frames.
+surface_dim = "#828cb4"
+
 [keys]
 # Same prefix as tmux (Ctrl+t). When herdr runs inside tmux, tmux
 # captures Ctrl+t first — press it twice (tmux binds C-t to
