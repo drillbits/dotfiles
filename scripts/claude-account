@@ -1,0 +1,47 @@
+#!/bin/sh
+# Set up a Claude Code config directory for an additional claude.ai account
+# and register a shell alias that starts Claude Code with it.
+#
+# Claude Code keeps one login per config directory (~/.claude by default) and
+# selects the directory through CLAUDE_CONFIG_DIR, so a second account needs a
+# second directory. This creates ~/.claude-accounts/NAME, links the shared
+# user-level config into it the same way `make link` does for ~/.claude (so
+# settings, rules and agents stay identical across accounts), and appends
+#
+#   alias claude-NAME='CLAUDE_CONFIG_DIR=$HOME/.claude-accounts/NAME claude'
+#
+# to $ZDOTDIR/.zshrc.local. That file is not tracked on purpose: the account
+# name usually identifies an employer and must not land in this public repo.
+# Credentials, .claude.json, session history, auto memory and plugins stay per
+# account. Idempotent; `make link` re-links every ~/.claude-accounts/* later.
+set -eu
+cd "$(dirname "$0")/.."
+
+name=${1-}
+case $name in
+  ''|*[!A-Za-z0-9_-]*)
+    echo "usage: $0 NAME  (letters, digits, '-' and '_' only)" >&2
+    exit 2 ;;
+esac
+
+dir=$HOME/.claude-accounts/$name
+mkdir -p "$dir"
+# Keep in sync with CLAUDE_CONFIGS in the Makefile.
+for f in CLAUDE.md agents rules settings.json; do
+  ln -sfnv "$PWD/.claude/$f" "$dir/$f"
+done
+
+rc=${ZDOTDIR:-$HOME/.config/zsh}/.zshrc.local
+alias_line="alias claude-$name='CLAUDE_CONFIG_DIR=\$HOME/.claude-accounts/$name claude'"
+if [ -f "$rc" ] && grep -qE "^[[:space:]]*alias claude-$name=" "$rc"; then
+  echo "alias claude-$name is already defined in $rc"
+else
+  mkdir -p "$(dirname "$rc")"
+  # Make sure the file ends with a newline before appending to it.
+  if [ -s "$rc" ] && [ -n "$(tail -c1 "$rc")" ]; then
+    echo >> "$rc"
+  fi
+  echo "$alias_line" >> "$rc"
+  echo "added to $rc: $alias_line"
+fi
+echo "next: exec zsh, then run claude-$name and /login with that account."

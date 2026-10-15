@@ -6,6 +6,8 @@ BASH_CONFIGS   := $(wildcard .config/bash/*)
 ZSH_CONFIGS    := $(wildcard .config/zsh/.??*)
 WEZTERM_CONFIGS := $(wildcard .config/wezterm/*)
 LOCAL_BINS  := $(wildcard .local/bin/*)
+CLAUDE_CONFIGS := CLAUDE.md agents rules settings.json
+CLAUDE_DIRS := $(HOME)/.claude $(patsubst %/,%,$(wildcard $(HOME)/.claude-accounts/*/))
 RELOAD      := $(source ~/.bash_profile)
 UNAME_S     := $(shell uname -s)
 
@@ -26,10 +28,7 @@ link:
 	@mkdir -p -m 700 $(HOME)/.ssh
 	@mkdir -p $(HOME)/.terraform.d/plugin-cache
 	@mkdir -p $(HOME)/.claude
-	@ln -sfnv $(abspath .claude/CLAUDE.md) $(HOME)/.claude/CLAUDE.md
-	@ln -sfnv $(abspath .claude/agents) $(HOME)/.claude/agents
-	@ln -sfnv $(abspath .claude/rules) $(HOME)/.claude/rules
-	@ln -sfnv $(abspath .claude/settings.json) $(HOME)/.claude/settings.json
+	@$(foreach d, $(CLAUDE_DIRS), $(foreach val, $(CLAUDE_CONFIGS), ln -sfnv $(abspath .claude/$(val)) $(d)/$(val);))
 	@ln -sfnv $(abspath .config/git/ignore) $(HOME)/.config/git/ignore
 	@ln -sfnv $(abspath .config/mise/config.toml) $(HOME)/.config/mise/config.toml
 	@ln -sfnv $(abspath .config/starship.toml) $(HOME)/.config/starship.toml
@@ -46,6 +45,10 @@ ifeq ($(UNAME_S),Linux)
 	@mkdir -p $(HOME)/.local/share/applications
 	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
 endif
+
+claude-account:
+	@test -n '$(NAME)' || { echo 'usage: make claude-account NAME=<name>' >&2; exit 2; }
+	@sh scripts/claude-account '$(NAME)'
 
 gnome-keys:
 	@sh scripts/gnome-keys

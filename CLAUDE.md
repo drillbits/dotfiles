@@ -20,11 +20,16 @@ make gnome-keys
 
 # Install herdr's Claude Code integration hook (idempotent; re-run after `herdr update`)
 make herdr-integrations
+
+# Set up a config dir for another claude.ai account and add a `claude-<name>` shell alias (idempotent)
+make claude-account NAME=<name>
 ```
 
 `make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
 
 Claude Code's user-level config is tracked under `.claude/` and linked into `~/.claude/`: `CLAUDE.md`, `agents/`, `rules/` and `settings.json`. Claude Code itself writes to `settings.json` (e.g. when a permission is allowed permanently), so the repo will show such edits to commit or discard.
+
+Claude Code keeps one claude.ai login per config directory and selects the directory with `CLAUDE_CONFIG_DIR`, so a second account (e.g. another employer's Team plan) needs a second directory. `make claude-account NAME=<name>` (`scripts/claude-account`) creates `~/.claude-accounts/<name>`, links the same four items into it, and appends `alias claude-<name>='CLAUDE_CONFIG_DIR=$HOME/.claude-accounts/<name> claude'` to the untracked `~/.config/zsh/.zshrc.local`. `make link` re-links every directory under `~/.claude-accounts/` as well, so shared config cannot drift between accounts. The name usually identifies an employer, which is why it appears only in the local directory name and alias file, never in the repo. Credentials, `~/.claude.json` (MCP servers, project trust), session history, auto memory and plugins remain per account. The alias exists only in interactive zsh, so anything that launches `claude` directly (herdr workspaces, the VS Code extension) needs `CLAUDE_CONFIG_DIR` set by other means. Run `/login` on the first start in a new account.
 
 `.ssh/config` in the repo holds shared defaults only (keepalive, `AddKeysToAgent`). Host entries (names, IPs, users) must never be committed — the repo is public; they belong in the untracked `~/.ssh/config.local`, loaded via `Include`.
 
@@ -35,7 +40,7 @@ Claude Code's user-level config is tracked under `.claude/` and linked into `~/.
 Primary shell is **zsh**. Load order: `.zshenv` (all invocations) → `.zshrc` (interactive only).
 
 - `.zshenv` — sets `ZDOTDIR=$HOME/.config/zsh` (must be first, before XDG vars), XDG base dirs, `$PATH` via `typeset -U path`, SSH agent export, cross-platform `pbcopy`/`pbpaste`
-- `.config/zsh/.zshrc` — completion (compinit with XDG cache), history with `SHARE_HISTORY`, fzf keybindings, `ghq_fzf` (`Ctrl+]`), aliases (eza/bat), starship prompt init
+- `.config/zsh/.zshrc` — completion (compinit with XDG cache), history with `SHARE_HISTORY`, fzf keybindings, `ghq_fzf` (`Ctrl+]`), aliases (eza/bat), starship prompt init; sources the untracked `~/.config/zsh/.zshrc.local` last for machine-local additions
 - `.config/zsh/` — all zsh dotfiles (`.zprofile`, `.zlogin`, etc.) live here; `make link` symlinks them via wildcard
 - `.config/starship.toml` — minimal prompt, git status, gcloud module, language modules disabled
 
