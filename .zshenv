@@ -60,7 +60,6 @@ typeset -U path
 path=(
   "$HOME/.local/bin"        # user-local executables
   "$HOME/go/bin"            # Go install binaries
-  $HOME/.nodenv/bin(N-/)    # nodenv installed via git clone (dropped when absent)
   $path
 )
 

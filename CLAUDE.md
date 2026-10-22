@@ -91,6 +91,5 @@ Small helper scripts live in `.local/bin/` and are linked into `~/.local/bin` (a
 
 ### Tool versions
 
-- Node: managed with `nodenv`
 - Go: `/usr/local/go/bin`, `GOPATH` bins added to PATH
 - Python: `PYTHONUSERBASE=~/.local`, bytecode disabled

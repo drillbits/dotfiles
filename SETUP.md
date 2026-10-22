@@ -9,7 +9,7 @@
 
 最初に、clone と以降の手順に必要なコマンドをパッケージマネージャで入れる。
 CLI ツール（bat、eza、fd、fzf、ghq、herdr、jq、ripgrep、starship、terraform、uv）は OS のパッケージではなく mise で一括管理するので、ここでは入れない（手順 7）。
-mise と nodenv とフォントは入れ方に注意があるので別の節で扱う。
+mise とフォントは入れ方に注意があるので別の節で扱う。
 
 ### Arch Linux
 
@@ -160,8 +160,8 @@ chsh -s "$(command -v zsh)"
 zsh のパスが `/etc/shells` に載っていることを確認しておく。
 反映には再ログインが必要。
 
-この時点では手順 7 と 8 が未完了のため、zsh の起動時に mise と nodenv のエラーが表示される。
-無害であり、7 と 8 を終えれば消える。
+この時点では手順 7 が未完了のため、zsh の起動時に mise のエラーが表示される。
+無害であり、7 を終えれば消える。
 
 ## 7. mise のインストールと CLI ツールの一括導入
 
@@ -184,21 +184,7 @@ curl https://mise.run | sh
 シンボリックリンク越しにリポジトリの config.toml が書き換わるので、それを commit すれば全マシンに共有される。
 Terraform の plugin cache ディレクトリ（`~/.terraform.d/plugin-cache`）は `make link` が作成済み。
 
-## 8. nodenv のインストール（Node を使うマシンのみ）
-
-`.zshrc` と bash の `profile` は nodenv があるときだけ `eval "$(nodenv init -)"` を実行するので、Node が不要なマシン（サーバーなど）では何もしなくてよい。
-使うマシンでは、Arch は AUR の `nodenv`、macOS は `brew install nodenv`、それ以外は git clone で `~/.nodenv` に入れる。
-`~/.nodenv/bin` の PATH 追加は `.zshenv` と bash の `profile` が存在チェック付きでやるので、シェル設定への追記は不要。
-`nodenv install` を使うには node-build も plugin として clone する。
-
-```sh
-git clone https://github.com/nodenv/nodenv ~/.nodenv
-git clone https://github.com/nodenv/node-build ~/.nodenv/plugins/node-build
-```
-
-Node のバージョン管理を mise に寄せるなら、nodenv をやめて `mise use -g node@<version>` に移行する（その場合はこの節ごと不要になる）。
-
-## 9. フォント
+## 8. フォント
 
 WezTerm の設定は CommitMono を第一候補にし、フォールバックとして Intel One Mono、Hack Nerd Font Mono、Noto Sans Mono CJK JP を指定している。
 最低限、CommitMono と Hack Nerd Font と日本語表示用の Noto Sans Mono CJK JP を入れる。
@@ -208,7 +194,7 @@ eza の `--icons` 表示も Nerd Font のグリフに依存する。
 - **macOS**：`brew install --cask font-commit-mono font-hack-nerd-font`
 - **その他**：公式サイトから取得して `~/.local/share/fonts` に置き、`fc-cache -f` を実行する
 
-## 10. tmux プラグインマネージャ（tpm）
+## 9. tmux プラグインマネージャ（tpm）
 
 tpm は手動で clone する必要がある。
 tmux 設定は XDG レイアウト（`~/.config/tmux/tmux.conf`）なので、tpm も `~/.config/tmux/plugins/` に置く。
@@ -231,7 +217,7 @@ mv ~/.tmux/plugins ~/.config/tmux/plugins
 
 resurrect の保存データ（`~/.tmux/resurrect`）はそのままでよい。新しい場所のプラグインもそこを優先して読むため、セッション履歴は失われない。
 
-## 11. Vim 設定の配置
+## 10. Vim 設定の配置
 
 vim の設定は `.config/vim/vimrc` にあり、`make link` が `~/.config/vim/vimrc` にリンクする。
 zsh から起動する vim は、`.zshrc` が `VIMINIT` でこのファイルを読み込むため、バージョンによらず同じ設定を使う。
@@ -249,7 +235,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 
 `~/.vim` が symlink ではなく実ディレクトリのマシンでは、中に必要なもの（自作の ftplugin など）がないか確認してから消す。
 
-## 12. 環境に応じて入れるもの
+## 11. 環境に応じて入れるもの
 
 以下は設定側にガードがあるか、PATH の追加だけなので、使うマシンにだけ入れればよい。
 
@@ -259,7 +245,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 - **Docker、Pulumi**：環境変数と PATH の追加だけ
 - **GNOME**：`make gnome-keys` で GNOME のカスタムショートカットを登録する（`Super+F9` で音声出力先を切り替える `audio-output-toggle` など）。gsettings の状態はマシンごとなので `make link` 後に GNOME のマシンで実行する。同名のエントリは上書き、手で登録した他のショートカットは触らないので、何度実行してもよい
 
-## 13. マシンローカルの上書き
+## 12. マシンローカルの上書き
 
 各設定は、リポジトリで追跡しないローカルファイルを末尾で読みに行く。
 マシン固有の設定はこちらへ書く。
@@ -273,7 +259,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 `.gitconfig` はリンクで全マシン共通のため、マシンごとにコミットのメールアドレスや署名鍵を変える仕組みは今のところない。
 必要になったら `[include]` でローカルファイルを読む対応を入れる。
 
-## 14. 動作確認
+## 13. 動作確認
 
 - 新しいターミナルを開き、エラーなしで zsh が起動して starship のプロンプトが出る
 - `mise ls` で config.toml のツールがすべてインストール済みになっている
