@@ -61,7 +61,6 @@
       "Bash(uniq:*)",
       "Bash(wc:*)",
       "Bash(which:*)",
-      "Bash(xargs:*)",
       "WebFetch(domain:github.com)",
       "WebSearch"
     ]
@@ -97,6 +96,5 @@
   "theme": "dark",
   "feedbackSurveyState": {
     "lastShownTime": 1754034094567
-  },
-  "model": "claude-fable-5-1"
+  }
 }
