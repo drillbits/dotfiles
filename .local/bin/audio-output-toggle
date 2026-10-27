@@ -10,7 +10,17 @@
 set -eu
 
 current=$(pactl get-default-sink)
-sinks=$(pactl list short sinks | cut -f2)
+# Sinks whose active port is not reported as unplugged, in pactl order.
+# HDMI/DisplayPort outputs show up as sinks even with no monitor attached;
+# picking one silences everything, and WirePlumber keeps the old default
+# anyway, so every later press would land on the same dead sink again.
+sinks=$(LC_ALL=C pactl list sinks | awk '
+  function flush() { if (name != "" && !(active in gone)) print name }
+  /^Sink #/ { flush(); name = ""; active = ""; split("", gone) }
+  $1 == "Name:" { name = $2 }
+  /^\t\t[^\t].*not available\)$/ { p = $0; sub(/^\t+/, "", p); sub(/: .*/, "", p); gone[p] }
+  /^\tActive Port:/ { active = $0; sub(/^\tActive Port: /, "", active) }
+  END { flush() }')
 next=$(printf '%s\n%s\n' "$sinks" "$sinks" \
   | awk -v cur="$current" 'hit { print; exit } $0 == cur { hit = 1 }')
 [ -n "$next" ] || next=$(printf '%s\n' "$sinks" | head -n1)
