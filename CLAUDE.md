@@ -18,6 +18,9 @@ make install
 # Register GNOME custom keyboard shortcuts (Linux/GNOME only; idempotent)
 make gnome-keys
 
+# Enable the GNOME Shell extensions tracked in this repo (Linux/GNOME only; idempotent; loaded at next login)
+make gnome-extensions
+
 # Install herdr's Claude Code integration hook (idempotent; re-run after `herdr update`)
 make herdr-integrations
 
@@ -25,7 +28,7 @@ make herdr-integrations
 make claude-account NAME=<name>
 ```
 
-`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher.
+`make link` symlinks every file matching `.??*` to `$HOME`, excluding `.DS_Store`, `.git`, `.gitmodules`, `.config`, `.claude`, `.local`, `.ssh`. It also explicitly symlinks `.config/git/ignore`, `.config/herdr/config.toml`, `.config/mise/config.toml`, `.config/starship.toml`, `.config/tmux/tmux.conf`, `.ssh/config`, all files under `.config/zsh/`, all files under `.local/bin/` (file by file, since `~/.local/bin` also holds untracked binaries like mise), and creates `~/.config/zsh/`, `~/.local/bin/` and `~/.terraform.d/plugin-cache`. On Linux it also links `.local/share/applications/herdr.desktop` so herdr appears in the desktop app launcher, and every file under `.local/share/gnome-shell/extensions/` into real per-extension directories. They are linked file by file because GNOME's uninstall follows a symlinked extension directory and deletes the repo files behind it. With file links, removing an extension from the Extensions app fails instead (it skips symlinks and cannot delete the non-empty directory); delete `~/.local/share/gnome-shell/extensions/<uuid>` by hand.
 
 Claude Code's user-level config is tracked under `.claude/` and linked into `~/.claude/`: `CLAUDE.md`, `agents/`, `rules/` and `settings.json`. Claude Code itself writes to `settings.json` (e.g. when a permission is allowed permanently), so the repo will show such edits to commit or discard.
 
@@ -81,6 +84,12 @@ Small helper scripts live in `.local/bin/` and are linked into `~/.local/bin` (a
 - `herd [DIR]` — opens a directory in herdr the way `code DIR` does in VS Code (DIR defaults to `.`). Focuses the workspace that already has a pane launched in DIR, otherwise creates one over the socket API (herdr labels it by basename), then raises the herdr window via GNOME Shell's `FocusApp`. If no server is running it launches herdr in a wezterm window with the same command line as `herdr.desktop` plus `--cwd DIR` (keep the two in sync), waits for the socket and for the client's first workspace, and then does the same focus-or-create step — needed because a restored session brings back its old workspaces rather than opening DIR. Run it from a shell: it needs `herdr` and `jq` on `$PATH`.
 
 `scripts/gnome-keys` holds the GNOME custom shortcuts as `set_key NAME COMMAND BINDING` lines and applies them with gsettings. It is idempotent: an entry with the same name is updated in place, a new one takes the lowest free `customN` slot, and shortcuts with other names (registered by hand or by other apps) are left alone. gsettings state is per machine, so run it on each GNOME box after `make link`.
+
+### GNOME Shell extensions
+
+Extensions live in `.local/share/gnome-shell/extensions/<uuid>/`. `make link` links their files and `make gnome-extensions` (`scripts/gnome-extensions`) appends each UUID to `org.gnome.shell enabled-extensions` if missing and removes it from `disabled-extensions`. That list takes precedence, and the Extensions app's switch moves a UUID into it. The script writes the settings directly because `gnome-extensions enable` fails for an extension the running shell has not loaded, and a Wayland session only discovers new extensions at login. So log out and back in after the first run.
+
+- `reset-ime-purpose@drillbits` — keeps Ctrl+Space (GNOME's `switch-input-source`, us ⇄ mozc-jp) working in WezTerm. gnome-shell routes all Wayland text-input clients through one IBus context and remembers the last content purpose it received. While that purpose is PASSWORD it removes the IBus input sources, which leaves `us` as the only source, so the switch shortcut does nothing. WezTerm's text-input-v3 never sends a purpose, so after any password field (most often the lock screen) it inherits PASSWORD until another app's text field sends a purpose of its own. The extension resets the remembered purpose on focus-out by hooking `InputMethod._fullReset()`, which only `vfunc_focus_out` calls. It runs in the `unlock-dialog` session mode too, so it is not disabled while the screen is locked. Because it relies on gnome-shell internals, check `js/misc/inputMethod.js` before adding a new GNOME version to `shell-version`. The real fix belongs upstream: WezTerm should send `set_content_type` after `enable` in `window/src/os/wayland/keyboard.rs`.
 
 ### Git
 

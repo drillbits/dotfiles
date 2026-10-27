@@ -1,0 +1,8 @@
+{
+  "uuid": "reset-ime-purpose@drillbits",
+  "name": "Reset IME purpose on focus out",
+  "description": "Forget the content purpose of a text field when it loses focus, so clients that never send one (WezTerm on Wayland) are not treated as the previous password field, which hides the IBus input sources.",
+  "shell-version": ["46", "47", "48", "49", "50"],
+  "session-modes": ["user", "unlock-dialog"],
+  "url": "https://github.com/drillbits/dotfiles"
+}

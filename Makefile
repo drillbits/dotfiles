@@ -6,6 +6,7 @@ BASH_CONFIGS   := $(wildcard .config/bash/*)
 ZSH_CONFIGS    := $(wildcard .config/zsh/.??*)
 WEZTERM_CONFIGS := $(wildcard .config/wezterm/*)
 LOCAL_BINS  := $(wildcard .local/bin/*)
+GNOME_EXTENSION_FILES := $(wildcard .local/share/gnome-shell/extensions/*/*)
 CLAUDE_CONFIGS := CLAUDE.md agents rules settings.json
 CLAUDE_DIRS := $(HOME)/.claude $(patsubst %/,%,$(wildcard $(HOME)/.claude-accounts/*/))
 RELOAD      := $(source ~/.bash_profile)
@@ -44,11 +45,15 @@ link:
 ifeq ($(UNAME_S),Linux)
 	@mkdir -p $(HOME)/.local/share/applications
 	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
+	@$(foreach val, $(GNOME_EXTENSION_FILES), mkdir -p $(HOME)/$(dir $(val)) && ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 endif
 
 claude-account:
 	@test -n '$(NAME)' || { echo 'usage: make claude-account NAME=<name>' >&2; exit 2; }
 	@sh scripts/claude-account '$(NAME)'
+
+gnome-extensions:
+	@sh scripts/gnome-extensions
 
 gnome-keys:
 	@sh scripts/gnome-keys

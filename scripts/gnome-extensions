@@ -1,0 +1,57 @@
+#!/bin/sh
+# Enable the GNOME Shell extensions tracked under
+# .local/share/gnome-shell/extensions/ (linked into place by `make link`).
+# Idempotent: a UUID is appended to org.gnome.shell enabled-extensions only
+# when missing and dropped from disabled-extensions, which takes precedence
+# and is where the Extensions app's switch puts it. Other entries are left
+# untouched.
+#
+# The settings are written directly instead of via `gnome-extensions enable`,
+# which fails for an extension the running shell has not loaded yet; on
+# Wayland a newly linked extension is only picked up at the next login.
+#
+# Run with: make gnome-extensions
+set -eu
+
+DIR=$(dirname "$0")/../.local/share/gnome-shell/extensions
+
+if ! command -v gsettings >/dev/null 2>&1; then
+  echo 'gsettings not found; skipping GNOME extensions' >&2
+  exit 0
+fi
+
+# uuids KEY -> UUIDs in the string list KEY, one per line. The raw value
+# looks like ['a@b', 'c@d'] or "@as []" when empty.
+uuids() {
+  gsettings get org.gnome.shell "$1" \
+    | sed -e 's/^@as //' -e "s/[][' ]//g" | tr ',' '\n' | sed '/^$/d'
+}
+
+# put KEY UUID... -> store the UUIDs as the string list KEY
+put() {
+  key=$1
+  shift
+  list=
+  for u in "$@"; do
+    list="${list:+$list, }'$u'"
+  done
+  gsettings set org.gnome.shell "$key" "[$list]"
+}
+
+for path in "$DIR"/*/; do
+  uuid=$(basename "$path")
+  changed=
+  if uuids disabled-extensions | grep -qxF "$uuid"; then
+    put disabled-extensions $(uuids disabled-extensions | grep -vxF "$uuid")
+    changed=1
+  fi
+  if ! uuids enabled-extensions | grep -qxF "$uuid"; then
+    put enabled-extensions $(uuids enabled-extensions) "$uuid"
+    changed=1
+  fi
+  if [ -n "$changed" ]; then
+    echo "$uuid  (enabled; log out and back in if it was just linked)"
+  else
+    echo "$uuid  (already enabled)"
+  fi
+done
