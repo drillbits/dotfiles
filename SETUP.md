@@ -257,7 +257,8 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 - **Google Cloud SDK**：`~/.local/opt/google-cloud-sdk` に展開すると `.zshrc` が PATH と補完を読み込む。なければ何も起きない
 - **GitHub CLI（gh）**：`.gitconfig` の credential helper が `/usr/bin/gh` を参照する。GitHub への HTTPS 認証を使う場面があるなら `gh auth login` まで済ませておく
 - **Docker、Pulumi**：環境変数と PATH の追加だけ
-- **GNOME**：`make gnome-keys` で GNOME のカスタムショートカットを登録する（`Super+F9` で音声出力先を切り替える `audio-output-toggle` など）。gsettings の状態はマシンごとなので `make link` 後に GNOME のマシンで実行する。同名のエントリは上書き、手で登録した他のショートカットは触らないので、何度実行してもよい
+- **GNOME**：`make gnome-keys` で GNOME のカスタムショートカットを登録する（`Super+F9` で音声出力先を切り替える `audio-output-toggle` など）。gsettings の状態はマシンごとなので `make link` 後に GNOME のマシンで実行する。同名のエントリは上書き、手で登録した他のショートカットは触らないので、何度実行してもよい。`audio-output-toggle` は `pactl` を使うので、Ubuntu では `pulseaudio-utils` を入れておく（PipeWire 環境でも標準では入っていない。Arch は `libpulse` に含まれる）。入っていないとショートカットは何も起きずに失敗し、ユーザージャーナルに `pactl: not found` が残るだけ
+- **GNOME Shell 拡張**：`make gnome-extensions` でリポジトリの拡張を有効にする（WezTerm で Ctrl+Space の IME 切り替えが効かなくなるのを防ぐ `reset-ime-purpose@drillbits`）。拡張のファイルは `make link` がリンクする。Wayland では新しい拡張がログイン時にしか読み込まれないので、初回は実行後にログインし直す。何度実行してもよい
 
 ## 12. マシンローカルの上書き
 
