@@ -1,13 +1,13 @@
 ROOTPATH    := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 DOTFILES    := $(wildcard .??*)
-EXCLUSIONS  := .DS_Store .git .gitmodules .config .claude .local .ssh
+EXCLUSIONS  := .DS_Store .git .gitignore .gitmodules .config .claude .local .ssh
 DOTFILES    := $(filter-out $(EXCLUSIONS), $(DOTFILES))
 BASH_CONFIGS   := $(wildcard .config/bash/*)
 ZSH_CONFIGS    := $(wildcard .config/zsh/.??*)
 WEZTERM_CONFIGS := $(wildcard .config/wezterm/*)
 LOCAL_BINS  := $(wildcard .local/bin/*)
 GNOME_EXTENSION_FILES := $(wildcard .local/share/gnome-shell/extensions/*/*)
-CLAUDE_CONFIGS := CLAUDE.md agents rules settings.json
+CLAUDE_CONFIGS := CLAUDE.md agents rules
 CLAUDE_DIRS := $(HOME)/.claude $(patsubst %/,%,$(wildcard $(HOME)/.claude-accounts/*/))
 RELOAD      := $(source ~/.bash_profile)
 UNAME_S     := $(shell uname -s)
@@ -47,6 +47,7 @@ ifeq ($(UNAME_S),Linux)
 	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
 	@$(foreach val, $(GNOME_EXTENSION_FILES), mkdir -p $(HOME)/$(dir $(val)) && ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 endif
+	@sh scripts/claude-settings $(CLAUDE_DIRS)
 
 claude-account:
 	@test -n '$(NAME)' || { echo 'usage: make claude-account NAME=<name>' >&2; exit 2; }

@@ -4,16 +4,18 @@
 #
 # Claude Code keeps one login per config directory (~/.claude by default) and
 # selects the directory through CLAUDE_CONFIG_DIR, so a second account needs a
-# second directory. This creates ~/.claude-accounts/NAME, links the shared
-# user-level config into it the same way `make link` does for ~/.claude (so
-# settings, rules and agents stay identical across accounts), and appends
+# second directory. This creates ~/.claude-accounts/NAME, sets up the shared
+# user-level config in it the same way `make link` does for ~/.claude (links
+# CLAUDE.md, rules and agents, and merges the shared settings into its own
+# settings.json, so they stay identical across accounts), and appends
 #
 #   alias claude-NAME='CLAUDE_CONFIG_DIR=$HOME/.claude-accounts/NAME claude'
 #
 # to $ZDOTDIR/.zshrc.local. That file is not tracked on purpose: the account
 # name usually identifies an employer and must not land in this public repo.
-# Credentials, .claude.json, session history, auto memory and plugins stay per
-# account. Idempotent; `make link` re-links every ~/.claude-accounts/* later.
+# Credentials, .claude.json, session history, auto memory, plugins and the
+# local part of settings.json stay per account. Idempotent; `make link`
+# re-links and re-merges every ~/.claude-accounts/* later.
 set -eu
 cd "$(dirname "$0")/.."
 
@@ -27,9 +29,10 @@ esac
 dir=$HOME/.claude-accounts/$name
 mkdir -p "$dir"
 # Keep in sync with CLAUDE_CONFIGS in the Makefile.
-for f in CLAUDE.md agents rules settings.json; do
+for f in CLAUDE.md agents rules; do
   ln -sfnv "$PWD/.claude/$f" "$dir/$f"
 done
+sh scripts/claude-settings "$dir"
 
 rc=${ZDOTDIR:-$HOME/.config/zsh}/.zshrc.local
 alias_line="alias claude-$name='CLAUDE_CONFIG_DIR=\$HOME/.claude-accounts/$name claude'"

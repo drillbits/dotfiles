@@ -139,7 +139,8 @@ cd dotfiles
 make link
 ```
 
-`.??*` にマッチするファイルを `$HOME` へシンボリックリンクし、`.config` 配下の zsh、bash、wezterm、git、mise、tmux、herdr、starship の設定と `.claude` を個別にリンクする。
+`.??*` にマッチするファイルを `$HOME` へシンボリックリンクし、`.config` 配下の zsh、bash、wezterm、git、mise、tmux、herdr、starship の設定と `.claude` の `CLAUDE.md`・`agents`・`rules` を個別にリンクする。
+Claude Code の `~/.claude/settings.json` だけはリンクせず、マシンごとの実ファイルに `.claude/settings.shared.json` をマージする。
 `~/.terraform.d/plugin-cache` などの必要なディレクトリもここで作られる。
 
 `make install` は `link` に加えて `init` を実行するが、`init` は現状 TODO の echo だけなので、実質 `make link` と同じ。
@@ -149,6 +150,19 @@ make link
 
 ```sh
 rm -f ~/.config/zsh/zsh ~/.config/.config
+```
+
+以前は `~/.claude/settings.json`（と `~/.claude-accounts/*/settings.json`）もリポジトリの `.claude/settings.json` へのリンクだった。
+Claude Code の書き込みでリポジトリ側が変更されたままになっているので、そのまま pull すると失敗する。
+`git stash` で逃がすと、変更が追跡対象の `settings.shared.json` に適用されてしまう。
+また、変更を捨てるだけではマシン固有の設定が失われる。
+pull の前に、リンク先の内容をローカルの実ファイルとして残してから変更を捨てる。
+
+```sh
+sh -c 'umask 077; for f in "$HOME"/.claude/settings.json "$HOME"/.claude-accounts/*/settings.json; do [ -L "$f" ] && cp "$f" "$f.new" && mv "$f.new" "$f"; done; :'
+git checkout -- .claude/settings.json
+git pull
+make link
 ```
 
 ## 6. デフォルトシェルの変更
@@ -254,6 +268,7 @@ rm -f ~/.vimrc ~/.vimrc.basic ~/.vimrc.color ~/.vimrc.moving ~/.vimrc.plugin ~/.
 - **~/.config/mise/conf.d/*.toml**：マシン固有の mise ツール。共有の config.toml に加えて読み込まれる
 - **~/.ssh/config.local**：ssh の Host 定義。リポジトリは public なので、ホスト名・IP・ユーザー名は必ずこちらへ書く。リンクされる `~/.ssh/config` は共有デフォルト（keepalive、AddKeysToAgent）だけを持ち、先頭の `Include config.local` で読み込む（ssh_config は先勝ちなので、ローカル側が共有デフォルトを上書きできる）
 - **~/.config/vim/vimrc.local**：vim。vimrc の末尾で読み込まれる
+- **~/.claude/settings.json**：Claude Code のユーザー設定。`make link` が共有の `.claude/settings.shared.json` をマージする実ファイルで、Claude Code 自身の書き込み（`/model` のモデル、常に許可した権限、auto mode のメモ）もここに残る。全マシンで共有したい設定は `settings.shared.json` に書く
 - **~/.bash_profile.local と ~/.bashrc.local**：bash
 
 `.gitconfig` はリンクで全マシン共通のため、マシンごとにコミットのメールアドレスや署名鍵を変える仕組みは今のところない。

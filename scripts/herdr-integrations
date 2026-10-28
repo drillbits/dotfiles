@@ -1,31 +1,36 @@
 #!/bin/sh
-# Install herdr's Claude Code integration and keep .claude/settings.json
-# free of machine-specific paths.
+# Install herdr's Claude Code integration without running its hook twice.
 #
 # `herdr integration install claude` writes the herdr-managed hook script to
 # ~/.claude/hooks/herdr-agent-state.sh and adds a SessionStart entry to
-# settings.json that calls it by absolute path (/home/<user>/...). That path
-# must not land in the tracked, public settings.json, so this script replaces
-# herdr's entry with an equivalent one that goes through $HOME (Claude Code
-# runs hook commands through a shell, so it expands). herdr only recognizes
-# its own form and re-adds it on every install, hence the cleanup runs after
-# each install. Idempotent; re-run after `herdr update`.
+# ~/.claude/settings.json that calls it by absolute path (/home/<user>/...).
+# .claude/settings.shared.json already carries an equivalent entry that goes
+# through $HOME (Claude Code runs hook commands through a shell, so it
+# expands), which `make link` merges into every account's settings.json.
+# herdr only recognizes its own form and re-adds it on every install, so this
+# script drops herdr's entry from the local file again afterwards.
+# Idempotent; re-run after `herdr update`.
 set -eu
+umask 077
 cd "$(dirname "$0")/.."
+
+# Run from a `claude-<name>` session, herdr would follow CLAUDE_CONFIG_DIR to
+# that account while the cleanup below edits ~/.claude. The shared hook entry
+# points at ~/.claude/hooks anyway, so always install there.
+unset CLAUDE_CONFIG_DIR
+
+settings=$HOME/.claude/settings.json
+
+# Make sure herdr edits a real local file, not a leftover symlink into the repo.
+sh scripts/claude-settings "$HOME/.claude"
 
 mise x -- herdr integration install claude
 
-settings=.claude/settings.json
-portable='bash "$HOME/.claude/hooks/herdr-agent-state.sh" session'
-jq --arg cmd "$portable" --arg q "'" '
+jq --arg q "'" '
   def herdr_own:
     any(.hooks[]?; .command
       | startswith("bash " + $q + "/") and endswith("/herdr-agent-state.sh" + $q + " session"));
-  def has_portable: any(.[]?; any(.hooks[]?; .command == $cmd));
-  .hooks.SessionStart |= (
-    (. // []) | map(select(herdr_own | not))
-    | if has_portable then .
-      else . + [{matcher: "*", hooks: [{type: "command", command: $cmd, timeout: 10}]}] end
-  )' "$settings" > "$settings.tmp"
+  if .hooks.SessionStart then .hooks.SessionStart |= map(select(herdr_own | not)) else . end
+  ' "$settings" > "$settings.tmp"
 mv "$settings.tmp" "$settings"
-echo "ensured portable claude hook entry in $settings"
+echo "removed herdr's absolute-path hook entry from $settings"

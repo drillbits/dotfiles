@@ -1,0 +1,5 @@
+# ~/.claude/settings.json used to be a symlink to this path. On a machine
+# that still has the link (until `make link` replaces it), Claude Code would
+# recreate the file here with whatever it writes, including project notes
+# that must not be published. The tracked part is .claude/settings.shared.json.
+/.claude/settings.json

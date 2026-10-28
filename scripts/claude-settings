@@ -1,0 +1,76 @@
+#!/bin/sh
+# Merge the shared Claude Code settings (.claude/settings.shared.json) into
+# the settings.json of each given config dir, which stays a real local file.
+#
+# Claude Code writes to its user-level settings.json by itself: the model
+# picked with /model, permanently allowed permissions, auto mode's notes
+# about the project it was set up in (org names, internal hosts). While that
+# file was a symlink into this public repo, all of it landed in the working
+# tree, one `git commit -a` away from being published. Now only the shared
+# part is tracked and is folded into the local file:
+#
+#   - objects merge key by key; any other value from the shared file wins,
+#     so a local change to a shared key is reverted on the next run
+#   - arrays (permission rules, hook entries) are unioned: local entries
+#     stay and missing shared entries are appended
+#   - keys that only the local file has are kept
+#
+# Removing an entry from the shared file therefore does not remove it from
+# local files that already have it, and changing an array entry (say a hook's
+# timeout) leaves the old entry next to the new one; fix those by hand. A
+# settings.json that is still a symlink (the old layout) is first replaced by
+# a copy of what it points to. A file that does not parse is left as is and
+# the others are still merged. Idempotent; `make link` runs it for ~/.claude
+# and every ~/.claude-accounts/*.
+#
+# Usage: claude-settings DIR...
+set -eu
+umask 077
+
+shared=$(cd "$(dirname "$0")/.." && pwd)/.claude/settings.shared.json
+status=0
+
+for dir in "$@"; do
+  file=$dir/settings.json
+  mkdir -p "$dir"
+  if [ -L "$file" ]; then
+    tmp=$(mktemp "$file.XXXXXX")
+    cat "$file" > "$tmp" 2>/dev/null || : # a dangling link leaves it empty
+    mv "$tmp" "$file"
+    echo "replaced the symlink $file with a local copy"
+  fi
+  if ! command -v jq >/dev/null 2>&1; then
+    if [ -s "$file" ]; then
+      echo "jq not found; left $file unmerged" >&2
+    else
+      cp "$shared" "$file"
+      echo "created $file from the shared settings (jq not found, no merge)"
+    fi
+    continue
+  fi
+  src=$file
+  [ -s "$file" ] || src=/dev/null
+  tmp=$(mktemp "$file.XXXXXX")
+  jq -n --slurpfile l "$src" --slurpfile s "$shared" '
+    def merge($a; $b):
+      if ($a | type) == "object" and ($b | type) == "object" then
+        reduce ($b | keys_unsorted[]) as $k ($a;
+          .[$k] = (if $a | has($k) then merge($a[$k]; $b[$k]) else $b[$k] end))
+      elif ($a | type) == "array" and ($b | type) == "array" then
+        $a + ($b - $a)
+      else $b end;
+    merge($l[0] // {}; $s[0])' > "$tmp" || {
+    rm -f "$tmp"
+    echo "could not merge into $file; left it as is" >&2
+    status=1
+    continue
+  }
+  if [ -f "$file" ] && cmp -s "$tmp" "$file"; then
+    rm -f "$tmp"
+    echo "$file is up to date"
+  else
+    mv "$tmp" "$file"
+    echo "merged shared settings into $file"
+  fi
+done
+exit $status
