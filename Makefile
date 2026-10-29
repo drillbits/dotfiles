@@ -45,6 +45,8 @@ link:
 ifeq ($(UNAME_S),Linux)
 	@mkdir -p $(HOME)/.local/share/applications
 	@ln -sfnv $(abspath .local/share/applications/herdr.desktop) $(HOME)/.local/share/applications/herdr.desktop
+	@mkdir -p $(HOME)/.local/share/icons/hicolor/scalable/apps
+	@ln -sfnv $(abspath .local/share/icons/hicolor/scalable/apps/herdr.svg) $(HOME)/.local/share/icons/hicolor/scalable/apps/herdr.svg
 	@$(foreach val, $(GNOME_EXTENSION_FILES), mkdir -p $(HOME)/$(dir $(val)) && ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 endif
 	@sh scripts/claude-settings $(CLAUDE_DIRS)

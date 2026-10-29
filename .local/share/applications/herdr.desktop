@@ -11,6 +11,8 @@
 #   StartupWMClass, so the dock shows herdr as its own app rather than
 #   another WezTerm window, and clicking the running icon focuses it
 #   instead of spawning a second client.
+# - Icon=herdr resolves to herdr's logo, which `make link` symlinks to
+#   ~/.local/share/icons/hicolor/scalable/apps/herdr.svg.
 # - .local/bin/herd runs this same command line (plus --cwd, and --session
 #   when HERDR_SESSION is set) when no herdr server is running yet; keep
 #   the two in sync.
@@ -19,7 +21,7 @@ Type=Application
 Name=herdr
 Comment=Terminal workspace manager for coding agents
 Exec=wezterm start --always-new-process --class herdr -- mise x -- herdr
-Icon=utilities-terminal
+Icon=herdr
 Terminal=false
 Categories=Development;
 StartupWMClass=herdr
