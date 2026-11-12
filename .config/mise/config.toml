@@ -1,6 +1,7 @@
 [tools]
 bat = "latest"
 claude = "latest"
+cloud-sql-proxy = "latest"
 codex = "latest"
 eza = "latest"
 fd = "latest"
