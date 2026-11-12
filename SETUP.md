@@ -8,7 +8,7 @@
 ## 1. パッケージのインストール
 
 最初に、clone と以降の手順に必要なコマンドをパッケージマネージャで入れる。
-CLI ツール（bat、eza、fd、fzf、ghq、herdr、jq、ripgrep、starship、terraform、uv）は OS のパッケージではなく mise で一括管理するので、ここでは入れない（手順 7）。
+CLI ツールは `.config/mise/config.toml` にあるものを mise で一括管理するので、OS のパッケージでは入れない（手順 7）。
 mise とフォントは入れ方に注意があるので別の節で扱う。
 
 ### Arch Linux
